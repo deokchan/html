@@ -352,25 +352,25 @@ function music_control2(n) {
         objAry[n].setPlaybackQuality({'suggestedQuality': Q})
         player.pauseVideo();
         document.getElementById('music_button').value = 'stop'
-        document.getElementById('music_button_img').src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" //play
+        document.getElementById('music_button_img').src="https://i.imgur.com/mNMdXMC.png" //play 2 // 
         document.getElementById('music_button_img').title="재생" 
-        document.getElementById('music_button_img2').src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" //play
+        document.getElementById('music_button_img2').src="https://i.imgur.com/mNMdXMC.png" //play 2
         document.getElementById('music_button_img2').title="재생" 
 //      music_control();
         document.getElementById('music_button_' + n).value = 'start';
-        document.getElementById('music_button_img_' + n).src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768"  // pause 
+        document.getElementById('music_button_img_' + n).src="https://i.imgur.com/TQFP08p.png"  // pause 1
         document.getElementById('music_button_img_' + n).title="일시 정지" 
     }else{
         objAry[n].pauseVideo();
         player.playVideo();
         document.getElementById('music_button').value = 'start';
-        document.getElementById('music_button_img').src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768"  // pause 
+        document.getElementById('music_button_img').src="https://i.imgur.com/TQFP08p.png"  // pause 1
         document.getElementById('music_button_img').title="일시 정지" 
-        document.getElementById('music_button_img2').src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768"  // pause 
+        document.getElementById('music_button_img2').src="https://i.imgur.com/TQFP08p.png"  // pause 1
         document.getElementById('music_button_img2').title="일시 정지" 
 //        music_control();
         document.getElementById('music_button_' + n).value = 'stop'
-        document.getElementById('music_button_img_' + n).src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" //play
+        document.getElementById('music_button_img_' + n).src="https://i.imgur.com/mNMdXMC.png" //play 2
         document.getElementById('music_button_img_' + n).title="재생" 
     }
 }
@@ -425,7 +425,7 @@ function createAudioPlayers() {
       // 버튼 이미지 생성
       const buttonImg = document.createElement('img');
       buttonImg.id = 'odi_button_img_' + odiIndex;
-      buttonImg.src = 'http://cfile212.uf.daum.net/original/216420475636CD390D7829';
+      buttonImg.src = 'https://i.imgur.com/mNMdXMC.png';  // 2
       buttonImg.height = 70;
       buttonImg.title = '재생';
       controlLink.appendChild(buttonImg);
@@ -490,24 +490,24 @@ function odi_control(n) {
 
         player.pauseVideo();
         document.getElementById('music_button').value = 'stop';
-        document.getElementById('music_button_img').src = "http://cfile212.uf.daum.net/original/216420475636CD390D7829";
+        document.getElementById('music_button_img').src = "https://i.imgur.com/mNMdXMC.png";  // 2
         document.getElementById('music_button_img').title = "재생";
-        document.getElementById('music_button_img2').src = "http://cfile212.uf.daum.net/original/216420475636CD390D7829";
+        document.getElementById('music_button_img2').src = "https://i.imgur.com/mNMdXMC.png"; // 2
         document.getElementById('music_button_img2').title = "재생";
         document.getElementById('odi_button_' + n).value = 'start';
-        document.getElementById('odi_button_img_' + n).src = "http://cfile231.uf.daum.net/original/2255B6475636CD34137768";
+        document.getElementById('odi_button_img_' + n).src = "https://i.imgur.com/TQFP08p.png";  // 1
         document.getElementById('odi_button_img_' + n).title = "일시 정지";
     } else {
         // 일시 정지 - play_it을 호출하지 않고 바로 pause 실행
         ctl.pause();
         player.playVideo();
         document.getElementById('music_button').value = 'start';
-        document.getElementById('music_button_img').src = "http://cfile231.uf.daum.net/original/2255B6475636CD34137768";
+        document.getElementById('music_button_img').src = "https://i.imgur.com/TQFP08p.png";  // 1
         document.getElementById('music_button_img').title = "일시 정지";
-        document.getElementById('music_button_img2').src = "http://cfile231.uf.daum.net/original/2255B6475636CD34137768";
+        document.getElementById('music_button_img2').src = "https://i.imgur.com/TQFP08p.png";  // 1
         document.getElementById('music_button_img2').title = "일시 정지";
         document.getElementById('odi_button_' + n).value = 'stop';
-        document.getElementById('odi_button_img_' + n).src = "http://cfile212.uf.daum.net/original/216420475636CD390D7829";
+        document.getElementById('odi_button_img_' + n).src = "https://i.imgur.com/mNMdXMC.png";  // 2
         document.getElementById('odi_button_img_' + n).title = "재생";
     }
 }
@@ -550,7 +550,7 @@ function onPlayerStateChange(event) {               // player.setSize(width:Numb
             });
             nnn = stringSplit(bgm[vd], "|")[1];
          }
-         test2.innerHTML =  "영상 번호 : " + (vd+1) + " / " + bgm.length + " 볼륨 : " + player.getVolume() + " 속도 : " + player.getPlaybackRate() + " 상태 : " + player.getPlayerState() + " 품질 : " + player.getPlaybackQuality() + " / " + Q; //Left(Q, 6)
+         test2.innerHTML =  "이미지 교체, 영상 번호 : " + (vd+1) + " / " + bgm.length + " 볼륨 : " + player.getVolume() + " 속도 : " + player.getPlaybackRate() + " 상태 : " + player.getPlayerState() + " 품질 : " + player.getPlaybackQuality() + " / " + Q; //Left(Q, 6)
          count();
       }
       if (event.data===YT.PlayerState.ENDED) {
@@ -734,16 +734,16 @@ function music_control() {
     if ( document.getElementById('music_button').value=='stop'){
         player.playVideo();
         document.getElementById('music_button').value = 'start';
-        document.getElementById('music_button_img').src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768"  // pause 
+        document.getElementById('music_button_img').src="https://i.imgur.com/TQFP08p.png"  // pause 1 
         document.getElementById('music_button_img').title="일시 정지" 
-        document.getElementById('music_button_img2').src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768"  // pause 
+        document.getElementById('music_button_img2').src="https://i.imgur.com/TQFP08p.png"  // pause 1 
         document.getElementById('music_button_img2').title="일시 정지" 
     }else{
         player.pauseVideo();
         document.getElementById('music_button').value = 'stop'
-        document.getElementById('music_button_img').src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" //play
+        document.getElementById('music_button_img').src="https://i.imgur.com/mNMdXMC.png" // play 2
         document.getElementById('music_button_img').title="재생" 
-        document.getElementById('music_button_img2').src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" //play
+        document.getElementById('music_button_img2').src="https://i.imgur.com/mNMdXMC.png" // play 2
         document.getElementById('music_button_img2').title="재생" 
     }
 }
@@ -751,11 +751,11 @@ function music_control() {
 function music_Random() {
     if ( document.getElementById('RS_button').value=='sequence'){
         document.getElementById('RS_button').value = 'random';
-        document.getElementById('RS_button_img').src="https://k.kakaocdn.net/dn/bSrbyn/btqFzHurqIx/AYsHnSsyu3eOdxOnU0CGa0/img.png?original"  // sequence
+        document.getElementById('RS_button_img').src="https://i.imgur.com/Au17Uxe.png"  // sequence 4
         document.getElementById('RS_button_img').title="순차 재생" 
     }else{
         document.getElementById('RS_button').value = 'sequence'
-        document.getElementById('RS_button_img').src="https://k.kakaocdn.net/dn/ctAf3c/btqFAfda0TQ/x9nZ76BHBm8htukTUm4aAk/img.png?original" // random
+        document.getElementById('RS_button_img').src="https://i.imgur.com/LOi8XuQ.png" // random 3
         document.getElementById('RS_button_img').title="랜덤 재생" 
     }
 }
@@ -763,11 +763,11 @@ function music_Random() {
 function music_Repeat() {
     if ( document.getElementById('Re_button').value=='noRepeat'){
         document.getElementById('Re_button').value = 'Repeat';
-        document.getElementById('Re_button_img').src="https://k.kakaocdn.net/dn/TP3pc/btqFBKQxYvk/qwEWdS61GUzvyWpSJVDTuk/img.png?original"  // sequence
+        document.getElementById('Re_button_img').src="https://i.imgur.com/5qbfwpX.png"  // 9
         document.getElementById('Re_button_img').title="반복 해제" 
     }else{
         document.getElementById('Re_button').value = 'noRepeat'
-        document.getElementById('Re_button_img').src="https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png?original" // random
+        document.getElementById('Re_button_img').src="https://i.imgur.com/gP56fwE.png"  // 8
         document.getElementById('Re_button_img').title="한곡 반복" 
     }
 }
@@ -793,7 +793,7 @@ function bgmPlay(sel) {
     if ( document.getElementById('RS_button').value=='sequence'){  // 랜덤 여부 파악 (240731 수정)
     }else{
         document.getElementById('RS_button').value = 'sequence'
-        document.getElementById('RS_button_img').src="https://k.kakaocdn.net/dn/ctAf3c/btqFAfda0TQ/x9nZ76BHBm8htukTUm4aAk/img.png?original" // random
+        document.getElementById('RS_button_img').src="https://i.imgur.com/LOi8XuQ.png" // random 3
         document.getElementById('RS_button_img').title="랜덤 재생" 
     }
 
@@ -890,11 +890,11 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 
 <!-- table style="BACKGROUND:white url('') repeat fixed left top" width=920 height=104 border=1 bordercolor=#464B4E cellspacing='0' cellpadding='10'><tr valign=middle><td //-->
 <table width=100%><tr><td>
-<a href='javascript:music_control()'><img id='music_button_img' src='http://cfile231.uf.daum.net/original/2255B6475636CD34137768' height=100 title='일시 정지'>
+<a href='javascript:music_control()'><img id='music_button_img' src='https://i.imgur.com/TQFP08p.png' height=100 title='일시 정지'>
 <input type=text style='font-size: 16px; display:none;' id='music_button' value='start'></a>&nbsp; &nbsp; &nbsp; 
-<a href='javascript:music_Random()'><img id='RS_button_img' src='https://k.kakaocdn.net/dn/ctAf3c/btqFAfda0TQ/x9nZ76BHBm8htukTUm4aAk/img.png?original' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button' value='sequence'></a>&nbsp; &nbsp; &nbsp; 
-<a href='javascript:music_Prev()'><img src='http://cfile219.uf.daum.net/original/215BE7475636CD35158322' height=100 title='이전 곡'><img src='http://cfile205.uf.daum.net/original/26628B475636CD3B0F68AE' height=100 title='이전 곡'></a>&nbsp; &nbsp; &nbsp;   
-<a href='javascript:music_Next()'><img src='http://cfile212.uf.daum.net/original/216420475636CD390D7829' height=100 title='다음 곡'><img src='http://cfile240.uf.daum.net/original/276B7A475636CD37064E0B' height=100 title='다음 곡'></a>&nbsp; &nbsp; &nbsp; 
+<a href='javascript:music_Random()'><img id='RS_button_img' src='https://i.imgur.com/LOi8XuQ.png' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button' value='sequence'></a>&nbsp; &nbsp; &nbsp; 
+<a href='javascript:music_Prev()'><img src='https://i.imgur.com/4pZ3zXN.png' height=100 title='이전 곡1'><img src='https://i.imgur.com/tkZvFNw.png' height=100 title='이전 곡2'></a>&nbsp; &nbsp; &nbsp;   
+<a href='javascript:music_Next()'><img src='https://i.imgur.com/mNMdXMC.png' height=100 title='다음 곡1'><img src='https://i.imgur.com/TFw4TDC.png' height=100 title='다음 곡2'></a>&nbsp; &nbsp; &nbsp; 
 <a href='javascript:music_Repeat()'><img id='Re_button_img' src='https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button' value='noRepeat'></a> 
 </td><td width=25%><div id='mTime'>mTime</div></TD></TR></TABLE>
 <div id="test2">test2</div>
@@ -1296,11 +1296,11 @@ X = 플레이어 감춤, O = 플레이어 보기</font>
     </button>
 
     <a href='javascript:music_Next()'>
-        <img src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" height="50" title="다음 곡"><img src="http://cfile240.uf.daum.net/original/276B7A475636CD37064E0B" height="50" title="다음 곡">
+        <img src="https://i.imgur.com/mNMdXMC.png" height="50" title="다음 곡1"><img src="https://i.imgur.com/TFw4TDC.png" height="50" title="다음 곡2">
     </a>
 
     <a href='javascript:music_control()'>
-        <img id='music_button_img2' src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768" height="50" title="일시 정지">
+        <img id='music_button_img2' src="https://i.imgur.com/TQFP08p.png" height="50" title="일시 정지">
         <input type="text" style="font-size: 16px; display:none;" id="music_button" value="start">
     </a>
   </div>
