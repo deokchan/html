@@ -173,7 +173,7 @@ h1 span:nth-child(1) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/MySong.js "></script>
+<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/MySong.js"></script>
 
 <!-- 
     1.  jsDelivr의 [Purge Cache](https://www.jsdelivr.com/tools/purge) 페이지로 이동합니다.
@@ -271,12 +271,12 @@ var title = '내가 좋아하는 노래 컬렉션'
 
 var odi = new Array();
 
-odi[0] = "https://www.dropbox.com/scl/fi/y7a7jo5n4vzichlfjuwyz/0-100-_MW11_Suno4.5.mp3?rlkey=sgnu2x0y85cqsbul5ywpt7udq&st=s42ygmac&raw=1|까꿍~ 로운아! 탄생 100일을 축하해! (트로트 버전)"
-odi[1] = "https://www.dropbox.com/scl/fi/dpggetls2lybgemm8bs4k/0-100-_MW14_Suno4.5.mp3?rlkey=xaq39ght3a9un7sjnks5hzeo7&st=d8ky1l7u&raw=1|까꿍~ 로운아! 탄생 100일을 축하해! (바이올린)"
-odi[2] = "https://www.dropbox.com/scl/fi/9hbaya0ligo8fs6t48xuc/0-_MW18_Suno4.5.mp3?rlkey=a0b24phm7e2yslpng9tppviex&st=diy19793&raw=1|로운에게 보내는 百日 축하 <br>(발라드 버전)"
-odi[3] = "https://www.dropbox.com/scl/fi/d6lc5k3sqzyj4tkuynfrb/0-_MW22_Suno4.5.mp3?rlkey=golccg3hnay8ovtjf29cm3x6i&st=d48x8qk3&raw=1|로운에게 보내는 百日 축하 (클래식)"
-odi[4] = "https://www.dropbox.com/scl/fi/9umr7qmpd4cmh3hj4lu0b/0-_MW04_Suno4.5.mp3?rlkey=g386v6htsvl2hhb4ssv2uwq3f&st=43v4auut&raw=1|로운에게 보내는 할아머니의 百日 축복 (클래식풍)"
-odi[5] = "https://www.dropbox.com/scl/fi/d1fuf9eg5vyiha16un5mm/0-_MW14_Suno4.5.mp3?rlkey=bxp0b1hi7huptflsxxsesnj3k&st=vfzsbxkq&raw=1|로운에게 보내는 할아머니의 百日 축복 (에모팝)"
+odi[0] = "https://www.dropbox.com/scl/fi/dpggetls2lybgemm8bs4k/0-100-_MW14_Suno4.5.mp3?rlkey=xaq39ght3a9un7sjnks5hzeo7&st=d8ky1l7u&raw=1|까꿍~ 로운아! 탄생 100일을 축하해! (바이올린)"
+odi[1] = "https://www.dropbox.com/scl/fi/y7a7jo5n4vzichlfjuwyz/0-100-_MW11_Suno4.5.mp3?rlkey=sgnu2x0y85cqsbul5ywpt7udq&st=s42ygmac&raw=1|까꿍~ 로운아! 탄생 100일을 축하해! (트로트 버전)"
+odi[2] = "https://www.dropbox.com/scl/fi/d6lc5k3sqzyj4tkuynfrb/0-_MW22_Suno4.5.mp3?rlkey=golccg3hnay8ovtjf29cm3x6i&st=d48x8qk3&raw=1|로운에게 보내는 百日 축하 (클래식)"
+odi[3] = "https://www.dropbox.com/scl/fi/9hbaya0ligo8fs6t48xuc/0-_MW18_Suno4.5.mp3?rlkey=a0b24phm7e2yslpng9tppviex&st=diy19793&raw=1|로운에게 보내는 百日 축하 <br>(발라드 버전)"
+odi[4] = "https://www.dropbox.com/scl/fi/d1fuf9eg5vyiha16un5mm/0-_MW14_Suno4.5.mp3?rlkey=bxp0b1hi7huptflsxxsesnj3k&st=vfzsbxkq&raw=1|로운에게 보내는 할아머니의 百日 축복 (에모팝)"
+odi[5] = "https://www.dropbox.com/scl/fi/9umr7qmpd4cmh3hj4lu0b/0-_MW04_Suno4.5.mp3?rlkey=g386v6htsvl2hhb4ssv2uwq3f&st=43v4auut&raw=1|로운에게 보내는 할아머니의 百日 축복 (클래식풍)"
 
 /*
 var urlAry = new Array();
@@ -286,7 +286,7 @@ urlAry[1] = "vCGpx5CMwJ0"
 
    objAry = [];
    var a = 0
-   var b = 695
+   var b = 165
    var nn = 0
    var vd
    var player
@@ -294,7 +294,7 @@ urlAry[1] = "vCGpx5CMwJ0"
    var WW
    var HH
    function onYouTubeIframeAPIReady() {
-   vd = generateRandom(0, 178); // bgm.length-1 227
+   vd = generateRandom(a, b); // bgm.length-1 
    ID = stringSplit(bgm[vd], "|")[0];
 
         player = new YT.Player('player', {
@@ -377,18 +377,56 @@ function music_control2(n) {
 
 var Q
 function onPlayerReady(event) {
-//      od_num()
-//      music_Random() // 2024.04.08 랜덤 삽입
-      bgmLoad()
+
+//   od_num()
+//   music_Random() // 2024.04.08 랜덤 삽입
+
+    bgmLoad()
+    let savedIndex = localStorage.getItem("lastTrackIndex");
+    let savedTime = localStorage.getItem("lastTrackTime");
+
+    // 저장된 값이 있다면 이어듣기
+    if (savedIndex !== null && savedTime !== null) {
+        vd = parseInt(savedIndex);
+        ID = stringSplit(bgm[vd], "|")[0];
+
+        player.loadVideoById({
+            videoId: ID,
+            startSeconds: parseInt(savedTime),
+            endSeconds: stringSplit(bgm[vd], "|")[3] || undefined,
+            suggestedQuality: 'auto'
+        });
+
+        document.getElementById('bgmSel')[vd + 1].selected = true;
+
+    } else {
+        // 저장된 정보가 없으니 '초기 재생 방식' 수행
+//        music_Random();   // 무작위 선택
+//        bgmLoad();        // 기본 설정 함수
+        event.target.playVideo();
+
+        player.loadVideoById({
+            videoId: stringSplit(bgm[vd], "|")[0],
+            startSeconds: stringSplit(bgm[vd], "|")[2],
+            endSeconds: stringSplit(bgm[vd], "|")[3],
+            suggestedQuality: 'auto'
+        });
+
+        document.getElementById('bgmSel')[vd + 1].selected = true;
+    }
+/*
       event.target.playVideo();
       player.loadVideoById({'videoId': stringSplit(bgm[vd], "|")[0],
                'startSeconds': stringSplit(bgm[vd], "|")[2],
                'endSeconds': stringSplit(bgm[vd], "|")[3],
                'suggestedQuality': 'Auto'});
        document.getElementById('bgmSel')[vd+1].selected = true;
+*/
+
+       // 재생 화질 설정
        Q = player.getAvailableQualityLevels()[0]
        player.setPlaybackQuality({'suggestedQuality': Q})
- }
+}
 
 function play_it(n) {
  var ctl = document.getElementById('odi_music_' + n);
@@ -591,6 +629,9 @@ function count() {
     var hc = 0
     var hd = 0
     var c = parseInt(player.getCurrentTime()); var d = parseInt(player.getDuration());
+    localStorage.setItem("lastTrackIndex", vd);  // 삽입
+    localStorage.setItem("lastTrackTime", c); // 삽입
+
     if ( c > 3600 ) { hc = parseInt( c / 3600 );
                              //hc = ( hc < 10 ) ? "0" + hc : hc
                               c = c % 3600;
@@ -660,7 +701,7 @@ var temp = result[1]
      } else {
         var temp5 =  temp
      }
-     tag2 = tag2 + '<OPTION VALUE=' + i + '>' +  (i+1) + ". " + temp5 + ' <br>';
+     tag2 = tag2 + '<OPTION VALUE=' + i + '>' +  (i+1) + ". " + stringSplit(temp5, "] ")[1] + ' <br>';
      tag5 = tag5 + "<button class='bt' onclick='bgmPlay(" + i + " )'>" + (i+1) + "</button> " + temp + "<br><br>"; // " <button class='tj' onclick='tjLink(" + i + ")'>태진</button>" + " <button class='ky' onclick='kyLink(" + i + ")'>금영</button>" + 
     }
 
