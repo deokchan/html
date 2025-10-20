@@ -1439,8 +1439,6 @@ function onPlayerStateChange(event) {               // player.setSize(width:Numb
    var tMsg = stringSplit(bgm[vd], "|")[1]
 
          if (nnn != stringSplit(bgm[vd], "|")[0] ) {
-            // $('#fix').show()       // $('#id').hide()
-            // setTimeout(hideDiv, 5000)
             $.getJSON('https://noembed.com/embed',
             {format: 'json', url: "https://youtu.be/" + stringSplit(bgm[vd], "|")[0] }, function (data) {
              W = 900
@@ -1542,11 +1540,18 @@ function count() {
     if ( hd > 0 ) { var dd = hd + ":" + md + ":" + sd; } else { var dd = md + ":" + sd;}
 
     mTime.innerHTML = "<font color=red>" + cc + "</font><br>" + dd     // vd + ". " + player.getVideoData().title  + " | " + ct // + " | " + ID 
+    var yTitle = player.getVideoData().title
+    yTitle = yTitle.replace("연주,악보,드럼커버,Drum cover,듣기); AbcDRUM", "")
+    setTimeout(count, 1000);
+
+/*
+    mTime.innerHTML = "<font color=red>" + cc + "</font><br>" + dd     // vd + ". " + player.getVideoData().title  + " | " + ct // + " | " + ID 
     mTime2.innerHTML = "<font color=red>" + cc + "</font><br>" + dd    
     var yTitle = player.getVideoData().title
     yTitle = yTitle.replace("연주,악보,드럼커버,Drum cover,듣기); AbcDRUM", "")
     mTitle.innerHTML = "<b><font class='Bungee_Shade' style='font-size:40pt;line-height:110%;'>" + (vd + 1) + ". " + yTitle + "</font></b>"
     setTimeout(count, 1000);
+*/
 }
 
 function bgmLink(vd) {
