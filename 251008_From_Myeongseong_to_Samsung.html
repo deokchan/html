@@ -412,14 +412,17 @@ function music_control2(n) {
     }
 }
 
+const currentPage = location.pathname.split('/').pop().replace('.html', '');
 var Q
 function onPlayerReady(event) {
 
 //   music_Random() // 2024.04.08 랜덤 삽입
 
     bgmLoad()
-    let savedIndex = localStorage.getItem("SungSongIndex");
-    let savedTime = localStorage.getItem("SungSongTime");
+    let savedIndex = localStorage.getItem("lastTrackIndex_" + currentPage);
+    let savedTime = localStorage.getItem("lastTime_" + currentPage);
+//    let savedIndex = localStorage.getItem("SungSongIndex");
+//    let savedTime = localStorage.getItem("SungSongTime");
 
     // 저장된 값이 있다면 이어듣기
     if (savedIndex !== null && savedTime !== null) {
@@ -654,8 +657,10 @@ function count() {
     var hc = 0
     var hd = 0
     var c = parseInt(player.getCurrentTime()); var d = parseInt(player.getDuration());
-    localStorage.setItem("SungSongIndex", vd);  // 삽입
-    localStorage.setItem("SungSongTime", c); // 삽입
+    localStorage.setItem("lastTrackIndex_" + currentPage, vd);
+    localStorage.setItem("lastTime_" + currentPage, c); // 삽입
+//    localStorage.setItem("SungSongIndex", vd);  // 삽입
+//    localStorage.setItem("SungSongTime", c); // 삽입
 
     if ( c > 3600 ) { hc = parseInt( c / 3600 );
                              //hc = ( hc < 10 ) ? "0" + hc : hc
@@ -689,10 +694,8 @@ function count() {
     if ( hd > 0 ) { var dd = hd + ":" + md + ":" + sd; } else { var dd = md + ":" + sd;}
 
     mTime.innerHTML = "<font color=red>" + cc + "</font><br>" + dd     // vd + ". " + player.getVideoData().title  + " | " + ct // + " | " + ID 
-//    mTime2.innerHTML = "<font color=red>" + cc + "</font><br>" + dd    
     var yTitle = player.getVideoData().title
     yTitle = yTitle.replace("연주,악보,드럼커버,Drum cover,듣기); AbcDRUM", "")
-//    mTitle.innerHTML = "<b><font class='Bungee_Shade' style='font-size:40pt;line-height:110%;'>" + (vd + 1) + ". " + yTitle + "</font></b>"
     setTimeout(count, 1000);
 }
 
