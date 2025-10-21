@@ -42,7 +42,7 @@ font.Noto_Serif_KR {font-size:25pt; font-family: 'Noto Serif KR', sans-serif; }
 td.lt { color:black; font-size:33pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; border-radius: 50px; border: 5px ridge #ff5722;}
 
 p.mid, font.mid, table.box { color:black; font-size:54px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
-p.mid2 { color:black; font-size:49px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
+p.mid2 { color:black; font-size:48px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
 p.ct {color:blue; font-size:45px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; }
 p.title {color:blue; font-size:67px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-face:휴먼옛체; }
 p.tit {color:blue; font-family: 'Noto Sans KR', sans-serif; font-size:54px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:10px 10px 10px gray; } 
@@ -338,7 +338,7 @@ function fontSz(val) {
     $("p.tit").css({"font-size": (2 + font_size) + "px"});
     $("p.mid").css({"font-size": (2 + font_size) + "px"});
 // console.log($("p.tit").css("font-size") + " : " + $("p.mid").css("font-size"));
-    $("p.ct").css({"font-size": (5 + font_size) + "px"});
+//    $("p.ct").css({"font-size": (5 + font_size) + "px"});
     $("font").css({"font-size": font_size + "px"});
 }
 </script> 
@@ -1358,7 +1358,7 @@ bgm[999] = "wQyy3Aj9QKc|{웨딩 댄스} Z Tobą lżej (2019) / Clock Machine : �
    var WW
    var HH
    function onYouTubeIframeAPIReady() {
-   vd = generateRandom(0, 227); // bgm.length-1
+   vd = 0 //generateRandom(0, 227); // bgm.length-1
    ID = stringSplit(bgm[vd], "|")[0];
 
         player = new YT.Player('player', {
@@ -1543,15 +1543,6 @@ function count() {
     var yTitle = player.getVideoData().title
     yTitle = yTitle.replace("연주,악보,드럼커버,Drum cover,듣기); AbcDRUM", "")
     setTimeout(count, 1000);
-
-/*
-    mTime.innerHTML = "<font color=red>" + cc + "</font><br>" + dd     // vd + ". " + player.getVideoData().title  + " | " + ct // + " | " + ID 
-    mTime2.innerHTML = "<font color=red>" + cc + "</font><br>" + dd    
-    var yTitle = player.getVideoData().title
-    yTitle = yTitle.replace("연주,악보,드럼커버,Drum cover,듣기); AbcDRUM", "")
-    mTitle.innerHTML = "<b><font class='Bungee_Shade' style='font-size:40pt;line-height:110%;'>" + (vd + 1) + ". " + yTitle + "</font></b>"
-    setTimeout(count, 1000);
-*/
 }
 
 function bgmLink(vd) {
@@ -1580,8 +1571,6 @@ function play() {
    //    Q = player.getAvailableQualityLevels()[0]
    //    player.setPlaybackQuality({'suggestedQuality': Q})
 
-   //  $('#fix').show()       // $('#id').hide()
-   //  setTimeout(hideDiv, 1000)
 }
 
 function music_Next() {
@@ -1613,46 +1602,149 @@ function music_Prev() {
 }
 
 function music_control() {
-    if ( document.getElementById('music_button').value=='stop'){
+    if ( document.getElementById('music_button').value === 'stop'){
         player.playVideo();
         document.getElementById('music_button').value = 'start';
-        document.getElementById('music_button_img').src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768"  // pause 
+        document.getElementById('music_button_img').src="https://i.imgur.com/TQFP08p.png"  // pause 
         document.getElementById('music_button_img').title="일시 정지" 
-        document.getElementById('music_button_img2').src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768"  // pause 
+        document.getElementById('music_button_img2').src="https://i.imgur.com/TQFP08p.png"  // pause 
         document.getElementById('music_button_img2').title="일시 정지" 
+        document.getElementById('music_button_img3').src="https://i.imgur.com/TQFP08p.png"  // pause 
+        document.getElementById('music_button_img3').title="일시 정지" 
     }else{
         player.pauseVideo();
         document.getElementById('music_button').value = 'stop'
-        document.getElementById('music_button_img').src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" //play
+        document.getElementById('music_button_img').src="https://i.imgur.com/mNMdXMC.png" //play
         document.getElementById('music_button_img').title="재생" 
-        document.getElementById('music_button_img2').src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" //play
+        document.getElementById('music_button_img2').src="https://i.imgur.com/mNMdXMC.png" //play
         document.getElementById('music_button_img2').title="재생" 
+        document.getElementById('music_button_img3').src="https://i.imgur.com/mNMdXMC.png" //play
+        document.getElementById('music_button_img3').title="재생" 
     }
 }
 
 function music_Random() {
-    if ( document.getElementById('RS_button').value=='sequence'){
+    if ( document.getElementById('RS_button').value === 'sequence'){
         document.getElementById('RS_button').value = 'random';
-        document.getElementById('RS_button_img').src="https://k.kakaocdn.net/dn/bSrbyn/btqFzHurqIx/AYsHnSsyu3eOdxOnU0CGa0/img.png?original"  // sequence
+        document.getElementById('RS_button_img').src="https://i.imgur.com/Au17Uxe.png"  // sequence
         document.getElementById('RS_button_img').title="순차 재생" 
+        document.getElementById('RS_button_img3').src="https://i.imgur.com/Au17Uxe.png"  // sequence
+        document.getElementById('RS_button_img3').title="순차 재생" 
     }else{
         document.getElementById('RS_button').value = 'sequence'
-        document.getElementById('RS_button_img').src="https://k.kakaocdn.net/dn/ctAf3c/btqFAfda0TQ/x9nZ76BHBm8htukTUm4aAk/img.png?original" // random
+        document.getElementById('RS_button_img').src="https://i.imgur.com/LOi8XuQ.png" // random
         document.getElementById('RS_button_img').title="랜덤 재생" 
+        document.getElementById('RS_button_img3').src="https://i.imgur.com/LOi8XuQ.png" // random
+        document.getElementById('RS_button_img3').title="랜덤 재생" 
     }
 }
 
 function music_Repeat() {
-    if ( document.getElementById('Re_button').value=='noRepeat'){
+    if ( document.getElementById('Re_button').value === 'noRepeat'){
         document.getElementById('Re_button').value = 'Repeat';
-        document.getElementById('Re_button_img').src="https://k.kakaocdn.net/dn/TP3pc/btqFBKQxYvk/qwEWdS61GUzvyWpSJVDTuk/img.png?original"  // sequence
+        document.getElementById('Re_button_img').src="https://i.imgur.com/5qbfwpX.png"  // sequence
         document.getElementById('Re_button_img').title="반복 해제" 
+        document.getElementById('Re_button_img3').src="https://i.imgur.com/5qbfwpX.png"  // sequence
+        document.getElementById('Re_button_img3').title="반복 해제" 
     }else{
         document.getElementById('Re_button').value = 'noRepeat'
-        document.getElementById('Re_button_img').src="https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png?original" // random
+        document.getElementById('Re_button_img').src="https://i.imgur.com/gP56fwE.png" // random
         document.getElementById('Re_button_img').title="한곡 반복" 
+        document.getElementById('Re_button_img3').src="https://i.imgur.com/gP56fwE.png" // random
+        document.getElementById('Re_button_img3').title="한곡 반복" 
     }
 }
+
+/*
+document.addEventListener('DOMContentLoaded', function() {
+
+    const progressContainer = document.getElementById("progressContainer");
+    const progressBar = document.getElementById("progressBar");
+    
+    if (!progressContainer) {
+        console.error("progressContainer 요소를 찾을 수 없습니다.");
+        return;
+    }
+    
+    // 기본적인 메타데이터 로드 확인만 추가 (권장)
+    if (ctl) {
+        player.addEventListener('loadedmetadata', function() {
+            console.log("오디오 메타데이터 로드 완료");
+        });
+    }
+
+    // 진행 바 클릭 이벤트
+    progressContainer.addEventListener("click", (event) => {
+        // console.log("진행 바 클릭됨!"); // 디버깅용
+        
+        // 현재 코드가 잘 작동하고 있으므로 그대로 유지
+        if (!player || player.readyState < 2) {
+            console.log("오디오가 아직 로드되지 않았습니다.");
+            return;
+        }
+
+        if (isNaN(player.duration) || player.duration === 0) {
+            console.log("오디오 길이 정보를 가져올 수 없습니다.");
+            return;
+        }
+        
+        try {
+            const rect = progressContainer.getBoundingClientRect();
+            const clickPositionX = event.clientX - rect.left;
+            const progressRatio = clickPositionX / progressContainer.offsetWidth;
+            const clampedRatio = Math.max(0, Math.min(1, progressRatio));
+            const newTime = clampedRatio * player.duration;
+            
+            // console.log("새로운 시간:", newTime); // 디버깅용
+            player.currentTime = newTime;
+        } catch (error) {
+            console.error("시간 이동 중 오류 발생:", error);
+        }
+    });
+
+    // 볼륨 컨트롤 추가
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeDisplay = document.getElementById('volumeDisplay');
+    
+    if (volumeSlider) {
+        console.log("볼륨 슬라이더 이벤트 리스너 등록 중...");
+        
+        volumeSlider.addEventListener('input', function() {
+            console.log("🔊 볼륨 슬라이더 움직임! 값:", this.value);
+            
+            const volume = this.value / 100;
+            player.volume = volume;
+            
+            console.log("설정된 볼륨:", ctl.volume);
+            
+            // 볼륨 표시 업데이트
+            if (volumeDisplay) {
+                volumeDisplay.textContent = this.value + '%';
+            }
+        });
+        
+        // 테스트용: 슬라이더 변경 감지
+        volumeSlider.addEventListener('change', function() {
+            console.log("🎵 볼륨 변경 완료:", this.value);
+        });
+        
+        console.log("볼륨 이벤트 리스너 등록 완료!");
+    } else {
+        console.error("volumeSlider를 찾을 수 없습니다!");
+    }
+});
+
+
+function toggleMute() {
+    if (player.isMuted()) {
+        player.unMute();
+        document.querySelector('.volume-control span').textContent = '📢';
+    } else {
+        player.mute();
+        document.querySelector('.volume-control span').textContent = '🔇';
+    }
+}
+*/
 
 var n = 0;
 var vd_1 = ""
@@ -1679,15 +1771,14 @@ var temp = result[1]
         var temp5 =  temp
      }
      tag2 = tag2 + '<OPTION VALUE=' + i + '>' +  (i+1) + ". " + temp5 + ' <br>';
-//     tag5 = tag5 + "<button class='bt' onclick='bgmPlay(" + i + " )'>" + (i+1) + "</button> " + temp + "<br><br>"; // " <button class='tj' onclick='tjLink(" + i + ")'>태진</button>" + " <button class='ky' onclick='kyLink(" + i + ")'>금영</button>" + 
+     tag5 = tag5 + "<button class='bt' onclick='bgmPlay(" + i + " )'>" + (i+1) + "</button> " + temp + "<br><br>"; // " <button class='tj' onclick='tjLink(" + i + ")'>태진</button>" + " <button class='ky' onclick='kyLink(" + i + ")'>금영</button>" + 
     }
 
    var tag1 = "<center><b><SELECT id='bgmSel' NAME='bgmSel' onChange='javascript:bgmPlay(value)' style='WIDTH: 100%; HEIGHT: 60px; color:green;background-color:gold'> <OPTION SELECTED VALUE=''> ▒▒ 노래 시작 시점! 목록에서 직접 선택하기 ▒▒";
    var tag3 = "</SELECT></font></center>";
 //   var List = document.getElementById("List");
    List.innerHTML = tag0 + tag1 + tag2 + tag3;
-//   test.innerHTML = "<P class='mid'>" + tag5;  // 240815 toggle과 충돌
-//   ChanLoad()
+   test.innerHTML = "<P class='mid'>" + tag5;  // 240815 toggle과 충돌
    updateButton();
    DdayList();
 }
@@ -1713,7 +1804,7 @@ function bgmPlay(sel) {
     if ( document.getElementById('RS_button').value=='sequence'){  // 랜덤 여부 파악 (240731 수정)
     }else{
         document.getElementById('RS_button').value = 'sequence'
-        document.getElementById('RS_button_img').src="https://k.kakaocdn.net/dn/ctAf3c/btqFAfda0TQ/x9nZ76BHBm8htukTUm4aAk/img.png?original" // random
+        document.getElementById('RS_button_img').src="https://i.imgur.com/LOi8XuQ.png" // random
         document.getElementById('RS_button_img').title="랜덤 재생" 
     }
      vd = sel - 1;
@@ -1776,11 +1867,11 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 </TD></TR></TABLE>
 
 <table width=100%><tr><td>
-<a href='javascript:music_control()'><img id='music_button_img' src='http://cfile231.uf.daum.net/original/2255B6475636CD34137768' height=100 title='일시 정지'>
+<a href='javascript:music_control()'><img id='music_button_img' src='https://i.imgur.com/TQFP08p.png' height=100 title='일시 정지'>
 <input type=text style='font-size: 16px; display:none;' id='music_button' value='start'></a>&nbsp; &nbsp; &nbsp; 
-<a href='javascript:music_Random()'><img id='RS_button_img' src='https://k.kakaocdn.net/dn/ctAf3c/btqFAfda0TQ/x9nZ76BHBm8htukTUm4aAk/img.png?original' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button' value='sequence'></a>&nbsp; &nbsp; &nbsp; 
-<a href='javascript:music_Prev()'><img src='http://cfile219.uf.daum.net/original/215BE7475636CD35158322' height=100 title='이전 곡'><img src='http://cfile205.uf.daum.net/original/26628B475636CD3B0F68AE' height=100 title='이전 곡'></a>&nbsp; &nbsp; &nbsp;   
-<a href='javascript:music_Next()'><img src='http://cfile212.uf.daum.net/original/216420475636CD390D7829' height=100 title='다음 곡'><img src='http://cfile240.uf.daum.net/original/276B7A475636CD37064E0B' height=100 title='다음 곡'></a>&nbsp; &nbsp; &nbsp; 
+<a href='javascript:music_Random()'><img id='RS_button_img' src='https://i.imgur.com/LOi8XuQ.png' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button' value='sequence'></a>&nbsp; &nbsp; &nbsp; 
+<a href='javascript:music_Prev()'><img src='https://i.imgur.com/4pZ3zXN.png' height=100 title='이전 곡'><img src='https://i.imgur.com/tkZvFNw.png' height=100 title='이전 곡'></a>&nbsp; &nbsp; &nbsp;   
+<a href='javascript:music_Next()'><img src='https://i.imgur.com/mNMdXMC.png' height=100 title='다음 곡'><img src='https://i.imgur.com/TFw4TDC.png' height=100 title='다음 곡'></a>&nbsp; &nbsp; &nbsp; 
 <a href='javascript:music_Repeat()'><img id='Re_button_img' src='https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button' value='noRepeat'></a> 
 </td><td width=25%><div id='mTime'>mTime</div></TD></TR></TABLE>
  
@@ -1794,13 +1885,24 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 <div id="List">List</div>
 </TD></TR></TABLE></div>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <table style="BACKGROUND:#ffccff url('') repeat fixed left top; table-layout: fixed" width=940 cellpadding='10'><tr valign=middle><td class='lt'> <!-- aliceblue #ffccff//-->
 <!-- table style="BACKGROUND:white url('http://cfile238.uf.daum.net/image/150C971E4B36CD0D81370F') repeat fixed left top" width=920 height=104 border=1 bordercolor=#464B4E cellspacing='0' cellpadding='10'><tr valign=top><td //-->
 
 <span id="aaa">
-</p><P class="mid"><div id="test5"></div><br>
+</p><P class="mid"><div id="test5"></div>
+
+</P><P class="mid">
+※ 재생 영상의 목록을 보려면 아래의 분홍색 버튼을 클릭하세요! <br>
+
+<button id="tog_1" type="button" class="Jua btn btn-outline-info pin">재생 목록 (List) 펼쳐 보기</button><br><br><div id=List1>
+<table style="BACKGROUND:thistle url('http://cfile219.uf.daum.net/image/136B68054942B0B803B8EC') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
+<div id=test>List </div><br>
+</TD></TR></TABLE></div>
+
+</P><P class="mid"><font color='#FF5722'>※ 우측의 '따라다니는 메뉴' 하단 →<br>
+X = 플레이어 감춤, O = 플레이어 보기</font><br><br><br>
 
 <P class="tit">251019 김우람 ♡ 이영실 (앞 잔치)<br><br>
 
@@ -1855,13 +1957,13 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 
 </P><P class="title">결혼기념일 타이머<br>
 
-<table width=100% background=http://cfile239.uf.daum.net/original/25600340525FBE6129DF07 cellSpacing=3 cellPadding=0><tr valign=center><td>
+<table width=100% background=https://i.imgur.com/8cb7Fn0.jpeg cellSpacing=3 cellPadding=0><tr valign=center><td>
 <TABLE title="결혼기념일 타이머" bgcolor=tomato border=1 width=100% height=30><tr valign=center>
-<td width=57% height=70 background=http://cfile237.uf.daum.net/original/2357293F52679B4210339E><div id="divmdays"></div></td> 
-<td style="virtical-align:center;" width=43% height=70 background=http://cfile237.uf.daum.net/original/2357293F52679B4210339E><div id="divmdays2"></div></td></tr>
-<tr valign=center><td colspan=2 valign=center background=http://cfile233.uf.daum.net/original/273F214452679B2F0D067B><div id="Time1"></div></td></tr>
-<tr valign=center><td colspan=2 height=70 background=http://cfile231.uf.daum.net/original/1178873F4FADD3BD1F36FE><div id="divdDay1"></div></td></tr>
-<tr valign=center><td colspan=2 height=70 background=http://cfile231.uf.daum.net/original/1178873F4FADD3BD1F36FE><div id="divdDay3"></div></td></tr>
+<td width=57% height=70 background=https://i.imgur.com/FqWIyeV.png><div id="divmdays"></div></td> 
+<td style="virtical-align:center;" width=43% height=70 background=https://i.imgur.com/FqWIyeV.png><div id="divmdays2"></div></td></tr>
+<tr valign=center><td colspan=2 valign=center background=https://i.imgur.com/o2tsASn.png><div id="Time1"></div></td></tr>
+<tr valign=center><td colspan=2 height=70 background=https://i.imgur.com/QqvL7Xc.gif><div id="divdDay1"></div></td></tr>
+<tr valign=center><td colspan=2 height=70 background=https://i.imgur.com/QqvL7Xc.gif><div id="divdDay3"></div></td></tr>
 </td></tr></table></td></tr></table>
 
 </P><P class="mid2">
@@ -2161,17 +2263,17 @@ $(document).ready(function(){
   $("#List1").hide();
   $("#tog_1").click(function(){                                       
    $("#List1").toggle(2000); 
-     if ( $("#tog_1").text() == '신랑(김경진) 측 계좌번호 보기') { 
-         $("#tog_1").text('신랑(김경진) 측 계좌번호 닫기')
-     } else { $("#tog_1").text('신랑(김경진) 측 계좌번호 보기') }                         
+     if ( $("#tog_1").text() == '재생 목록 (List) 펼쳐 보기') { 
+         $("#tog_1").text('재생 목록 (List) 닫기')
+     } else { $("#tog_1").text('재생 목록 (List) 펼쳐 보기') }                         
    }); 
 
   $("#List2").hide();
-  $("#tog_2").click(function(){                                       
+  $("#tog_3").click(function(){                                       
    $("#List2").toggle(2000); 
-     if ( $("#tog_2").text() == '신부(양휘경) 측 계좌번호 보기') { 
-         $("#tog_2").text('신부(양휘경) 측 계좌번호 닫기')
-     } else { $("#tog_2").text('신부(양휘경) 측 계좌번호 보기') }                         
+     if ( $("#tog_3").text() === '플레이어 사용법 ))) 열기 (((') { 
+         $("#tog_3").text('플레이어 사용법 ((( 닫기 )))')
+     } else { $("#tog_3").text('플레이어 사용법 ))) 열기 (((') }                         
    }); 
 
   $("#tog_5").click(function(){
@@ -2402,10 +2504,7 @@ $(document).ready(function(){
 
 <img src='https://i.imgur.com/tygyh6Z.jpeg' width=100% title='📷 '><br><br>
 
-만수무강하며 백년해로하세요~~ ㅎ.ㅎ<br><br><br><br><br>
-
-
-
+만수무강하며 백년해로하세요~~ ㅎ.ㅎ
 
 
 
@@ -2415,6 +2514,155 @@ $(document).ready(function(){
 
 
 
+<P class="mid"><br><br>
+<center><button id="tog_3" type="button" class="Jua btn btn-outline-info pin">플레이어 사용법 ))) 열기 (((</button><br><br><div id=List2>
+<table style="BACKGROUND:#CCFFFF url('') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
+<P class="tit">오디오 (MP3) 플레이어 사용법<br><br><br></p>
+<P class="mid"> 
+제가 만들어 본 <font color=sienna>플레이어</font>의 각 <font color=red>버튼</font>에 대한 <font color=blue>기능</font>을 설명해보려 합니다.<br><br><br>
+
+
+듣고싶은 <font color=red>노래</font>를 바로 <font color=red>재생</font>시키려면..<br><br>
+
+위 플레이어 아래의 노란색 <br>
+<font style='color:green;background-color:gold'> 셀렉트 박스(목록) </font>을 클릭하여 <br>
+<font color=blue>노래 제목</font>을 <font color=blue>선택</font>하시면 됩니다.<br><br><br>
+
+
+아래 <font color=red>버튼</font>들을 <font color=blue>직접 눌러보면서</font> <br>
+플레이어 반응을 살펴보시기 바랍니다<br><br><br>
+
+
+<a href='javascript:music_control()'><img id='music_button_img3' src='https://i.imgur.com/TQFP08p.png' height=100 title='일시 정지'>
+<input type=text style='font-size: 16px; display:none;' id='music_button3' value='start'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'일시 정지' 및 '재생' </font><br><br>
+
+플레이어 작동중에 <font color=sienna>||</font> 버튼을 클릭하면 <br>
+'<font color=red>일시 정지</font>'가 되고, <br><br>
+
+<font color=sienna>▶</font> 버튼을 클릭하면 오디오가 '<font color=blue>재생</font>' 됩니다.<br><br>
+
+한번씩 누를 때마다 '<font color=red>일시 정지</font>', '<font color=blue>재생</font>'<br>
+이 <font color=sienna>반복(토글)</font> 됩니다.<br><br><br>
+
+
+<a href='javascript:music_Random()'><img id='RS_button_img3' src='https://i.imgur.com/LOi8XuQ.png' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button3' value='sequence'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'순차 재생' 및 '랜덤 재생'</font><br><br>
+
+<font color=blue>기본</font>은 오디오 목록(list) 순서대로 <br>
+재생되는 '<font color=blue>순차</font>'로 되어있지만 <br><br>
+
+<font color=red>한번</font> 누르면 <font color=red>랜덤(무작위)</font>으로 재생됩니다.<br><br>
+
+역시 한번씩 누를 때마다 <br>
+'<font color=blue>순차 재생</font>'과 '<font color=red>랜덤 재생</font>'이 <br>
+<font color=sienna>반복(토글)</font> 됩니다.<br><br><br>
+
+
+<a href='javascript:music_Next()'><img src='https://i.imgur.com/mNMdXMC.png' height=100 title='다음 곡'><img src='https://i.imgur.com/TFw4TDC.png' height=100 title='다음 곡'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'다음 곡'</font><br><br>
+
+오디오 작동중에 <font color=sienna>▶|</font> 버튼을 클릭하면 현재 재생 오디오는 <font color=sienna>skip</font> 되고 <br>
+'<font color=red>다음 곡</font>' 오디오가 '<font color=blue>재생</font>' 됩니다.<br><br>
+
+물론 '<font color=blue>순차 재생</font>'과 '<font color=red>랜덤 재생</font>'이 설정된대로 <font color=sienna>skip</font> 되어 재생됩니다.<br><br><br>
+
+
+<a href='javascript:music_Prev()'><img src='https://i.imgur.com/4pZ3zXN.png' height=100 title='이전 곡'><img src='https://i.imgur.com/tkZvFNw.png' height=100 title='이전 곡'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'이전 곡'</font><br><br>
+
+오디오 작동중에 <font color=sienna>|◀</font> 버튼을 클릭하면 <br>
+현재 재생되고 있는 오디오의 <br>
+'<font color=red>이전 곡</font>' 오디오가 '<font color=blue>재생</font>' 됩니다.<br><br>
+
+이 때는 '순차 재생'과 '랜덤 재생'의 <br>
+설정과는 <font color=red>상관 없이</font> 오디오 목록의 <br>
+<font color=blue>순서가 -1씩 차감</font>되어 재생됩니다.<br><br><br>
+
+
+<a href='javascript:music_Repeat()'><img id='Re_button_img3' src='https://i.imgur.com/gP56fwE.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button3' value='noRepeat'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'한곡 반복'  및 '반복 해제'</font><br><br>
+
+현재 재생중인 오디오가 마음에 쏙~ 들거나 노래를 배우고 싶을 때에는.. <br><br>
+
+'<font color=red>한곡 반복</font>' 버튼을 클릭하면 현재의 <br>
+오디오가 <font color=sienna>무한대로 계속 반복</font>하여 <br>
+'<font color=blue>재생</font>' 됩니다.<br><br>
+
+한번씩 누를 때마다 '<font color=red>한곡 반복</font>'  및 <br>
+'<font color=blue>반복 해제</font>'가 <font color=sienna>반복(토글)</font> 됩니다.<br><br>
+
+'<font color=sienna>다음 곡 (▶|)</font>'이나 '<font color=sienna>이전 곡 (|◀)</font>' <br>
+버튼을 클릭하면 '<font color=red>한곡 반복</font>' 설정은 <br>
+<font color=blue>자동으로 해제</font>됩니다.<br><br>
+
+또한 예전처럼 위의 <br>
+<font style='color:green;background-color:gold'> Select Box(목록 선택) </font>을 이용하면 <br>
+바로 <font color=blue>해당 곡</font>이 재생됩니다.<br><br>
+
+마찬가지로 그 이후의 곡들은 <br>
+'순차 재생' 또는 '랜덤 재생'을 설정한대로 재생되어집니다.<br><br><br>
+
+
+<div id='mTime2'>mTime2</div>&nbsp;&nbsp;&nbsp;
+</P><P class="mid">'현재 진행시간'  및 '총 재생시간'<br><br><br>
+
+
+
+오디오 플레이어 우측 상단에 있는<br>
+<font color=red>적색</font>의 숫자는 '<font color=red>현재 진행시간</font>'을..<br>
+<font color=blue>청색</font>의 숫자는 '<font color=blue>총 재생시간</font>'을 표시합니다.<br><br>
+
+또한 재생 노래가 변경될 때마다 해당곡의 <font color=blue>타이틀(제목)</font>이 <font style='color:green;background-color:gold'> 목록 선택 창 </font>에 <br>
+<font color=green>디스플레이(display)</font> 됩니다.<br><br><br><br><br>
+
+
+오른쪽 옆의 따라다니는 메뉴 중..<br><br>
+
+<a href="#top"><img src="https://blog.kakaocdn.net/dn/yE5Ka/btsOaYM0d10/U8K1PO60E7nl0Q7wNroC31/img.png" height="50" title="위로 ↑" border="0"></a> (↑ TOP)는 <br>
+"<font color=blue>맨 위로(top) 이동</font>" 입니다.<br><br>
+
+※ ↑ 이걸 누르면 맨 위로 올라갔다가 다시 내려와야 하는 불편함이 있으니 누르지 마세요~~ ㅋ<br><br><br><br>
+
+
+    <button onClick="fontSz('S')" onFocus="blur()" title="글씨 작게" style="border: none; background: none; padding: 0;">
+        <img src="https://blog.kakaocdn.net/dn/bQr8vW/btsOaHMdYpi/D7yf2Q64K3HeHnQg0auGv0/img.png" width="50">
+    </button> 는 "<font color=red>글씨 작게</font>"로 현재 54px에서 <font color=red>최소 30px</font>까지 2px씩 작아지고,<br><br><br>
+
+
+    <button onClick="fontSz('B')" onFocus="blur()" title="글씨 크게" style="border: none; background: none; padding: 0;">
+        <img src="https://blog.kakaocdn.net/dn/cn6O88/btsOb6Rsa2X/1g9TI3BTtBcMurYutV6CDk/img.png" width="50">
+    </button> 는 "<font color=blue>글씨 크게</font>"로 현재 54px에서 <font color=blue>최대 74px</font>까지 2px씩 커집니다.<br><br>
+
+한번 터치할 때마다 글자가 작아지거나 커집니다.<br><br><br><br>
+
+ 
+그 아래의 [<font color=sienna>다음 곡</font>]이나 [<font color=sienna>일시 정지</font>] 버튼은 위의 설명과 같습니다.<br><br><br><br>
+
+
+
+※ 아래의 버튼은 실행되지 않으니 우측의 '따라다니는 메뉴' 최하단의 버튼을 클릭하여 확인하세요!<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/ce3CYA/btsOaHyI26O/uMlsiSqRJOZXkfkfYrPW7K/img.png" width="50" title="🎨 '오디오 플레이어 & 메뉴' 감춤"> (메뉴 감춤) <br>
+'오디오 플레이어 & 따라다니는 메뉴'<br>
+가 O형 아이콘 하나만을 남기고 모두 스윽~ 사라집니다.<br><br><br>
+
+
+<img src="https://blog.kakaocdn.net/dn/bckV1n/btsOb5yjray/zpTgpp4jJye1NL4QEvwiPk/img.png" width="50" title="🎨 '오디오 플레이어 & 메뉴' 보기"> (메뉴 보기) <br>
+'오디오 플레이어 & 따라다니는 메뉴'<br>
+가 다시 짜잔~ 나타납니다~ ㅎ<br><br><br><br><br>
+
+
+
+
+<!-- P class="title">[진행, 볼륨] 바에 관한 설명<br><br>
+</P><P class="mid">
+1. (흰색) 재생 진행 바 : 현재 재생 시점을 나타내는 것으로 재생 바의 특정 부분을 클릭하면 그 지점부터 재생됨.<br><br>
+
+2. (분홍색) 볼륨 조절 바 : <br>
+볼륨 바 왼쪽 (스피커 모양)이 뮤트 (음소거) 토글 버튼이고, <br><br>
+
+볼륨 바를 클릭하면 (청색 원형)이 이동하면서 볼륨 조절이 되며 오른쪽에 '%' 단위로 표시됩니다.<br //--> 
+</TD></TR></TABLE></div></center>
+
+
+  
+<br><br><br><br><br><br><br><br><br><br>
 
 
 <!-- form class="form-inline"> &nbsp;<button id="tog_3" type="button" class="button1" style="width:100%;font-size:44pt;color:skyblue;">※ 사진 원본 보관함 ))) 열기 (((</button><br><br><div id=List3>
@@ -2423,225 +2671,6 @@ $(document).ready(function(){
 <img src="https://blog.kakaocdn.net/dn/bsU10r/btsIR0Dd1fi/5O3eDBZPQh5E7sKuswuG3k/img.jpg" width=100%><br><br><br><br><br>
 
 
-
-<img src="https://blog.kakaocdn.net/dn/mvuW5/btsISdI5Wxt/kL7p4UaNVKhFGS8fuYaLD0/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/dfi7Cq/btsIR1oAmJ6/CAdU6Vl6GTwWAhIrTXqhc1/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/YSSnG/btsISTQVqCE/P9pKkaWGYQt3duXt5RnSsK/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/F20ob/btsITPAiFHF/EqkU6aLDIdfgailMFeRKM0/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/Gvgxs/btsISpQkboA/sWwjKLld6ojPjJ8pXyCGUK/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/bpRzv9/btsITCup6NL/2TpKALvZsAaDLJ5Cz2sdI1/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/UZzLC/btsITjaOJye/wJ2z2EKnDFkC2N4DQqTpOk/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/duKIYQ/btsITRSrtmX/gTmqq68CGDwSeXqWl4r3AK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/drkXzX/btsIR2ntH7Z/Ewpr7PjQDiavI0UxvORjzk/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/d1uJhH/btsITf7kGvs/M18PZTHKri95w6lInFbPM0/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/ctutV7/btsIRdb2qxd/RVrVAGgDIc1IIEKDU0UTx0/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/Tvpo8/btsIRodxgDw/djtGWAFV92ns8apSRTGJO0/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/ScHJb/btsIRYMb7tb/qLI2NVhDkoQIONfbm2hV71/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/bgxmzE/btsIRe22UV0/jnLi21jPhZVt2GTB3Y7m3k/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/L4gkm/btsIScwIxqk/dMMEJdZHxGhM8UlGsEZu20/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/vqtlz/btsITtjXqbt/2Ly25BBcNNmAvetnoR8BgK/img.jpg" width=100%><br><br>
-
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FoMYGl%2FbtsI2wH2VS3%2FLbHeRJazkwaD7XqLc5xKIk%2Fimg.png" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/btSC64/btsIRytrfCm/w20XyKmE6kH6KzkVGkT6Q1/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/7kUTv/btsIQ1QmjVB/nYf1k34IdWbl9XDdKNtsjK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/oBz5X/btsIR0iXwUW/mNc9504nQf9nbIkm4vL8y1/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/HNqaZ/btsISdI5ZXX/m564HoH71rAAKC17TfOp70/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/qlHZE/btsIS7BC8qe/GWx2LpMsmVPkdSISWeHBkk/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/cmPZyO/btsITtjXrQ7/eYrUkxL65uR7EpVxYB1v91/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/cZD5K9/btsIS7n5dI9/eeqrKTnAykrCQNulf4OKf1/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/btEB0v/btsIRND7Eyn/B27r3j1oT5Kq7dyKSXu6W0/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/FGenS/btsITlfmy64/myBAuH3Cdyw4pYVFES1Mik/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/Qmfo1/btsIRgT5AHx/V2XNBIptHMSxkK6dxcuWIK/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/DngOq/btsIThKPlll/eKcsvNV8NGdQ38C6n7kSdK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/br95dP/btsISqaBVqp/HK7ONZyJL0QlGwg7PLKv8k/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/bfqWyb/btsIS7VW4Sr/ZfFoeAM4UYR7ROaX7RTQwk/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/bpGlWY/btsIQZZiItO/Vrtpw3BsQhYfeZyAgIVx9k/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/wweat/btsIQ1bMVnW/TwGk8rG6aUGHc5tbCiH5V1/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/b16KDx/btsIRmtfetn/Evp1wPL7tb1p0UB8hK5bUK/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/clCDjc/btsISKGIfKS/XCp9cpsYcWpKNZGqUvA061/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/cQpzfv/btsITuQGvYR/Wdx4VX5UkQrvOt4FMZ2P7K/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/bJJGJP/btsIRUXmG1F/2pv2nnQdxMMxsYbSVU2nEk/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/bqelpN/btsIRo5GfBh/hV48ChJOAWlShYZGD3vOd0/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/ZHTqn/btsITQeUB7I/kFUSjloHKbmh50KzS68yKK/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/bVSJ0W/btsISTQVvea/kA1VTcsQ6GTDsvTnFnhBuK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/coUV23/btsITuJVDeW/LWF8LXlX8Wjt7IovvAA3x1/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/cMFOjx/btsISbR4Lir/5AKQ7QHAaHsPwXJqeTPK1k/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/bdxWr2/btsIROJL9mc/CUsdvLGwgW3tOne60QVP8K/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/qp7ra/btsIRwbnm5K/OMTRqsY1dA3pqBm2klU720/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/bgbIML/btsITmyzkbb/agGs8VXKmeegO3wk5ph5g0/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/brYyMg/btsIS9sG91q/TghcYtjdjkB1p8VESqTe8k/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/dmzwSv/btsISdI56Ng/iUV9KsBeoPFNwbWnECbkr1/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/bUfKu9/btsITk1PHP7/LfAk08w6Q7dWKYd6BogQz1/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/bh8Ixd/btsISc4w5vb/CoH8sJX9cPwbrhYsROyND1/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/czPvuA/btsIQ0KI3BF/4KVDlOBPIJ2tnPp2Bklfn0/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/cfJSL8/btsIRdXm9Jt/RydPuhakkRm1CK9l47Oqv0/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/bW7WMq/btsIRXsW7rI/FRp2Gv0ermqTfaSLoR87X1/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/qcKtG/btsITiXfiLM/lyQduphH8py3xKlzgXFNn0/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/d9EprJ/btsIRO4abk1/IdpkBEy0yvnfGggpBQHxK1/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/oGPzl/btsISdbgiSj/7PxrDFeW1O2VKWSmg7QaFK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/cLgnHX/btsIQ3m5Wgh/Igw3EPuRkcNMGsYig2bzaK/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/dTVQxI/btsITUn3Vqa/Rdv8Q1oKRwnwca2YKQKKoK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/bsSQbi/btsISMLj1U6/XQ7HixjKaFJ3K1WA23kFYK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/bZcrFo/btsITwucOX6/6d7e3mRBmIzyqhhTTNnAKK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/bPz1fL/btsITSjt5LD/CC7kRBCMMJsoWrFj4WBySk/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/cTBcou/btsIRvpVPbd/HTnazOhFNy4bV6TBUDQNYK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/0CR55/btsISdoP2vW/CY0JFF5voikMe57VcrkRX1/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/btecE8/btsISpbJfcE/uncjJkN5eYHo98H4QU3to1/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/mMQ6B/btsIRMFegs7/jPfxKHtRoMZkXpokPVpLXK/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/oDLdh/btsISLeuDn9/Itdp49kWQaTelbGl35lylk/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/blSXA1/btsIRdQzjpR/PCdE2o9ikIFxzsYokvhxr0/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/caH06t/btsIRwWHTmp/WnC9yRct37coZRCSq0EqzK/img.jpg" width=100%><br><br><br>
-
-
-<img src="https://blog.kakaocdn.net/dn/bWvutw/btsITT3J1WK/bJgRWYEWyYcJBtLSNT463k/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/crUQ2D/btsIRdiKcxB/FmWnQeGB5lt1UOwXXEY0MK/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/JsEzL/btsIRMkXii7/CS2E4DxVLGsrgj0vGYYH91/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/b7GeST/btsITgSFUSQ/8rqGEA1JKb0QO2QCmt0Kuk/img.jpg" width=100%><br><br><br><br><br>
-
-
-
-<img src="https://blog.kakaocdn.net/dn/WfWOt/btsIRxaa9nM/5nKyZ6a5gLuxedny1sNqb1/img.jpg" width=100%><br><br>
-
-<img src="https://blog.kakaocdn.net/dn/QcwKC/btsIRgmipKL/3VbiEuT5uLpmlDlFLFysrK/img.jpg" width=100%>
 
 </td></tr></table>
 </div></form>
@@ -2680,11 +2709,11 @@ $(document).ready(function(){
     </button>
 
     <a href='javascript:music_Next()'>
-        <img src="http://cfile212.uf.daum.net/original/216420475636CD390D7829" height="50" title="다음 곡"><img src="http://cfile240.uf.daum.net/original/276B7A475636CD37064E0B" height="50" title="다음 곡">
+        <img src="https://i.imgur.com/mNMdXMC.png" height="50" title="다음 곡"><img src="https://i.imgur.com/TFw4TDC.png" height="50" title="다음 곡">
     </a>
 
     <a href='javascript:music_control()'>
-        <img id='music_button_img2' src="http://cfile231.uf.daum.net/original/2255B6475636CD34137768" height="50" title="일시 정지">
+        <img id='music_button_img2' src="https://i.imgur.com/TQFP08p.png" height="50" title="일시 정지">
         <input type="text" style="font-size: 16px; display:none;" id="music_button" value="start">
     </a>
   </div>
