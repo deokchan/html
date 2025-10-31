@@ -1,0 +1,657 @@
+﻿<html>
+<HEAD>
+    <TITLE>DHTML Real Time Image Editor</TITLE>
+</HEAD>
+<BODY onload="T();">
+<div id='divT1'>divT1</div>
+
+<STYLE type="text/css"> 
+body {BACKGROUND: pink url(''); margin:0 0 0 0; } 
+table { margin:0 0 0 0; border-spacing: 0px; vertical-align:top; } 
+tr { margin:0 0 0 0; border-spacing: 0px; } 
+td { border: 0px solid blue; font-family: 맑은 고딕,굴림; font-size:12px; margin:0px; vertical-align:top; text-align:center; padding:0px; border-spacing: 0px; } 
+td.l { font-family: 맑은 고딕,굴림; font-size:15px;margin:0 0 0 0; border-spacing: 0px; vertical-align:middle; text-align:left; padding:0px 0px 0px 10px; } 
+td.m { display:inline; font-family: 맑은 고딕,굴림; font-size:15px;margin:0 0 0 0; border-spacing: 0px; vertical-align:middle; text-align:center; padding:0px; } 
+.menu { display:inline; text-align:left; vertical-align:middle; } 
+.men { display:inline; float:left; text-align:left; vertical-align:middle; } 
+.blue { border:1px solid blue; }
+input.l { display:inline; float:left; font-family: 맑은 고딕,굴림; font-size:15px;margin:0 0 0 0; border-spacing: 0px; vertical-align:middle; text-align:center; padding:0px; } 
+input { height:20px; vertical-align:middle; text-align:center; padding:2px; }
+input[type='checkbox'] { width:20px; height:20px; vertical-align:middle; background-color:white; }
+input[type='text'] { height:20px; vertical-align: middle; overflow: visible; }
+.aa {display: none;}
+ 
+A:hover {color:#000000; text-decoration: underline}
+A:link {font-family: 맑은 고딕,굴림; font-size:14px; text-decoration: none}
+A:visited {font-family:  맑은 고딕,굴림; font-size:14px; text-decoration: none}
+</STYLE>
+ 
+<!-- script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/DHTML.js"></script //-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<SCRIPT> $('input[type=checkbox]').css({'margin':'0px','border':'3px solid blue'}); </SCRIPT> 
+
+<script language="JavaScript"> 
+function render() {
+    final.innerHTML = Real.txt.value;
+}
+
+// JPG 다운로드 함수 추가
+function downloadJPG() {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    
+    // 작업 영역 크기 계산
+    var maxW = 0, maxH = 0;
+    for (var i=1; i<=ea; i++) {
+        var urlS = document.getElementById("urlSelect" + i).value;
+        if (urlS.split("_")[0] != 0) {
+            var w1 = parseInt(document.getElementById("W1" + i).value) || 0;
+            var h1 = parseInt(document.getElementById("H1" + i).value) || 0;
+            var w2 = parseInt(document.getElementById("W2" + i).value) || 0;
+            var h2 = parseInt(document.getElementById("H2" + i).value) || 0;
+            var l = parseInt(document.getElementById("L" + i).value) || 0;
+            var t = parseInt(document.getElementById("T" + i).value) || 0;
+            
+            var imgW = (w2 > 1 || h2 > 1) ? w2 : w1;
+            var imgH = (w2 > 1 || h2 > 1) ? h2 : h1;
+            
+            var right = imgW + l;
+            var bottom = imgH + t;
+            maxW = Math.max(maxW, right);
+            maxH = Math.max(maxH, bottom);
+        }
+    }
+    
+    if (maxW === 0 || maxH === 0) {
+        alert('저장할 이미지가 없습니다.');
+        return;
+    }
+    
+    canvas.width = maxW;
+    canvas.height = maxH;
+    
+    // 배경색
+    var bgColor = document.getElementById("selColor").value;
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // 배경 이미지
+    var bgImg = document.getElementById("selBack").value;
+    
+    var loadedImages = 0;
+    var totalImages = 0;
+    
+    // 이미지 개수 세기
+    for (var i=1; i<=ea; i++) {
+        var urlS = document.getElementById("urlSelect" + i).value;
+        if (urlS.split("_")[0] != 0) {
+            totalImages++;
+        }
+    }
+    
+    if (totalImages === 0) {
+        alert('저장할 이미지가 없습니다.');
+        return;
+    }
+    
+    // 이미지 로드 및 그리기
+    for (var i=1; i<=ea; i++) {
+        var urlS = document.getElementById("urlSelect" + i).value;
+        if (urlS.split("_")[0] != 0) {
+            (function(idx) {
+                var imgURL = document.getElementById("hUR" + idx).value;
+                var w1 = parseInt(document.getElementById("W1" + idx).value) || 0;
+                var h1 = parseInt(document.getElementById("H1" + idx).value) || 0;
+                var w2 = parseInt(document.getElementById("W2" + idx).value) || 0;
+                var h2 = parseInt(document.getElementById("H2" + idx).value) || 0;
+                var l = parseInt(document.getElementById("L" + idx).value) || 0;
+                var t = parseInt(document.getElementById("T" + idx).value) || 0;
+                
+                var imgW = (w2 > 1 || h2 > 1) ? w2 : w1;
+                var imgH = (w2 > 1 || h2 > 1) ? h2 : h1;
+                
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+                img.onload = function() {
+                    ctx.drawImage(img, l, t, imgW, imgH);
+                    loadedImages++;
+                    
+                    if (loadedImages === totalImages) {
+                        // 모든 이미지 로드 완료, JPG 다운로드
+                        canvas.toBlob(function(blob) {
+                            var url = URL.createObjectURL(blob);
+                            var a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'composed_image_' + Date.now() + '.jpg';
+                            a.click();
+                            URL.revokeObjectURL(url);
+                        }, 'image/jpeg', 0.95);
+                    }
+                };
+                img.src = imgURL;
+            })(i);
+        }
+    }
+}
+
+// JPG 저장 버튼 추가 (상단 툴바에)
+setTimeout(function() {
+    var toolbar = document.querySelector("td[style*='width:50px']");
+    if (toolbar) {
+        var btnJPG = document.createElement('input');
+        btnJPG.type = 'button';
+        btnJPG.value = 'JPG저장';
+        btnJPG.style.cssText = 'cursor:hand; background-color:#ff4444; color:white; font-weight:bold; width:60px; height:24px; margin-left:5px;';
+        btnJPG.onclick = downloadJPG;
+        toolbar.appendChild(btnJPG);
+    }
+}, 500);
+
+</script>
+</BODY>
+</html> 
+
+<script type="text/javascript"> 
+/*
+// DHTML.js 내용 (인라인)
+var box1 = new Array();
+box1[0] = 'http://cfile236.uf.daum.net/original/2741323C5270D5A12128B0|가|4우드소|216|144'
+box1[1] = 'http://cfile234.uf.daum.net/original/2128563C5270D5A12CC792|가|4우드소|216|144'
+box1[2] = 'http://cfile203.uf.daum.net/original/250AF23C5270D5A132C6AD|가|4우드소|216|144'
+box1[3] = 'http://cfile220.uf.daum.net/original/2451583C5270D5A11B5A61|가|4우드소|216|144'
+box1[4] = 'http://cfile222.uf.daum.net/original/2615B83C5270D5A234B9A2|가|4우드소|216|144'
+
+var box2 = new Array();
+box2[0] = 'http://cfile216.uf.daum.net/original/2205654D5258EA7E0ACAA5|러브001|투명2|1171|684'
+box2[1] = 'http://cfile230.uf.daum.net/original/226E904E5258EA862F78B7|러브002|투명2|1074|738'
+box2[2] = 'http://cfile201.uf.daum.net/original/2310F5495258EC6808A0FB|러브002||1074|738'
+box2[3] = 'http://cfile202.uf.daum.net/original/2334FD485258EA8E03ED01|러브003|투명2|1280|638'
+box2[4] = 'http://cfile234.uf.daum.net/original/264B2B485258EA8F3912B2|러브003||1280|638'
+*/
+
+var ww = screen.width   
+var hh = screen.height  
+var hhh = 10000  
+var www = 10000  
+var w = 190                      
+var ea = 5   
+var preimgW = w - 20    
+var pageW = 50           
+ 
+var n
+function MenuChk() {
+        n = document.getElementById("eNo").value
+        if ( document.getElementById("chkMenu" + n ).checked == true ) {  
+             document.getElementById("openMenu" + n).style.display = ""
+             document.getElementById("urlBox" + n).style.display = ""
+       } else {
+             document.getElementById("openMenu" + n).style.display = "none"
+             document.getElementById("urlBox" + n).style.display = "none"
+       }
+}
+
+var mm
+var table1
+function T() {
+var No = 1
+
+var t1 = "<center><table bgcolor=pink height=10000px width=100% border=0 margin=0 cellpadding=0 cellspacing=0><tr><td width=" + w + ">"
+
+           + "<table bgcolor=pink height=100px border=0 margin=0 cellpadding=0 cellspacing=0 align=left><tr><td height=100px>"
+           + "<form name='f'><div id='divTable'>divTable</div></form></td></tr><tr><td height=300px>"
+
+           + "<form name='Real'><br>"
+           + "<INPUT type='button' name='Clear'  title='Tag All Clear' value='새로 쓰기' style='cursor:hand; width:64px;' onclick='ClearText(this.form)'>"
+           + "<INPUT TYPE='button' NAME='View_Full' title='Preview New Window Full' VALUE='Full 화면' style='cursor:hand; width:62px;' onClick='preview_full(Real.txt.value)'>"
+           + "<input type='button' title='Copy Source' value='소스 복사' style='cursor:hand; width:64px;' onClick='HighlightAll(\"Real.txt\")'>"
+           + "<textarea name='txt' style='width:100%; height: 200px; margin: 3 0 0 0' id='txt' onkeyup='render()' onChange='render()'>"
+           + "</textarea></form> <div id='test1'></div>"
+           + "</td></tr></table>  </td>"
+
+           + "<td width=1px bgcolor=tomato></td>"
+           + "<td style='width:2600px; height: 10000px; margin:0px; padding:0px; border-spacing: 0px;' bgcolor=pink align=left>"
+
+           + "<table style='width:1200px; height: 10px; margin: 0px; word-wrap:break-word;word-break:break-all;' border=0 bordercolor=red bgcolor=pink>"
+           + "<tr><td style='width:50px; margin:0'>"
+           + "<input type='text' style='background-color:white; width:20px;' value='' id='eNo' name='eNo'> "
+           + "<Input type=button value='완료' onclick='imgEnd(); preview_full(Real.txt.value);' style='cursor:hand; background-color:red; color:white; font-weight:bold; width:40px; height:24px;'></td>"
+
+           + "<td class='m' style='width:55px; margin:0 0 0 0'>"
+           + "BC:<input type='text' id='selColor' name='selColor' value='#ffffff' style='background-color:white; width:52px;' onclick='BcChk(91)'></td>"
+
+           + "<td class='m' style='width:55px; margin:0 0 0 0'>"
+           + " BG:<input type='text' id='selBack' value='' style='background-color:white; width:40px;' onclick='bkLoad(91)'>"
+           + "<input type='text' name='backNo' value='' style='display:none;'></td>"
+
+           + "<td class='m' style='width:70px; margin:0 0 0 0'>"
+           + "L :<input type='text' id='LL' value='0' style='background-color:white; width:30px; text-align:right;'>" 
+           + " T:<input type='text' id='TT' value='0' style='background-color:white; width:30px; text-align:right;'></td>" 
+
+           + "<td class='m' style='width:30px; margin:0px'>"
+           + "G:<input type='checkbox' id='chkGD' style='background-color:white'  value=''></td>"
+           + "</tr></table>"
+
+           + "<table style='width:100%; height: 1px; margin: 0px 0px 0px 0px' cellpadding=0 cellspacing=0 bgcolor=tomato></td></tr><tr><td>"
+           + "</td></tr></table>"
+
+           + "<table style='width:" + (www-80) + "px ; height:" + (hhh) + "px; padding:0px; border-spacing: 0px; margin: 0px 0px 0px 0px;' bgcolor=white border=5 bordercolor=gray ><tr><td>"
+           + "<div id='final' style='width:" + (www-80) + "px; height:" + (hhh) + "px; padding:0px; border-spacing: 0px; margin: 0px; text-align:left;' scrolling=yes allowtransparency='true'>"
+           + "</div></td></tr></table>"
+
+           + "</td></tr></table></center>"
+
+           document.getElementById("divT1").innerHTML = t1
+
+ mm = " ※ 사진 최대 크기 (권장) : <b>가로 - <font color=red>" + (ww-80) + "</font> 세로 - <font color=red>" + (hh-74) + "</font></b>"
+
+var tt2 = ""
+for (var i=1;i<=ea;i++) {
+
+var t2 = "<span class='box_'" + i + " value='" + i + "'  onMousedown='spanNo(this)' >"
+           + "<table style='width:" + w + "px;margin:0px' border=1 bordercolor=red cellspacing=0 cellpadding=0><tr>"
+           + "<td style='width:160px; height:75px; vertical-align: middle;' align=left cellspacing=0 cellpadding=0 bgcolor=gold onClick='imgEnd();'>"
+           + "<div id='preIMG" + i + "'>preIMG</div>"
+           + "</td><td  style='width:20px;' cellspacing=0 cellpadding=0 bgcolor=pink>"
+           + "<input type='text'  style='background-color:white; width:18px; text-align:center' value='" + i + "' id='iNo" + i + "'>" 
+           + "<input type='checkbox' id='chkMenu" + i + "' onClick='MenuChk()'>"
+           + "</td></tr></table>"
+
+           + "<div style='display:none' id='openMenu" + i + "'>"
+           + "<table style='width:" + w + "px; margin:0px' border=1 bordercolor=blue cellspacing=0 cellpadding=0><tr valign=center>"
+           + "<td colspan=2 style='width:" + w + "px; margin:0px'>"
+           + "<div id='ur" + i + "'></div>"
+           + "</td></tr><tr><td colspan=2 style='width:" + w + "px; margin:0px'>"
+           + "W1: <input type='text' style='background-color:white; width:40px;' value='0' id='W1" + i + "'> " 
+           + "H1: <input type='text' style='background-color:white; width:40px;' value='0' id='H1" + i + "'> "
+           + "</td></tr><tr><td  colspan=2>"
+           + "W2 : <input type='text'  onChange='reW()' style='color:red; background-color:white; width:40px;' value='' id='W2" + i + "'> "
+           + "H2 : <input type='text'  onChange='reH()' style='color:red; background-color:white; width:40px;' value='' id='H2" + i + "'>"
+           + "</td></tr><tr><td style='width:100px; margin:0px'>"
+           + "L :<input type='text' style='background-color:white; width:34px;' value='0' id='L" + i + "'> "
+           + "T :<input type='text' style='background-color:white; width:34px;' value='0' id='T" + i + "'>"
+           + "</td></tr></table>"
+
+           + "<table style='display:none' id='urlBox" + i + "' style='width:" + (w-8) + "px; height:19px; margin:0px' border=1 bordercolor=violet cellspacing=0 cellpadding=0>"
+           + "<tr valign=center><td style='width:" + w + "px; margin:0px'>"
+           + " <input type='text' id='hUR" + i + "' value='hUR' style='width:100%; display:none;'><div style='width:100%; display:none;' id='url" + i + "'>url</div>"
+           + "</td></tr></table></div></span>"
+           tt2 = tt2 + t2
+  }
+           divTable.innerHTML = tt2
+
+for ( var i=1; i<=ea; i++) {
+       var tag1 = "<SELECT id='urlSelect" + i 
+       var tag2 = "' onChange='urlLoad(value)' style='WIDTH: 100%; HEIGHT: 19px'> <OPTION SELECTED VALUE='0_" + i + "'>▒▒ 선택 없슴 ▒▒</OPTION>"
+                       + "<OPTION VALUE='1_" + i + "'>사진 (http://) 낱장<br>"
+                       + "<OPTION VALUE='3_" + i + "'>사진 (C:\\)<br>"
+                       + "<OPTION VALUE='4_" + i + "'>액자 고르기<br>"
+                       + "</SELECT>"
+      document.getElementById("ur" + i).innerHTML = tag1 + tag2
+   }
+}
+
+function urlLoad(urlN) {
+           n = document.getElementById("eNo").value
+           document.getElementById("urlBox" + n).style.display = ""
+           Sel = urlN.split("_")[0]
+           No =  urlN.split("_")[1]
+
+        if ( Sel == 0 ) {  
+             document.getElementById("urlBox" + n).style.display = "none"
+             document.getElementById("url" + n).style.display = "none"
+       } else {
+             document.getElementById("urlBox" + n).style.display = ""
+             document.getElementById("url" + n).style.display = ""
+       }
+
+ switch(Sel) {
+ case "0" :
+           document.getElementById("urlSelect" + n).style.backgroundColor = 'white'
+           document.getElementById("preIMG" + n).innerHTML = ""
+           document.getElementById("url" + n).innerHTML = ""
+           document.getElementById("W1" + n).value = "0"
+           document.getElementById("H1" + n).value = "0"
+           document.getElementById("W2" + n).value = "0"
+           document.getElementById("H2" + n).value = "0"
+           document.getElementById("L" + n).value = "0"
+           document.getElementById("T" + n).value = "0"
+           Real.txt.value = "없슴"
+           render();
+           break;
+
+ case "1" :
+           document.getElementById("url" + n).innerHTML = ""
+           document.getElementById("urlSelect" + n).style.backgroundColor = 'wheat'
+           temp1 = "<input type='text'  style='background-color:wheat; width:" + (w-14) + ";' id='http" + n + "' onChange='preIMG(Sel, n, value)'>"
+           document.getElementById("url" + n).innerHTML = temp1
+           break;
+
+ case "3" :
+          document.getElementById("url" + n).innerHTML = ""
+          document.getElementById("urlSelect" + n).style.backgroundColor = '#ccffcc'
+          temp1 = "<input type='file' style='background-color:skyblue; width:" + preimgW + "; height:20px' value='' class='aa' id='file"  
+                      + n + "' onChange='preIMG(Sel, n, value)'>"
+                      + "<input type='text' style='background-color:#ccffcc; text-align:right; width:" + preimgW + "px;' id='file2"
+                      + n + "'value='' onclick=\"document.getElementById('file" + n + "').click();\">" 
+          document.getElementById("url" + n).innerHTML = temp1
+          break;
+      
+ case "4" :
+          document.getElementById("url" + n).innerHTML = ""
+          document.getElementById("urlSelect" + n).style.backgroundColor = '#ffccff'
+          boxLoad(n)
+          break;
+
+ default : 
+           break;
+   }
+}
+
+function spanNo(obj) {
+       No = obj.getAttribute('value');
+       n = document.getElementById("eNo").value = No
+ }
+
+function preIMG(Sel, No, imgURL) {    
+      if ( Sel == 3 ) {
+            var fileInput = document.getElementById("file" + No);
+            var file = fileInput.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    imgURL = e.target.result;
+                    document.getElementById("file2" + No).value = file.name;
+                    document.getElementById("hUR" + No).value = imgURL;
+                    loadImageData(No, imgURL);
+                }
+                reader.readAsDataURL(file);
+                return;
+            }
+       }
+
+      document.getElementById("hUR" + No).value = imgURL
+      loadImageData(No, imgURL);
+}
+
+function loadImageData(No, imgURL) {
+    var img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = function() {
+        var w = img.width;
+        var h = img.height;
+        document.getElementById("W1" + No).value = w;
+        document.getElementById("H1" + No).value = h;
+        
+        var w2 = document.getElementById("W2" + No);
+        var h2 = document.getElementById("H2" + No);
+        w2.value = "";
+        h2.value = "";
+        
+        var ratio = 75 / h;
+        var imgW = Math.floor(w * ratio);
+        
+        if (imgW > preimgW) {
+            var temp = '<img src="' + imgURL + '" width=' + preimgW + ' style="cursor:hand">';
+        } else {
+            var temp = '<img src="' + imgURL + '" height=75 style="cursor:hand">';
+        }
+        
+        document.getElementById("preIMG" + No).innerHTML = temp;
+        Real.txt.value = "<body bgcolor='#ffff99' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' style='margin:0px; padding:0px'> <img src='" + imgURL + "' width=" + w + " height=" + h + ">";
+        render();
+        $("#selColor").val('#ffff99');
+        $("#selColor").css("background-color", '#ffff99');  
+        $("#final").css("background-color", '#ffff99');
+        // preview_full() 제거
+    }
+    img.src = imgURL;
+}
+
+/*
+function boxLoad(No) { 
+    win_box = window.open('','box','width=800, height=600,left=100,top=100, scrollbars=1, resizable=1');
+    var html = "<html><head><meta charset='UTF-8'><title>액자 고르기</title>";
+    html += "<style>";
+    html += "body{font-family:맑은 고딕;padding:10px;background:#f5f5f5;margin:0;}";
+    html += ".category{margin-bottom:15px;background:white;padding:10px;border-radius:5px;}";
+    html += ".category h3{color:#333;margin:0 0 10px 0;padding:5px;background:#e0e0e0;}";
+    html += ".frame-grid{display:flex;flex-wrap:wrap;gap:8px;}";
+    html += ".frame-item{cursor:pointer;border:3px solid #ddd;padding:5px;background:white;width:140px;height:140px;display:flex;align-items:center;justify-content:center;}";
+    html += ".frame-item:hover{border-color:#0066ff;background:#f0f8ff;}";
+    html += ".frame-item img{max-width:130px;max-height:130px;object-fit:contain;}";
+    html += "</style>";
+    html += "</head><body>";
+    
+    html += "<div class='category'><h3>액자</h3><div class='frame-grid'>";
+    for(var i=0; i<box1.length; i++) {
+        var parts = box1[i].split('|');
+        var url = parts[0];
+        var w = parts[3];
+        var h = parts[4];
+        html += "<div class='frame-item' onclick=\"window.opener.selectFrame(" + No + ",'" + url + "'," + w + "," + h + ",'액자_" + (i+1) + "');window.close();\"><img src='" + url + "'></div>";
+    }
+    html += "</div></div>";
+    
+    html += "<div class='category'><h3>러브</h3><div class='frame-grid'>";
+    for(var i=0; i<box2.length; i++) {
+        var parts = box2[i].split('|');
+        var url = parts[0];
+        var w = parts[3];
+        var h = parts[4];
+        html += "<div class='frame-item' onclick=\"window.opener.selectFrame(" + No + ",'" + url + "'," + w + "," + h + ",'러브_" + (i+1) + "');window.close();\"><img src='" + url + "'></div>";
+    }
+    html += "</div></div>";
+    
+    html += "</body></html>";
+    win_box.document.write(html);
+    win_box.document.close();
+}
+*/
+
+function boxLoad(No) { 
+             win_box = window.open('https://deokchan.github.io/html/BoxSelect_img.html','box','width=318, height=' + ww + ',left=0,top=0, scrollbars=1, resizable=1');    //620, 570 200620 수정
+             win_box.a.chkNo.value = No
+//             document.getElementById("backNo").value = No
+}
+
+window.previewFrame = function(No, url, w, h) {
+    document.getElementById("hUR" + No).value = url;
+    document.getElementById("W1" + No).value = w;
+    document.getElementById("H1" + No).value = h;
+    // imgEnd()
+    // imgEnd()에서 preview_full 호출하지 않도록 수정했으므로 여기서도 제거
+}
+
+window.selectFrame = function(No, url, w, h, name) {
+    document.getElementById("hUR" + No).value = url;
+    document.getElementById("W1" + No).value = w;
+    document.getElementById("H1" + No).value = h;
+    document.getElementById("chkMenu" + No).checked = true;
+    MenuChk();
+    // imgEnd()
+    // 선택 시에도 imgEnd() 호출하지 않음 (사용자가 완료 버튼 누를 때만)
+}
+
+function reW() {
+       n = document.getElementById("eNo").value
+var w1 = document.getElementById("W1" + n)
+var h1 = document.getElementById("H1" + n)
+var w2 = document.getElementById("W2" + n)
+var h2 = document.getElementById("H2" + n)
+
+ if (w1.value > 1 || h1.value > 1) {
+     var ratioO = w2.value / w1.value;
+            h2.value = Math.round(h1.value * ratioO);
+     }
+ if (w2.value < 1 || h2.value < 1) {
+     w2.value = "" ; h2.value = "";
+     }
+}
+ 
+function reH() {
+       n = document.getElementById("eNo").value
+var w1 = document.getElementById("W1" + n)
+var h1 = document.getElementById("H1" + n)
+var w2 = document.getElementById("W2" + n)
+var h2 = document.getElementById("H2" + n)
+
+ if (w1.value > 1  || h1.value > 1) {
+      var ratioO = h2.value / h1.value;
+             w2.value = Math.round(w1.value * ratioO);
+     }
+ if (w2.value < 1 || h2.value < 1) {
+     w2.value = "" ; h2.value = "";
+     }
+}
+
+function imgEnd() {
+var eaIMG = ""
+var hapIMG = ""
+var imgW, imgH
+eaL = 0; eaT = 0; TLL = 0; TTT = 0
+
+for (var i=1; i<=ea; i++) {
+       var urlS = document.getElementById("urlSelect" + i).value
+
+       if ( urlS.split("_")[0] == 0 ) {
+             eaIMG = ""
+       } else {
+             var imgURL = document.getElementById("hUR" + i).value
+             var w1 = parseInt(document.getElementById("W1" + i).value)
+             var h1 = parseInt(document.getElementById("H1" + i).value)
+             var w2 = parseInt(document.getElementById("W2" + i).value)
+             var h2 = parseInt(document.getElementById("H2" + i).value)
+
+             if ( w2 > 1 || h2 > 1 ) {
+                   imgW = w2 ; imgH = h2 ;
+                   var imgZ = ' width:' + w2 + 'px; height:' + h2 + 'px;'
+                   var imgF = ' width=' + w2 + ' height=' + h2 + ' '
+             } else {
+                   imgW = w1 ; imgH = h1 ;
+                   var imgZ = ' width:' + w1 + 'px; height:' + h1 + 'px;'
+                   var imgF = ' width=' + w1 + ' height=' + h1 + ' '
+             } 
+
+            var l = parseInt(document.getElementById("L" + i).value)
+            var t = parseInt(document.getElementById("T" + i).value)
+            if ( isNaN(l) ) { l = 0 }
+            if ( isNaN(t) ) { t = 0 }
+                  
+            var zindex1 = "style='Z-INDEX:" + i + "; POSITION: absolute; TOP:" + t + "px; LEFT:" + l + "px;" + imgZ + "'"
+
+            eaL = imgW + l; eaT = imgH + t
+            if ( eaL > TLL ) { TLL = eaL } ; if ( eaT > TTT ) { TTT = eaT } 
+
+            eaIMG = '<img src="' + imgURL + '"' + imgF + zindex1 + '>'
+           hapIMG = hapIMG + eaIMG
+    }
+  }
+
+      var  bColor = document.getElementById("selColor").value
+      var  Back = document.getElementById("selBack").value
+
+      var zt = parseInt(document.getElementById("TT").value)
+      var zl = parseInt(document.getElementById("LL").value)
+      if ( isNaN(zt) ) { zt = 0; }
+      if ( isNaN(zl) ) { zl = 0; }
+                     
+      var Tindex1 = "<div style='POSITION: relative; TOP:" + zt + "px; LEFT:"  + zl + "px;'>"
+      var back5 = "</div>"
+
+     var  back1 = "<body style='BACKGROUND:"
+     var  back2 = " url("
+     var  back3 = ") repeat left top; "
+     var  back4 = "'>"
+
+     var bgSel = Tindex1 + back1 + bColor + back2 + Back + back3 + back4
+     
+     Real.txt.value =  bgSel + hapIMG + back5
+     render();
+
+     // Full 창이 열려있으면 자동 업데이트
+     if (preWindow && !preWindow.closed) {
+         preview_full(Real.txt.value);
+     }
+}
+
+function BcChk(cNo) {
+     var col = prompt("배경색을 입력하세요 (예: #ff0000, red):", "#ffffff");
+     if (col) {
+         changeColor(col);
+     }
+}
+
+function changeColor(col) {
+     $("#selColor").val(col);
+     $("#selColor").css("background-color", col);  
+     $("#final").css("background-color", col);
+}
+
+function bkLoad(gNo) {
+     var url = prompt("배경 이미지 URL을 입력하세요:", "");
+     if (url) {
+         changeBack(1, gNo, url);
+     }
+}
+
+function changeBack(ox, selNo, col) {
+     if (ox == 1) {
+         $("#selBack").val(col);
+         document.getElementById("final").style.backgroundImage = "url(" + col + ")";
+     }
+}
+
+function ClearText(form) {
+        Real.txt.value = "";
+        render();
+        return;
+}
+ 
+
+var preWindow = null;  // 전역 변수로 선언
+
+function preview_full(temp) {
+     if (preWindow && !preWindow.closed) {
+         // 기존 창이 열려있으면 재사용
+         preWindow.document.open();
+         preWindow.document.write(temp);
+         preWindow.document.close();
+     } else {
+         // 창이 없거나 닫혀있으면 새로 열기
+         preWindow = window.open("", "full_window",'width=' + (ww-5) + ', height=' + (hh-60) + ',left=0,top=0,scrollbars=yes,resizable=yes');
+         preWindow.document.open();
+         preWindow.document.write(temp);
+         preWindow.document.close();
+     }
+}
+
+
+function HighlightAll(theField) {
+ var tempval=eval("document."+theField);
+ tempval.focus();
+ tempval.select();
+       therange=tempval.createTextRange();
+       therange.execCommand("Copy");
+       alert("소스가 복사되었습니다.\n소스를 사용하고 싶은 곳에 붙여넣기( Ctrl + V ) 해서 사용하세요.");
+}
+
+function Left(str, n){
+if (n <= 0)
+    return "";
+else if (n > String(str).length)
+    return str;
+else
+    return String(str).substring(0,n);
+}
+
+function Right(str, n){
+    if (n <= 0)
+       return "";
+    else if (n > String(str).length)
+       return str;
+    else {
+       var iLen = String(str).length; 
+       return String(str).substring(iLen, iLen - n);
+    }
+}
+</script>
