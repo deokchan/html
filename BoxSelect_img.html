@@ -1,0 +1,277 @@
+﻿<html><head><title>배경이미지 미리보기</title>
+<META NAME="ROBOTS" CONTENT="No2INDEX, No2FOLLOW">
+<!-- link rel='stylesheet' href='mylist.css' type='text/css' //-->
+<STYLE type="text/css">
+body {background:white url("") repeat-x fixed right bottom}
+A:hover {color:red; text-decoration: none}
+A:link {font-family: 굴림; font-size:8px; text-decoration: none}
+A:visited {font-family: 굴림; font-size:0px; text-decoration: none}
+INPUT.UP {BACKGROUND-COLOR: #FFCCFF; BORDER-BOTTOM: #6699ff 1px solid; BORDER-LEFT: #6699ff 1px solid; BORDER-RIGHT: #6699ff 1px solid; BORDER-TOP: #6699ff 1px solid; COLOR: black; FONT-SIZE: 9pt; HEIGHT: 20px; size: 30}
+TEXTAREA {BACKGROUND-COLOR: white; BORDER-BOTTOM: #6699ff 1px solid; BORDER-LEFT: #6699ff 1px solid; BORDER-RIGHT: #6699ff 1px solid; BORDER-TOP: #6699ff 1px solid; COLOR: black; FONT-SIZE: 9pt; margin:0px; padding:2px; cellspacing:0px; }
+BODY { scrollbar-3dlight-color:#FFCCFF;scrollbar-arrow-color:#9900FF;
+scrollbar-track-color:#FFFFFF;scrollbar-darkshadow-color:#9900FF;
+scrollbar-face-color:#FFCCFF;scrollbar-highlight-color:#FFFFFF;scrollbar-shadow-color:#9966FF}
+body, table, form { margin:0px; padding:0px; }
+</STYLE>
+
+<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/DHTML.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script language='JavaScript'> 
+var ww = screen.width   //모니터 가로 크기
+var hh = screen.height  //모니터 세로 크기
+var w = 50                      // 이미지 당 가로너비
+var h = 50                      // 이미지 당 세로너비
+var ea = 5                      // 1줄 당 이미지 갯수 : 10, 200620 수정.
+//var ea = Math.floor((ww-80) / w)   //박스 갯수
+var tw = w * ea
+var preimgW = w - 2    //사진 미리보기 가로 너비
+
+var Sel
+var No2
+var SelNo
+var bName = ""
+var temp1 = " No : <INPUT type='text' style='width:30;height:20;font-size:9pt;font-family:맑은 고딕;text-valign:middle'  id='chkNo' value='No'>"
+                   + " bNo : <INPUT type='text' style='width:30;height:20;font-size:9pt;font-family:맑은 고딕;text-valign:middle'  id='chkNo2' value='Box'>"
+
+function T() {
+
+          var tag1 = "<SELECT NAME='Box1Select' onChange='box1Load(value)' style='color:black; background-color:#ffccff; WIDTH:60px; HEIGHT: 20px'>"
+                          + "<OPTION SELECTED VALUE='0_없슴'>선택</OPTION>"
+          var tag3 = "</SELECT>"
+          for (var j=1 ; j <= BoxSel0.length ; j++) {
+                  bName = BoxSel0[j-1]
+                  var tag2 = tag2 + '<OPTION VALUE=' + j + '_' + bName + '>' + bName + ' <br>'
+                 }
+         document.getElementById("Box").innerHTML = tag1 + tag2 + tag3
+         document.getElementById("No22").innerHTML = temp1
+       //Box.innerHTML = tag1 + tag2 + tag3
+       //No2.innerHTML = temp1
+       //SelNo = opener.document.getElementById("backNo").value
+       //document.a.chkNo.value = SelNo = opener.document.getElementById("backNo").value
+}
+
+var L 
+function box1Load(value){
+          No2 = value.split("_")[0]
+          bName = value.split("_")[1] 
+   document.a.chkNo2.value = No2
+   var SelBox = 'box' + No2
+   var result = new Array();
+   var n1, n2, tmp
+   var tag2 = "" 
+   var tag1 = "<SELECT NAME='backSel' onChange='B(No2);'  style='background-color:#ccffcc; WIDTH:80px; HEIGHT: 20px'> <OPTION SELECTED VALUE=''> ▒▒ " + bName + " 선택 ▒▒ </OPTION>"
+   var tag3 = "</SELECT>"
+
+ switch(SelBox) { //box 유형의 값에 따라 
+ case "box1" :     // 액자
+           L = box1.length-1
+           break;
+
+ case "box2" :     // 러브
+           L = box2.length-1
+           break;
+
+ case "box3" :     // DIV
+           L = box3.length-1
+           break;
+
+ case "box4" :     // 필터
+           L = box4.length-1
+           break;
+
+ case "box5" :     // 하트
+           L = box5.length-1
+           break;
+
+ case "box6" :     // 동물
+           L = box6.length-1
+           break;
+
+ case "box7" :     // 과일
+           L = box7.length-1
+           break;
+
+ case "box8" :      // 꽃잎
+           L = box8.length-1
+           break;
+
+ case "box9" :     // 사람
+           L = box9.length-1
+           break;
+
+ case "box10" :     // 소품
+           L = box10.length-1
+           break;
+
+ case "box11" :    // SWF
+           L = box11.length-1
+           break;
+
+ default : 
+            document.getElementById("selBOX").innerHTML = "오류"
+            break;
+      }
+
+var n = Math.ceil( L / ea )
+var m = Math.ceil( L / 100)    // 200628 수정
+/*
+var n = Math.floor( L / ea )
+var m = Math.floor( L / 100)    // 200620 수정
+*/
+
+for ( var i = 1 ; i <= m ; i++ ) {
+         if ( i == 1 ) { n1 = i } else { n1 =  (i  - 1) * 100 + 1 }
+         if ( i == m ) { n2 = L } else { n2 =  i * 100 }
+         tmp = n1 + '~' +  n2
+         tag2 = tag2 + '<OPTION VALUE=' + tmp + '>' +  tmp + ' <br>'
+       } 
+      document.getElementById("selBOX").innerHTML = tag1 + tag2 + tag3
+}
+
+
+var tmp1 = "<div style='width:305; height:1200; overflow:auto' class='bgimages'>"   // onmouseover='show()' 
+                 + "<table border=1 bordercolor=cornflowerblue borderlight=red cellpadding=0 cellspacing=2> <tr>"
+var tmp2 = "</table></div><br><br><div id='test'>test</div>"
+
+function B(No) {
+var result2 = new Array();
+var Sel = document.a.backSel.value
+       result2 = stringSplit(Sel, "~"); 
+var Sel1 = result2[0]
+var Sel2 = result2[1]
+var k = Sel1
+var imgTotal = ""
+var imgURL, imgAlt, imgEa
+var re = ""
+var nn = Math.floor(Sel1) - 1
+
+ //     bT.innerHTML = Sel1 + " " + Sel2
+
+for ( var j = 1 ; j <= 20 ; j++ ) {            // 세로 줄 수 10, 200620 수정
+        for ( var i = 1 ; i <= 6 ; i++ ) {     // 11
+              if ( i == 6 ) {                     // 11
+                 imgEa = "<td style='text-align:right;' width=20>" + no2 + "</td></tr><tr>"
+                 nn = no2
+                 } else {
+                   var no2 = nn + i 
+                   if ( k >= L) {
+                       imgEa = "<td width=50>없슴" + "</td>"
+                   } else {
+switch(No) { //box 유형의 값에 따라 
+ case "1" :     // 액자
+           result = stringSplit(box1[k], "|"); 
+           break;
+ case "2" :     // 러브
+           result = stringSplit(box2[k], "|"); 
+           break;
+ case "3" :     // DIV
+           result = stringSplit(box3[k], "|"); 
+           break;
+ case "4" :     // 필터
+           result = stringSplit(box4[k], "|"); 
+           break;
+ case "5" :     // 하트
+           result = stringSplit(box5[k], "|"); 
+           break;
+ case "6" :     // 동물
+           result = stringSplit(box6[k], "|"); 
+           break;
+ case "7" :     // 과일
+           result = stringSplit(box7[k], "|"); 
+           break;
+ case "8" :     // 꽃잎
+           result = stringSplit(box8[k], "|"); 
+           break;
+ case "9" :     // 사람
+           result = stringSplit(box9[k], "|"); 
+           break;
+ case "10" :     // 소품
+           result = stringSplit(box10[k], "|"); 
+           break;
+ case "11" :     // SWF
+           result = stringSplit(box11[k], "|"); 
+           break;
+}
+           imgURL = result[0]
+          // var w = result[3]
+          // var h = result[4]
+           imgAlt = no2 + ". " + result[1] + " " + result[2] + " " + result[3] + " X " + result[4]
+
+          imgEa = "<td width=50><img onmouseover='javascript:show(this);' onClick='javascript:boxEnd(this);' src=" + imgURL + " width=50 height=50 border=0 style='cursor:hand' title='" + imgAlt + "'></td>"
+                        }
+                   k++
+                  }
+                  imgTotal = imgTotal + imgEa
+              }
+      }
+
+      bT.innerHTML = tmp1 + imgTotal + tmp2
+}
+
+     var boxW
+     var boxX
+
+function show(obj){ 
+     var No = document.a.chkNo.value
+     var bNo = document.a.chkNo2.value
+     var url = obj.src;
+     var w = obj.naturalWidth;
+     var h = obj.naturalHeight;
+     opener.changeBack3(bNo, No, url, w, h)
+     test.innerHTML = url  
+} 
+
+function boxEnd(obj) {
+     var No = document.a.chkNo.value
+     var bNo = document.a.chkNo2.value
+     var url = obj.src;
+     var w = obj.naturalWidth;
+     var h = obj.naturalHeight;
+
+     test.innerHTML = url  
+     opener.changeBack4(bNo, No, url, w, h)
+     self.close()
+}
+
+function selBack() {
+    self.close() 
+}
+
+function stringSplit(strData, strIndex){  // 문자열 배열 나누기 함수
+ var stringList = new Array(); 
+ while(strData.indexOf(strIndex) != -1){
+  stringList[stringList.length] = strData.substring(0, strData.indexOf(strIndex)); 
+  strData = strData.substring(strData.indexOf(strIndex)+(strIndex.length), strData.length); 
+  } 
+ stringList[stringList.length] = strData; 
+ return stringList; 
+}
+
+</script> 
+</head>
+
+<STYLE>
+BODY { scrollbar-3dlight-color:#FFCCFF;scrollbar-arrow-color:#9900FF;
+scrollbar-track-color:#FFFFFF;scrollbar-darkshadow-color:#9900FF;
+scrollbar-face-color:#FFCCFF;scrollbar-highlight-color:#FFFFFF;scrollbar-shadow-color:#9966FF;}
+</STYLE>
+
+<body onload='T()' bgcolor=white style='margin:0'>
+
+<form name=a>
+<table border=1 bordercolor=blue width=305 height=20><tr><td width=30>
+<div id='Box'> Box </div>
+</td><td>
+<div id='selBOX'> selBOX </div>
+</td><td>
+<div id='No22'>No22</div> 
+</td></tr></table>
+<div id='bT'>↑ 위 [선택]을 선택하세요 !!! </div>
+<div id='preBox'>preBox</div>
+</form>
+
+</body>
+</html>
+
+
