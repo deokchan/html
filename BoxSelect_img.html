@@ -31,6 +31,8 @@ var Sel
 var No2
 var SelNo
 var bName = ""
+
+/*
 var temp1 = " No : <INPUT type='text' style='width:30;height:20;font-size:9pt;font-family:맑은 고딕;text-valign:middle'  id='chkNo' value='No'>"
                    + " bNo : <INPUT type='text' style='width:30;height:20;font-size:9pt;font-family:맑은 고딕;text-valign:middle'  id='chkNo2' value='Box'>"
 
@@ -49,6 +51,28 @@ function T() {
        //No2.innerHTML = temp1
        //SelNo = opener.document.getElementById("backNo").value
        //document.a.chkNo.value = SelNo = opener.document.getElementById("backNo").value
+}
+*/
+
+function T() {
+    // URL에서 No 값 가져오기
+    var urlParams = new URLSearchParams(window.location.search);
+    var noValue = urlParams.get('no') || '1';
+    
+    var tag1 = "<SELECT NAME='Box1Select' onChange='box1Load(value)' style='color:black; background-color:#ffccff; WIDTH:60px; HEIGHT: 20px'>"
+                + "<OPTION SELECTED VALUE='0_없슴'>선택</OPTION>"
+    var tag3 = "</SELECT>"
+    for (var j=1 ; j <= BoxSel0.length ; j++) {
+        bName = BoxSel0[j-1]
+        var tag2 = tag2 + '<OPTION VALUE=' + j + '_' + bName + '>' + bName + ' <br>'
+    }
+    document.getElementById("Box").innerHTML = tag1 + tag2 + tag3
+    
+    // No 값 설정
+    var temp1 = " No : <INPUT type='text' style='width:30;height:20;font-size:9pt;font-family:맑은 고딕;text-valign:middle' id='chkNo' value='" + noValue + "'>"
+              + " bNo : <INPUT type='text' style='width:30;height:20;font-size:9pt;font-family:맑은 고딕;text-valign:middle' id='chkNo2' value='Box'>"
+    
+    document.getElementById("No22").innerHTML = temp1
 }
 
 var L 
@@ -115,10 +139,6 @@ function box1Load(value){
 
 var n = Math.ceil( L / ea )
 var m = Math.ceil( L / 100)    // 200628 수정
-/*
-var n = Math.floor( L / ea )
-var m = Math.floor( L / 100)    // 200620 수정
-*/
 
 for ( var i = 1 ; i <= m ; i++ ) {
          if ( i == 1 ) { n1 = i } else { n1 =  (i  - 1) * 100 + 1 }
@@ -149,7 +169,7 @@ var nn = Math.floor(Sel1) - 1
  //     bT.innerHTML = Sel1 + " " + Sel2
 
 for ( var j = 1 ; j <= 20 ; j++ ) {            // 세로 줄 수 10, 200620 수정
-        for ( var i = 1 ; i <= 6 ; i++ ) {     // 11
+        for ( var i = 0 ; i <= 6 ; i++ ) {     // 11
               if ( i == 6 ) {                     // 11
                  imgEa = "<td style='text-align:right;' width=20>" + no2 + "</td></tr><tr>"
                  nn = no2
@@ -273,5 +293,3 @@ scrollbar-face-color:#FFCCFF;scrollbar-highlight-color:#FFFFFF;scrollbar-shadow-
 
 </body>
 </html>
-
-
