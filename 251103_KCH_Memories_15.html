@@ -825,9 +825,8 @@ for (var i=0;i<=bgm.length-1;i++) {
 var temp = result[1]
      temp = stringSplit(temp, "* ")[0]
      temp = stringSplit(temp, "] ")[1]
-var temp2 = stringSplit(temp, " : ")[0]
+var temp1 = temp
 
-/*
      if (temp.length > 40) { temp = stringSplit(temp, " : ")[0] }
      if (temp.length > 40) {
         var temp2 = stringSplit(temp, " : ")[0]
@@ -838,10 +837,9 @@ var temp2 = stringSplit(temp, " : ")[0]
      } else {
         var temp5 =  temp
      }
-*/
-     tag2 = tag2 + '<OPTION VALUE=' + i + '>' +  (i+1) + ". " + temp2 + ' <br>';
+     tag2 = tag2 + '<OPTION VALUE=' + i + '>' +  (i+1) + ". " + temp5 + ' <br>';
 //     tag2 = tag2 + '<OPTION VALUE=' + i + '>' +  (i+1) + ". " + stringSplit(temp5, "] ")[1] + ' <br>';
-     tag5 = tag5 + "<button class='bt' onclick='bgmPlay(" + i + " )'>" + (i+1) + "</button> " + temp + "<br><br>"; 
+     tag5 = tag5 + "<button class='bt' onclick='bgmPlay(" + i + " )'>" + (i+1) + "</button> " + temp1 + "<br><br>"; 
     }
 
    var tag1 = "<center><b><SELECT id='bgmSel' NAME='bgmSel' onChange='javascript:bgmPlay(value)' style='WIDTH: 100%; HEIGHT: 60px; color:green;background-color:gold'> <OPTION SELECTED VALUE=''> ▒▒ 노래 시작 시점! 목록에서 직접 선택하기 ▒▒";
