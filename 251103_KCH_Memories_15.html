@@ -824,6 +824,7 @@ for (var i=0;i<=bgm.length-1;i++) {
      result = stringSplit(bgm[i], "|");  //  인자 앞에 녀석은 쪼개고자 하는 문자열, 뒤에는 구분자
 var temp = result[1]
      temp = stringSplit(temp, "* ")[0]
+     temp = stringSplit(temp, "] ")[1]
 /*
      if (temp.length > 40) { temp = stringSplit(temp, " : ")[0] }
      if (temp.length > 40) {
