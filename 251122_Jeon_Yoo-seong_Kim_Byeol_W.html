@@ -1372,8 +1372,6 @@ urlAry[11] = "Njhed2Qm0rw" // 13:05 신랑신부 행진
    var player_2
    var WW
    var HH
-//   var W = 900
-//   var H = W * 0.5666
 
    function onYouTubeIframeAPIReady() {
    vd = 0 //generateRandom(0, 227); // bgm.length-1
@@ -1407,31 +1405,52 @@ urlAry[11] = "Njhed2Qm0rw" // 13:05 신랑신부 행진
    var W = 900
    var H = 424 //W * 0.5666
 
-   for (var i=0; i<$('.youtube').length; i++) {
-      var playerID = 'player_' + i
-          objAry[i] = new YT.Player(playerID, {
-          width: W,
-          height: H,  // width="900" height="510"
-
-          videoId: urlAry[i],
-          playerVars:{
-	  'modestbranding': 1,
-	  'autoplay' : 0, // 자동재생
-	  'controls' : 1, // 컨트롤러의 유무
-	  'showinfo' : 1, // 재생영상에 대한 정보 유무
-	  'loop': 1, // 반복 재생의 여부
-              'rel': 0 //관련영상 표시하지 않기.
-          },
-/*
-          events: {
-            'onReady': onPlayerReady,
-            'onPlaybackQualityChange': onPlayerPlaybackQualityChange,
-            'onStateChange': onPlayerStateChange,
-            'onError': onPlayerError
-          }
-*/
-      });
+    for (var i = 0; i < $('.youtube').length; i++) {
+        var playerID = 'player_' + i;
+        
+        // 클로저 문제 해결을 위한 즉시 실행 함수
+        (function(index) {
+            objAry[index] = new YT.Player(playerID, {
+                width: W,
+                height: H,
+                videoId: urlAry[index],
+                playerVars: {
+                    'modestbranding': 1,
+                    'autoplay': 0, // 자동재생
+                    'controls': 1, // 컨트롤러의 유무
+                    'showinfo': 1, // 재생영상에 대한 정보 유무
+                    'loop': 1, // 반복 재생의 여부
+                    'rel': 0 // 관련영상 표시하지 않기.
+                },
+                events: {
+                    'onStateChange': function(event) {
+                        onPlayerStateChange2(event, index);
+                    }
+                }
+            });
+        })(i);
    }
+}
+
+// 유튜브 플레이어 상태 변경 이벤트 핸들러
+function onPlayerStateChange2(event, n) {
+    // YT.PlayerState.ENDED = 0 (재생 완료)
+    if (event.data === YT.PlayerState.ENDED || event.data === 0) {
+        // 유튜브 영상이 끝났을 때
+        player.playVideo(); // 배경 비디오 플레이어 재생
+        
+        // 버튼 상태도 업데이트
+        document.getElementById('music_button_img').src="https://i.imgur.com/TQFP08p.png"  // pause 
+        document.getElementById('music_button_img').title="일시 정지" 
+        document.getElementById('music_button_img2').src="https://i.imgur.com/TQFP08p.png"  // pause 
+        document.getElementById('music_button_img2').title="일시 정지" 
+//        document.getElementById('music_button_img3').src="https://i.imgur.com/TQFP08p.png"  // pause 
+//        document.getElementById('music_button_img3').title="일시 정지" 
+
+        document.getElementById('music_button_' + n).value = 'stop';
+        document.getElementById('music_button_img_' + n).src = "https://i.imgur.com/mNMdXMC.png"; // play
+        document.getElementById('music_button_img_' + n).title = "재생";
+    }
 }
 
 function music_control2(n) {
@@ -1959,7 +1978,7 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-<table style="BACKGROUND:#ffccff url('') repeat fixed left top; table-layout: fixed" width=940 cellpadding='10'><tr valign=middle><td class='lt'> <!-- aliceblue #ffccff//-->
+<table style="BACKGROUND:aliceblue url('') repeat fixed left top; table-layout: fixed" width=940 cellpadding='10'><tr valign=middle><td class='lt'> <!-- aliceblue #ffccff//-->
 <!-- table style="BACKGROUND:white url('http://cfile238.uf.daum.net/image/150C971E4B36CD0D81370F') repeat fixed left top" width=920 height=104 border=1 bordercolor=#464B4E cellspacing='0' cellpadding='10'><tr valign=top><td //-->
 
 <span id="aaa">
@@ -1978,7 +1997,7 @@ X = 플레이어 감춤, O = 플레이어 보기</font>
 <P class="tit">251122 전유성 ♡ 김별 (결혼식)</P><P class="mid"><br><br><br>
 
 
-<img src='https://i.imgur.com/7skc8EY.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/T0dbBgg.jpeg' width=100% title='📷 우리 결혼 했어요'><br><br><br><br><br>
 
 
 
@@ -2061,34 +2080,450 @@ $(document).ready(function(){
         $img.attr('src', showImageUrl);
         $img.attr('title', '메뉴 보기');
         $("#fix").hide(2000);
-//        $("#menu2").hide(2000); 
     } else {
         $img.attr('src', hideImageUrl);
         $img.attr('title', '메뉴 감춤');
         $("#fix").show(2000); 
-//        $("#menu2").show(2000);
     }
    }); 
 
   $("#List3").hide();
   $("#tog_3").click(function(){                                       
    $("#List3").toggle(2000); 
-     if ( $("#tog_3").text() == '※ 사진 원본 보관함 ))) 열기 (((') { 
-         $("#tog_3").text('※ 사진 원본 보관함 ((( 닫기 )))')
-         $("#tog_32").text('※ 사진 원본 보관함 ((( 닫기 )))')
-     } else { $("#tog_3").text('※ 사진 원본 보관함 ))) 열기 ((('); $("#tog_32").text('※ 사진 원본 보관함 ))) 열기 (((') }                         
+     if ( $("#tog_3").text() == '※ 원본 사진 보관함 ))) 열기 (((') { 
+         $("#tog_3").text('※ 원본 사진 보관함 ((( 닫기 )))')
+         $("#tog_32").text('※ 원본 사진 보관함 ((( 닫기 )))')
+     } else { $("#tog_3").text('※ 원본 사진 보관함 ))) 열기 ((('); $("#tog_32").text('※ 원본 사진 보관함 ))) 열기 (((') }                         
    }); 
 
   $("#tog_32").click(function(){                                       
    $("#List3").toggle(2000); 
-     if ( $("#tog_32").text() == '※ 사진 원본 보관함 ))) 열기 (((') { 
-         $("#tog_3").text('※ 사진 원본 보관함 ((( 닫기 )))')
-         $("#tog_32").text('※ 사진 원본 보관함 ((( 닫기 )))')
-     } else { $("#tog_3").text('※ 사진 원본 보관함 ))) 열기 ((('); $("#tog_32").text('※ 사진 원본 보관함 ))) 열기 (((') }                         
+     if ( $("#tog_32").text() == '※ 원본 사진 보관함 ))) 열기 (((') { 
+         $("#tog_3").text('※ 원본 사진 보관함 ((( 닫기 )))')
+         $("#tog_32").text('※ 원본 사진 보관함 ((( 닫기 )))')
+     } else { $("#tog_3").text('※ 원본 사진 보관함 ))) 열기 ((('); $("#tog_32").text('※ 원본 사진 보관함 ))) 열기 (((') }                         
    }); 
 });
-
 </script>
+
+2025년 11월 22일 토요일 12시 30분에 솔비치 호텔에서..<br><br>
+
+신랑 전유성 군과<br><br>
+
+<img src='https://i.imgur.com/4fpSOuM.jpeg' width=100% title='📷 신랑 & 부모'><br><br><br><br><br>
+
+
+
+
+
+신부 김별 양의 결혼식 날에..<br><br>
+
+<img src='https://i.imgur.com/ndLEado.jpeg' width=100% title='📷 신부 & 부모 1'><br><br><br><br><br>
+
+
+
+
+
+많은 분들께서 보내주신<br><br>
+
+<img src='https://i.imgur.com/fMJQKqH.jpeg' width=100% title='📷 화환 1'><br><br><br><br><br>
+
+
+
+
+
+축하와 축복,<br>
+ <br>
+<img src='https://i.imgur.com/6EUG16e.jpeg' width=100% title='📷 화환 2'><br><br><br><br><br>
+
+
+
+
+
+그리고 성원과 응원 덕분에<br>
+ <br>
+<img src='https://i.imgur.com/vZB1AKi.jpeg' width=100% title='📷 화환 3'><br><br><br><br><br>
+
+
+
+
+
+인륜지대사(人倫之大事)인 혼례(婚禮)를 잘 치렀습니다.<br><br>
+
+<img src='https://i.imgur.com/sKvBkFl.jpeg' width=100% title='📷 화환 4'><br><br><br><br><br>
+
+
+
+
+
+우선 그날의 사진과 영상 소개와 함께<br>
+이 지면을 빌려 감사의 인사를 올립니다~~~<br><br>
+
+<img src='https://i.imgur.com/QOWBA7N.jpeg' width=100% title='📷 신부 측 인사'><br><br><br><br><br>
+
+
+
+
+
+'접수 및 식권 교부 총괄' 정창교 님! <br>
+수고 많으셨어요.<br><br>
+
+<img src='https://i.imgur.com/TyabJpJ.jpeg' width=100% title='📷 접수 : 정창교, 김경진'><br><br>
+
+우리 아들 경진이도 수고했네요~~ ㅎ<br><br><br><br><br>
+
+
+
+
+
+먼저 <br>
+신랑 측 본부석(?)의 이모저모입니다.<br><br>
+
+<img src='https://i.imgur.com/MRg5IQ5.jpeg' width=100% title='📷 신랑 측 본부석 01'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/rj7cAL2.jpeg' width=100% title='📷 신랑 측 본부석 02'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/pvLS45o.jpeg' width=100% title='📷 신랑 측 본부석 03'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/baK6lrZ.jpeg' width=100% title='📷 신랑 측 본부석 04'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/6UqNIwq.jpeg' width=100% title='📷 신랑 측 본부석 06'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/67d7Qtc.jpeg' width=100% title='📷 신랑 측 본부석 07'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/7RAm1sw.jpeg' width=100% title='📷 신랑 측 본부석 09'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/mIYVjQZ.jpeg' width=100% title='📷 신랑 측 본부석 08'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/I3abuw1.jpeg' width=100% title='📷 신랑 측 본부석 10'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/wuKxVSf.jpeg' width=100% title='📷 신랑 측 본부석 11'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/gfGAPkm.png' width=100% title='📷 신랑 측 본부석 05'><br><br><br><br><br>
+
+
+
+
+
+이번엔 신부 측입니다.<br><br>
+
+<img src='https://i.imgur.com/3kX2PHI.jpeg' width=100% title='📷 신부 측 본부석 05'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/pUyGCiI.jpeg' width=100% title='📷 신부 측 본부석 07'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/LbLy8sO.jpeg' width=100% title='📷 신부 측 본부석 10'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/keoMdn7.jpeg' width=100% title='📷 신부 측 본부석 11'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/14pwPuv.jpeg' width=100% title='📷 신부 측 본부석 12'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/X275BTB.jpeg' width=100% title='📷 신부 측 본부석 14'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/Doz0yCU.jpeg' width=100% title='📷 신부 측 본부석 15'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/B7LLTqr.jpeg' width=100% title='📷 신부 측 본부석 01'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/UQlVm7O.png' width=100% title='📷 신부 측 본부석 02'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/5VHENjm.jpeg' width=100% title='📷 신부 측 본부석 03'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/O4rObKX.jpeg' width=100% title='📷 신부 측 본부석 04'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/uAcrbXe.jpeg' width=100% title='📷 신부 측 본부석 06'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/FixgT3z.jpeg' width=100% title='📷 신부 측 본부석 08'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/mP6hLWW.jpeg' width=100% title='📷 신부 측 본부석 09'><br><br><br><br><br>
+
+
+
+
+<img src='https://i.imgur.com/LVjhZeS.jpeg' width=100% title='📷 신부 측 본부석 13'><br><br><br><br><br>
+
+
+
+
+
+예식장의 꽃인 신부대기실 탐방 시간입니다~~ ㅎ<br><br>
+
+<img src='https://i.imgur.com/HDjnOrV.jpeg' width=100% title='📷 신부 대기실 : 독사진 01'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/gfujokz.jpeg' width=100% title='📷 신부 대기실 : 독사진 02'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/TRgjpdS.jpeg' width=100% title='📷 신부 대기실 : 독사진 03'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/7qIiG2l.jpeg' width=100% title='📷 신부 대기실 : 독사진 04'><br><br><br><br><br>
+
+
+
+
+
+꽃보다 별 🌠<br><br>
+
+<img src='https://i.imgur.com/8m36wmd.jpeg' width=100% title='📷 신부 대기실 : 독사진 05'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/MTO0i52.jpeg' width=100% title='📷 신부 대기실 : 독사진 06'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/kBf7Zha.jpeg' width=100% title='📷 신부 대기실 : 독사진 07'><br><br><br><br><br>
+
+
+
+
+
+고부(姑婦) 간의 화목함!<br><br>
+
+<img src='https://i.imgur.com/6s0hdur.jpeg' width=100% title='📷 신부 대기실 : 시어머님과 02'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/tro3ekc.jpeg' width=100% title='📷 신부 대기실 : 시어머님과 03'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/A6RTQk6.jpeg' width=100% title='📷 신부 대기실 : 시어머님과 01'><br><br><br><br><br>
+
+
+
+
+
+시어머님께서 손가락 하트 날리시고.. ㅎㅎ<br><br>
+
+<img src='https://i.imgur.com/ruogQKN.jpeg' width=100% title='📷 신부 대기실 : 시어머님과 04'><br><br><br><br><br>
+
+
+
+
+
+시어머님! 그리고 엄마랑~<br><br>
+
+<img src='https://i.imgur.com/atTmxDu.jpeg' width=100% title='📷 신부 대기실 : 시어머님, 엄마랑 01'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/1xKKV7s.jpeg' width=100% title='📷 신부 대기실 : 시어머님, 엄마랑 04'><br><br><br><br><br>
+
+
+
+
+
+이건 뭐지..<br><br>
+
+<img src='https://i.imgur.com/5nB9zDt.jpeg' width=100% title='📷 신부 대기실 : 시어머님, 엄마랑 02'><br><br><br><br><br>
+
+
+
+
+
+마치 공주라도 된 이 기분! (ㅎ.ㅎ)<br>
+ <br>
+<img src='https://i.imgur.com/fK1dMdA.jpeg' width=100% title='📷 신부 대기실 : 시어머님, 엄마랑 03'><br><br><br><br><br>
+
+
+
+
+
+엄마랑~~~ ✨<br><br>
+
+<img src='https://i.imgur.com/EBw9sVR.jpeg' width=100% title='📷 신부 대기실 : 엄마랑 01'><br><br><br><br><br>
+
+
+
+
+
+이때까진 정말 좋았는데..<br>
+ <br>
+<img src='https://i.imgur.com/izPIzuK.jpeg' width=100% title='📷 신부 대기실 : 엄마랑 02'><br><br><br><br><br>
+
+
+
+
+
+금지옥엽을 떠나보내는 서운함에<br><br>
+
+<img src='https://i.imgur.com/OmjdKv8.jpeg' width=100% title='📷 신부 대기실 : 엄마랑 03'><br><br>
+
+손가락 하트는 글썽이는 눈망울을 싣고<br><br><br><br><br>
+
+
+
+
+
+신부에게 전염이 되어..<br><br>
+
+<img src='https://i.imgur.com/meIIDbL.jpeg' width=100% title='📷 신부 대기실 : 엄마랑 04'><br><br><br><br><br>
+
+
+
+
+
+신부 별이의 머리 위에는.. <br><br>
+
+<img src='https://i.imgur.com/vejWPBp.jpeg' width=100% title='📷 신부 대기실 : 엄마랑 05'><br><br>
+
+반짝이는 별들이 뱅뱅~ 맴돌았답니다~<br><br><br><br><br>
+
+
+
+
+
+나도 신부 입장 직전에..<br><br>
+
+<img src='https://i.imgur.com/tHzGtJF.jpeg' width=100% title='📷 신부 대기실 : 나랑 01'><br><br>
+
+앞으로는 이런 기회가 없을 것 같기에 '조카와의 사진 한 장'을 냄겼습니다~~~ ㅎ<br><br><br><br><br>
+
+
+
+
+
+이제는 예식이 시작되는 시간입니다.<br><br>
+
+<img src='https://i.imgur.com/8ngfD1D.jpeg' width=100% title='📷 화촉 점화 1'><br><br><br><br><br>
+
+
+
+
+
+첫 번째 식순인 <br>
+양가 어머니의 '화촉 점화'입니다~<br><br>
+
+<img src='https://i.imgur.com/DTi5Tkg.jpeg' width=100% title='📷 화촉 점화 2'><br><br><br><br><br>
+
+
+
+
+
+감개가 무량하여... ㅎ<br><br>
+
+<img src='https://i.imgur.com/RPuL3Bn.jpeg' width=100% title='📷 화촉 점화 3'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/P6ekpW4.jpeg' width=100% title='📷 화촉 점화 4'><br><br><br><br><br>
+
+ 
+
+
 
 
 아래는 화촉 점화 입장 동영상입니다.<br><br>
@@ -2102,6 +2537,39 @@ $(document).ready(function(){
 
 </P><P class="mid">
 <font color=dimgray>↑ 12:30 화촉점화 (양가 어머니)</font><br><br><br><br><br>
+
+
+
+
+누가 먼저<br><br>
+
+<img src='https://i.imgur.com/JYQSUg2.jpeg' width=100% title='📷 화촉 점화 5'><br><br><br><br><br>
+
+
+
+
+
+화촉을 밝힐까요?<br><br>
+
+<img src='https://i.imgur.com/tZ5ImNA.jpeg' width=100% title='📷 화촉 점화 6'><br><br><br><br><br>
+
+
+
+
+
+신부 측의 한 판 승! ㅎㅎ<br><br>
+
+<img src='https://i.imgur.com/aAh3nnU.jpeg' width=100% title='📷 화촉 점화 7'><br><br><br><br><br>
+
+
+
+
+
+하객 여러분께 드리는 배꼽 인사!<br><br>
+
+<img src='https://i.imgur.com/ptMRf7A.jpeg' width=100% title='📷 화촉 점화 8'><br><br><br><br><br>
+
+
 
 
 
@@ -2121,7 +2589,9 @@ $(document).ready(function(){
 
 "뽄대나게 안경 쓰고, 시계 둘러차고, 그리고 나서 양복 재킷을 양쪽으로 폼 나게 걷어 재끼는 것"까지가 이벤트(?)였는데<br><br>
 
-그걸 모르고 앞부분은 빠트렸네요~ ㅋ;;<br><br><br><br><br>
+그걸 모르고 앞부분은 빠트렸네요~ ㅋ;<br><br><br><br><br>
+
+
 
 
 
@@ -2141,7 +2611,25 @@ $(document).ready(function(){
 
 
 
-다음은 신랑신부 맞절입니다.<br><br>
+
+
+주례는 이진호 전 군수께서 맡아 주셨습니다.<br><br>
+
+<img src='https://i.imgur.com/tNhTWJ5.jpeg' width=100% title='📷 주례 : 이진호 전 군수 1'><br><br><br><br><br>
+
+
+
+
+
+아래는 식후 기념 촬영 모습입니다.<br><br>
+
+<img src='https://i.imgur.com/T1nFMYx.jpeg' width=100% title='📷 주례 : 이진호 전 군수 2'><br><br><br><br><br>
+
+
+
+
+
+다음은 신랑신부 맞절 영상입니다.<br><br>
 
 <a href='javascript:music_control2(3)'><img id='music_button_img_3' src='https://i.imgur.com/mNMdXMC.png' height=70 title='재생'>
 <input type=text style='font-size: 16px; display:none;' id='music_button_3' value='stop'></a><br>
@@ -2149,7 +2637,9 @@ $(document).ready(function(){
     <div  class="youtube" id="player_3"></div>
 
 </P><P class="mid">
-<font color=dimgray>↑ 12:37 신랑신부 맞절</font><br><br><br>
+<font color=dimgray>↑ 12:37 신랑신부 맞절</font><br><br><br><br><br>
+
+
 
 
 
@@ -2174,6 +2664,7 @@ $(document).ready(function(){
 
 
 
+
 다음은 성혼선언문 낭독 영상입니다.<br><br>
 
 <a href='javascript:music_control2(5)'><img id='music_button_img_5' src='https://i.imgur.com/mNMdXMC.png' height=70 title='재생'>
@@ -2189,6 +2680,7 @@ $(document).ready(function(){
 
 
 
+
 다음은 이진호 전 군수께서 전해주시는 주례사입니다.<br><br>
 
 <a href='javascript:music_control2(6)'><img id='music_button_img_6' src='https://i.imgur.com/mNMdXMC.png' height=70 title='재생'>
@@ -2200,6 +2692,7 @@ $(document).ready(function(){
 <font color=dimgray>↑12:41 주례사 (이진호 전 군수)</font><br><br>
 
 신랑신부는 초심(初心)과 함께 평생 동안 새기는 말씀으로 간직하기 바랍니다~~~ ㅎ<br><br><br><br><br>
+
 
 
 
@@ -2232,9 +2725,12 @@ $(document).ready(function(){
 노래를 잘 부르지는 못했지만 그 용기 가상타 하셨습니다~~~ ㅋㅋ<br><br><br>
 
 
+<img src='https://i.imgur.com/mfcoJjQ.jpeg' width=100% title='📷 축가 : 장인어른'><br><br>
+
 곡명은 설운도 작사 작곡에 임영웅이가 불렀던 '별빛 같은 나의 사랑아'이었습니다~~~ ㅎㅎ♬<br><br>
 
 (여러 번 들었었던 이런 노래가 처음 듣는 노래처럼 들렸었다니... ㅋㅋ)<br><br><br><br><br>
+
 
 
 
@@ -2256,6 +2752,7 @@ $(document).ready(function(){
 
 
 
+
 다음은 양가 부모님께 절을 올리는 순서입니다.<br><br>
 
 (장인 어르신! 앉으시라 합니다~ ㅋ)<br><br>
@@ -2269,6 +2766,7 @@ $(document).ready(function(){
 <font color=dimgray>↑13:01 양가 부모님께 인사</font><br><br>
 
 (시아버님께서는 쑥스러우셔~~ ㅎ)<br><br><br><br><br>
+
 
 
 
@@ -2297,15 +2795,407 @@ $(document).ready(function(){
     <div  class="youtube" id="player_11"></div>
 
 </P><P class="mid">
-<font color=dimgray>↑13:05 신랑신부 행진 (싸이 / 예술이야)</font><br><br>
+<font color=dimgray>13:05 신랑신부 행진 (싸이/예술이야)</font><br><br>
 
-행진 반주곡처럼 신랑신부는 유럽의 밀월여행 중에 예술 많이 맹글고 오기를~~~ ㅎㅎㅎ<br><br><br><br><br>
-
-
+행진 반주곡처럼 신랑신부는 유럽의 밀월여행 중에 예술 많이 맹글고 오세요~~~ ㅎㅎㅎ<br><br><br><br><br>
 
 
 
 
+
+다음은 오늘의 하이라이트 '키스씬' 장면입니다.<br><br>
+
+<img src='https://i.imgur.com/WIxFu5Q.jpeg' width=100% title='📷 신랑신부 라스트 씬 01'><br><br><br><br><br>
+
+
+
+
+
+꿀이 뚝뚝 떨어지네요~~ ㅎ<br><br>
+
+<img src='https://i.imgur.com/8I3VM3e.jpeg' width=100% title='📷 신랑신부 라스트 씬 02'><br><br><br><br><br>
+
+
+
+
+
+
+신랑의 저 야릇한 미소는..<br><br>
+
+<img src='https://i.imgur.com/QIASaxZ.jpeg' width=100% title='📷 신랑신부 라스트 씬 08'><br><br><br><br><br>
+
+
+
+
+
+야심의 미소일까, 회심의 미소일까요? ㅎㅎ<br><br>
+
+<img src='https://i.imgur.com/11QPrRq.jpeg' width=100% title='📷 신랑신부 라스트 씬 07'><br><br><br><br><br>
+
+
+
+
+
+이제는 색종이가 뚝뚝 떨어지네요~ ㅋ<br><br>
+
+<img src='https://i.imgur.com/l2deyov.jpeg' width=100% title='📷 신랑신부 라스트 씬 09'><br><br><br><br><br>
+
+
+
+
+
+지금이 가장 좋을 때 !!<br><br>
+
+<img src='https://i.imgur.com/TglDkcl.jpeg' width=100% title='📷 신랑신부 라스트 씬 10'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/6iAigRn.jpeg' width=100% title='📷 신랑신부 라스트 씬 13'><br><br><br><br><br>
+
+
+
+
+
+신랑은 눈 좀 감으시지.. ㅋ<br><br>
+
+<img src='https://i.imgur.com/gq6ZB9y.jpeg' width=100% title='📷 신랑신부 라스트 씬 14'><br><br><br><br><br>
+
+
+
+
+
+앞쪽에서 한 번 더 !!!<br><br>
+
+<img src='https://i.imgur.com/eyxdLSX.jpeg' width=100% title='📷 신랑신부 라스트 씬 16'><br><br><br><br><br>
+
+
+
+
+
+좋아쩌요~~? ㅎㅎㅎ<br><br>
+
+<img src='https://i.imgur.com/7Mx6cJo.jpeg' width=100% title='📷 신랑신부 라스트 씬 17'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/zVMBooO.jpeg' width=100% title='📷 신랑신부 라스트 씬 04'><br><br><br><br><br>
+
+
+
+
+
+라스트 연출 씬입니다.<br><br>
+
+<img src='https://i.imgur.com/OxR0YAj.jpeg' width=100% title='📷 신랑신부 라스트 씬 18'><br><br><br><br><br>
+
+
+
+
+
+카메라 액정을 보아하니 필시 잘 나왔을 거예요~~ ㅎㅎ<br>
+ <br>
+<img src='https://i.imgur.com/Kk6EzQp.jpeg' width=100% title='📷 신랑신부 라스트 씬 19'><br><br><br><br><br>
+
+
+
+
+
+이제부터는 기념 촬영 시간입니다.<br><br>
+
+<img src='https://i.imgur.com/wPJpmzT.jpeg' width=100% title='📷 기념 촬영 : 신랑신부 01'><br><br><br><br><br>
+
+
+
+
+
+중간중간 울컥하기도 했었던 신부가<br><br>
+
+<img src='https://i.imgur.com/OK84vln.jpeg' width=100% title='📷 기념 촬영 : 신랑신부 04'><br><br><br><br><br>
+
+
+
+
+
+지금은 좋아하는 표정이 역력하네요~ㅎㅎ<br><br>
+
+<img src='https://i.imgur.com/nNdGzjT.jpeg' width=100% title='📷 기념 촬영 : 신랑신부 03'><br><br><br><br><br>
+
+
+
+
+
+그 좋은 순간의 그 모습 그대로 <br>
+초심(初心)과 함께 박제해 놨으니..<br><br>
+
+<img src='https://i.imgur.com/NpHkDT5.jpeg' width=100% title='📷 기념 촬영 : 신랑신부 02'><br><br><br>
+
+
+ <br><br><br>
+
+
+새 삶을 시작하는 신랑신부는 사랑이 충만한 가정을 꾸려<br><br>
+
+<img src='https://i.imgur.com/PB9fSgJ.jpeg' width=100% title='📷 기념 촬영 : 신랑신부 06'><br><br><br><br><br>
+
+
+
+
+
+영롱하고 아름다운 인생을 만들어 가기를 바랍니다~~~<br><br>
+
+<img src='https://i.imgur.com/wJIj3LS.jpeg' width=100% title='📷 기념 촬영 : 신랑신부 05'><br><br><br><br><br>
+
+
+
+
+
+다음은 양가 부모님 모시고..<br><br>
+
+<img src='https://i.imgur.com/2K5jNrF.jpeg' width=100% title='📷 기념 촬영 : 양가 부모님과 01'><br><br><br><br><br>
+
+
+
+
+
+신랑은 지금 장인어른께서..<br><br>
+
+<img src='https://i.imgur.com/Rdur8k7.jpeg' width=100% title='📷 기념 촬영 : 양가 부모님과 02'><br><br><br><br><br>
+
+
+
+
+
+째리고 있음을 인지하시오~~ ㅋㅋ<br><br>
+
+<img src='https://i.imgur.com/7uTGRKl.jpeg' width=100% title='📷 기념 촬영 : 양가 부모님과 03'><br><br><br><br><br>
+
+
+
+
+
+별이야! 좋지?<br><br>
+
+<img src='https://i.imgur.com/XtJbmAk.jpeg' width=100% title='📷 기념 촬영 : 양가 부모님과 04'><br><br>
+
+응, 조아~~~ ㅎ<br><br><br><br><br>
+
+
+
+
+
+
+다음은 신랑 직계 가족!<br><br>
+
+<img src='https://i.imgur.com/ce7wA95.jpeg' width=100% title='📷 기념 촬영 : 신랑 직계 가족 01'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/JzmA4Gc.jpeg' width=100% title='📷 기념 촬영 : 신랑 직계 가족 02'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/5LRoT7Y.jpeg' width=100% title='📷 기념 촬영 : 신랑 직계 가족 03'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/kNxYHZc.jpeg' width=100% title='📷 기념 촬영 : 신랑 직계 가족 04'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/7bo9ocP.jpeg' width=100% title='📷 기념 촬영 : 신랑 직계 가족 05'><br><br><br><br><br>
+
+
+
+
+
+다음은 신부 직계 가족!<br><br>
+
+<img src='https://i.imgur.com/HeJEezd.jpeg' width=100% title='📷 기념 촬영 : 신부 직계 가족 02'><br><br><br><br><br>
+
+
+
+
+
+별이야! 좋니?<br><br>
+
+<img src='https://i.imgur.com/vwRVcLL.jpeg' width=100% title='📷 기념 촬영 : 신부 직계 가족 01'><br><br>
+
+당근이지. 언니도 해 봐! ㅎㅎ ↗ 흠~<br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/4kjCrdU.jpeg' width=100% title='📷 기념 촬영 : 신부 직계 가족 03'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/XgRZ2fG.jpeg' width=100% title='📷 기념 촬영 : 신부 직계 가족 04'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/obOTAdh.jpeg' width=100% title='📷 기념 촬영 : 신부 직계 가족 05'><br><br><br><br><br>
+
+
+
+
+
+모두 마치고 피로연장의 모습입니다.<br><br>
+
+<img src='https://i.imgur.com/SHxc0wp.jpeg' width=100% title='📷 피로연장 01'><br><br><br><br><br>
+
+
+
+
+
+예식 하느라 애썼으니 내가 하사 酒를..<br>
+ <br>
+<img src='https://i.imgur.com/SKNTU3A.jpeg' width=100% title='📷 피로연장 02'><br><br><br><br><br>
+
+
+
+
+
+아니 축하 酒.. 라기보다는<br><br>
+
+<img src='https://i.imgur.com/VQEqI7a.jpeg' width=100% title='📷 피로연장 03'><br><br><br><br><br>
+
+
+
+
+
+축복 酒 한 잔 따르겠노라! ㅎㅎ<br>
+ <br>
+<img src='https://i.imgur.com/Ua21IOD.jpeg' width=100% title='📷 피로연장 04'><br><br><br><br><br>
+
+
+
+
+
+신랑이 대표로 맥주 한 잔 시원하게 <br>
+쭉~ 들이키시게나~<br><br>
+
+<img src='https://i.imgur.com/yzp9rYx.jpeg' width=100% title='📷 피로연장 05'><br><br><br><br><br>
+
+
+
+
+
+목도 많이 말랐을 텐데.. ㅎ<br><br>
+
+<img src='https://i.imgur.com/32b4j9E.jpeg' width=100% title='📷 피로연장 06'><br><br><br><br><br>
+
+
+
+
+
+사전에 아들에게 카메라 촬영을 맡겼더니..<br><br>
+
+<img src='https://i.imgur.com/mNGZJZo.jpeg' width=100% title='📷 피로연장 07'><br><br><br><br><br>
+
+
+
+
+
+역시 방송영상학과 출신답게 한 장면 한 장면 놓치지 않고 중계방송하듯 잘 찍었네요~~~ ㅋ<br><br>
+
+<img src='https://i.imgur.com/LleFyAe.jpeg' width=100% title='📷 피로연장 08'><br><br><br><br><br>
+
+
+
+
+
+안주는 사이좋게 신랑은 하얀 떡을, <br>
+신부는 분홍 떡을 한 입씩 물고... ㅎ<br><br>
+
+<img src='https://i.imgur.com/T2qi0B7.jpeg' width=100% title='📷 피로연장 09'><br><br><br><br><br>
+
+
+
+
+
+포크는 공손하게 반납 중~~ ㅎ!ㅎ<br>
+ <br>
+<img src='https://i.imgur.com/Kdraj4a.jpeg' width=100% title='📷 피로연장 10'><br><br><br><br><br>
+
+
+
+
+
+아래는 편집 사진들입니다.<br><br>
+
+<img src='https://i.imgur.com/8mchoy6.jpeg' width=100% title='📷 피로연장 11'><br><br><br><br><br>
+
+
+
+
+
+<img src='https://i.imgur.com/8BS4X8B.jpeg' width=100% title='📷 피로연장 12'><br><br><br><br><br>
+
+
+
+
+
+신랑은 보리 익는 내음까지 음미하는 듯이..<br><br>
+
+<img src='https://i.imgur.com/EBodzNv.jpeg' width=100% title='📷 피로연장 15'><br><br><br><br><br>
+
+
+
+
+
+아직까지 마시고 있네요~~~ ㅋ<br><br>
+
+<img src='https://i.imgur.com/RxfSOBU.jpeg' width=100% title='📷 피로연장 13'><br><br><br><br><br>
+
+
+
+
+
+신부에게도 사이다 잔이라도 주면서 '러브샷'을 찍었어야 했는데 그걸 못했네요~~~ ㅎ;;<br><br>
+
+<img src='https://i.imgur.com/JuAOvUD.jpeg' width=100% title='📷 피로연장 14'><br><br><br><br><br>
+
+
+
+
+
+예식의 모든 일정을 마치고,<br><br>
+
+<img src='https://i.imgur.com/hXKfsNj.jpeg' width=100% title='📷 피로연장 16'><br><br><br><br><br>
+
+
+
+
+
+포크도 반납했으니..<br><br>
+
+<img src='https://i.imgur.com/ofOoSI0.jpeg' width=100% title='📷 피로연장 17'><br><br>
+
+이제는 유럽으로 밀월여행 떠나렵니다~~~ ❁´◡`❁<br><br><br><br><br>
+ 
+
+
+
+
+
+다음 사진들은 디지털 청첩장에 올렸었던 '웨딩 포토'를 편집한 것입니다.<br><br>
 
 <img src="https://blog.kakaocdn.net/dn/vsAlN/btrbV1nyb4G/tyFepKzaouaeEGKs6xvEU1/img.png?original" width=100%><br><br>
 </P><P class="mid"><br><br>
@@ -2352,22 +3242,43 @@ $(document).ready(function(){
 <img src='https://i.imgur.com/SJH4M4j.jpeg' width=100% title='📷 '><br><br><br><br><br>
 <img src='https://i.imgur.com/y1rKS9L.jpeg' width=100% title='📷 '><br><br><br><br><br>
 <img src='https://i.imgur.com/PkRy2Mh.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/SPPMbeb.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/SPPMbeb.jpeg' width=100% title='📷 '><br><br><br><br><br><br><br>
 
 
 
-<!--
-성원을 보내주시는 분들께 부응토록<br><br>
 
-돌탑을 쌓듯 한걸음 한걸음 공들여 살겠습니다~~<br>
- <br>
-<img src='https://i.imgur.com/KXgoPmZ.jpeg' width=100% title='📷 '><br><br>
+
+
+감사합니다.<br><br>
+
+성원을 보내주신 분들께 부응토록<br>
+양가 부모님께 효도하면서..<br><br>
+
+<img src='https://i.imgur.com/DVZcdLt.jpeg' width=100% title='📷 '><br><br><br><br><br>
+
+
+
+
+
+한걸음 한걸음 공들여 열심히 잘 살겠습니다~~<br><br>
+
+<img src='https://i.imgur.com/N5Q74Wr.jpeg' width=100% title='📷 '><br><br><br><br><br>
+
+
+
+
 
 응원과 성원을 보내주시고.<br>
-축하와 축복을 보내주신 모든 분들께 감사를 드리며<br><br><br>
+축하와 축복을 보내주신 모든 분들께 다시 한번 감사를 드리며<br><br>
+
+<img src='https://i.imgur.com/bT3Ek20.jpeg' width=100% title='📷 신랑 부모'><br><br><br><br><br>
+
+
 
 
 여러분들의 건강과 함께 가내 두루 평안하시고,<br><br>
+
+<img src='https://i.imgur.com/c5sFm5P.jpeg' width=100% title='📷 신부 부모, 언니'><br><br>
 
 행복이 가득 넘치는 나날이 되시기를..<br><br>
 기원합니다~~~ ♡<br><br><br><br><br>
@@ -2376,21 +3287,10 @@ $(document).ready(function(){
 
 
 
-앞 잔치 치르거러 혼주님들 수고 많으셨습니다.<br><br>
-
-<img src='https://i.imgur.com/tygyh6Z.jpeg' width=100% title='📷 '><br><br>
-
-만수무강하며 백년해로하세요~~ ㅎ.ㅎ<br><br><br><br><br //-->
 
 
 
-
-
-
-
-
-
-<P class="mid"><br><br>
+<!-- P class="mid"><br><br>
 <center><button id="tog_3" type="button" class="Jua btn btn-outline-info pin">플레이어 사용법 ))) 열기 (((</button><br><br><div id=List2>
 <table style="BACKGROUND:#CCFFFF url('') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
 <P class="tit">오디오 (MP3) 플레이어 사용법<br><br><br></p>
@@ -2526,46 +3426,172 @@ $(document).ready(function(){
 
 
 
-<!-- P class="title">[진행, 볼륨] 바에 관한 설명<br><br>
+< P class="title">[진행, 볼륨] 바에 관한 설명<br><br>
 </P><P class="mid">
 1. (흰색) 재생 진행 바 : 현재 재생 시점을 나타내는 것으로 재생 바의 특정 부분을 클릭하면 그 지점부터 재생됨.<br><br>
 
 2. (분홍색) 볼륨 조절 바 : <br>
 볼륨 바 왼쪽 (스피커 모양)이 뮤트 (음소거) 토글 버튼이고, <br><br>
 
-볼륨 바를 클릭하면 (청색 원형)이 이동하면서 볼륨 조절이 되며 오른쪽에 '%' 단위로 표시됩니다.<br //--> 
-</TD></TR></TABLE></div></center>
+볼륨 바를 클릭하면 (청색 원형)이 이동하면서 볼륨 조절이 되며 오른쪽에 '%' 단위로 표시됩니다.<br> 
+</TD></TR></TABLE></div></center //-->
 
 
   
-<br><br><br><br><br><br><br><br><br><br>
+<!-- br><br><br><br><br><br><br><br><br><br>
 
 
 
 
 
-<!-- form class="form-inline"> &nbsp;<button id="tog_3" type="button" class="button1" style="width:100%;font-size:44pt;color:skyblue;">※ 사진 원본 보관함 ))) 열기 (((</button><br><br><div id=List3>
+<form class="form-inline"> &nbsp;<button id="tog_3" type="button" class="button1" style="width:100%;font-size:44pt;color:skyblue;">※ 원본 사진 보관함 ))) 열기 (((</button><br><br><div id=List3>
 <table style="BACKGROUND:#ffff99 url('http://cfile227.uf.daum.net/original/227F3040525FBD3812DFA8') repeat fixed left top" width=100% cellpadding='10'><tr valign=middle><td class='lt'>
 <P class="mid">
-<img src="https://blog.kakaocdn.net/dn/bsU10r/btsIR0Dd1fi/5O3eDBZPQh5E7sKuswuG3k/img.jpg" width=100%><br><br><br><br><br>
+<img src='https://i.imgur.com/tG24qIc.jpeg' width=100% title='📷 엄마랑 외할머니 01'><br><br><br><br><br>
+<img src='https://i.imgur.com/oy7e5x1.jpeg' width=100% title='📷 엄마랑 외할머니 02'><br><br><br><br><br>
+<img src='https://i.imgur.com/RgkzTFD.jpeg' width=100% title='📷 엄마랑 외할머니 03'><br><br><br><br><br>
+<img src='https://i.imgur.com/7DjC8uU.jpeg' width=100% title='📷 엄마랑 외할머니 04'><br><br><br><br><br>
+<img src='https://i.imgur.com/3bp2UPu.jpeg' width=100% title='📷 엄마랑 외할머니 05'><br><br><br><br><br>
+<img src='https://i.imgur.com/EZjvh9j.jpeg' width=100% title='📷 엄마랑 외할머니 06'><br><br><br><br><br>
+<img src='https://i.imgur.com/HHIfgaT.jpeg' width=100% title='📷 엄마랑 외할머니 07'><br><br><br><br><br>
+<img src='https://i.imgur.com/5mmZrzB.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/jPF9hzD.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/qSEU0Fb.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/7vOsxq3.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/S6qsHyh.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/qutbLB5.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/2j2Mg8e.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/oEMaMFO.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/5n2iXCV.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/uc19Qwn.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/HgVRmHZ.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/GBt7CZM.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/5juQkg8.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/qSvgmCY.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/y45iRec.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/yKPxnwB.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/eAXQNpF.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/6xFuBGV.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/uRMzQM1.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/CG3KTho.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/08bPAmt.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/wtG61uH.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/JKi3SCK.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/oAHxajA.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/6k55HzN.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/nPHPuVC.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/a2q1nyC.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/M4D6jUk.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/LKWzl0J.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/4qPfjX7.png' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/iyQwpZN.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/EYH7dnW.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/Uxy8ut6.jpeg' width=100% title='📷 '><br><br><br><br><br>
 
+<img src='https://i.imgur.com/k3LUAgh.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/IJ5Qpek.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/u3Zli1E.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/U0GP7yZ.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/hjLorNL.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/9bbheY0.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/dHvVFBV.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/pHyAIj3.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/uCeBohD.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/iFRnk42.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/ZotaEtN.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/PME6fhJ.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/0LExapA.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/Jf8HVEA.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/FiYe3jj.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/03axWfU.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/mUe8ch2.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/hdIdODZ.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/GJxXFwM.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/ujUpvXq.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/KGyFlUi.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/SGuzfGk.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/17tvNWP.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/XILbI4g.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/Y2Kll6q.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/zm17qS0.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/mNjW5Ri.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/Tzi6kAN.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/x7I4ShI.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/aSSOpLz.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/ci5aPpY.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/GOkSVrN.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/rkxf8CC.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/OJgA1zV.jpeg' width=100% title='📷 '><br><br><br><br><br>
 
+<img src='https://i.imgur.com/cxqdtnZ.jpeg' width=100% title='📷 신랑신부 라스트 씬 03'><br><br><br><br><br>
+<img src='https://i.imgur.com/eaghuPI.jpeg' width=100% title='📷 신랑신부 라스트 씬 05'><br><br><br><br><br>
+<img src='https://i.imgur.com/54llMPJ.jpeg' width=100% title='📷 신랑신부 라스트 씬 06'><br><br><br><br><br>
+<img src='https://i.imgur.com/XyVCYSI.jpeg' width=100% title='📷 신랑신부 라스트 씬 11'><br><br><br><br><br>
+<img src='https://i.imgur.com/7MlkoSM.jpeg' width=100% title='📷 신랑신부 라스트 씬 12'><br><br><br><br><br>
+<img src='https://i.imgur.com/5N9lLdp.jpeg' width=100% title='📷 신랑신부 라스트 씬 15'><br><br><br><br><br>
 
+<img src='https://i.imgur.com/9GNaiM7.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/U6EHMlH.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/E99QRbg.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/zVZvQ8M.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/BhSKQC3.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/64ATk2d.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/odXqj0s.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/QPDUHxg.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/zpAdPhq.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/TOwDc2Z.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/MDeMPte.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/jEmbRe2.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/14kefJy.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/bg4PLsI.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/wQe7O8v.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/vmVOMFw.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/ppxPP8o.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/Sf7QMZo.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/lVovmWZ.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/9ihimY2.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/aTuNR5j.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/Hvtetm6.jpeg' width=100% title='📷 '><br><br><br><br><br>
 
+<img src='https://i.imgur.com/adusXfz.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/q3UhLdu.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/lUx1SXb.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/TsLnsOk.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/Q30j88H.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/oHfnxPz.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/X86rCpK.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/yi2IFVM.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/tVWNcog.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/wvebgEd.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/nrWpbFW.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/Br9Mhbb.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/LZqLmpf.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/a17m6Rp.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/q4R0OE2.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/kfWrlLm.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/IclgYyp.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/0Mn6RO8.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/6azt8o5.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/awok71b.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/E9cYOc3.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/DGuVGIJ.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/5Gd8P5i.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/cCktnSJ.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/1Fr8Pxp.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/8GAhv31.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/0IGVqMM.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/4ZE3FKe.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/HZgHucT.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/dTHYJnx.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/b04UuLu.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/SaPCbvl.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/EGmYmWv.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/bhLPa41.jpeg' width=100% title='📷 '><br><br><br><br><br>
 </td></tr></table>
 </div></form>
-<form class="form-inline"> &nbsp;<button id="tog_32" type="button"  class="button1" style="width:100%;font-size:44pt;color:skyblue;">※ 사진 원본 보관함 ))) 열기 (((</button><br><br><br><br><br>
 
+<form class="form-inline"> &nbsp;<button id="tog_32" type="button"  class="button1" style="width:100%;font-size:44pt;color:skyblue;">※ 원본 사진 보관함 ))) 열기 (((</button><br><br><br><br><br //-->
 
-<center>
-
-<img src=https://blog.kakaocdn.net/dn/cgCn8I/btqYQwzQRXM/0ANKtrkoO7fKsmffyHaqM0/img.png?original width=100%><br>
-
-<img src=https://blog.kakaocdn.net/dn/d7KOBO/btqYSTuB4pa/tbwRTawKUb0kzeSr22OJhK/img.png?original width=100%></p>
-
-
-<P class="tit">[음악 목록 및 노래방 링크]</P><P class="mid"><br>
-<div id=test> </div><br //-->
 
 </p></span>
 </center>
