@@ -1,0 +1,754 @@
+﻿<!DOCTYPE html>
+<html lang='ko'>
+<head><title>210901 골프장 예약 매크로</title>
+<meta property="og:description"  content="[설해원] 골프장 예약 매크로 성공 !!!">
+<meta property="og:image" content="https://blog.kakaocdn.net/dn/dt58IY/btrdOoOaDhq/vMXzeXEhLRsEgB10IJd1uk/img.jpg?original">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Jua&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Gugi&family=Hi+Melody&family=Kirang+Haerang&family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Ma+Shan+Zheng&family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&family=Nanum+Pen+Script&family=Noto+Sans+HK:wght@100;300;400;500;700;900&family=Noto+Sans+KR:wght@500;700;900&family=Noto+Sans+SC:wght@100;300;400;500;700;900&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+KR:wght@600;700;900&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@500;700&family=Yeon+Sung&family=ZCOOL+KuaiLe&family=ZCOOL+QingKe+HuangYou&family=ZCOOL+XiaoWei&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Aladin&family=Alex+Brush&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Amita:wght@400;700&family=Arima+Madurai:wght@100;200;300;400;500;700;800;900&family=Arizonia&family=Bad+Script&family=Berkshire+Swash&family=Black+Ops+One&family=Bree+Serif&family=Bungee+Inline&family=Bungee+Shade&family=Cagliostro&family=Calligraffitti&family=Candal&family=Capriola&family=Carter+One&family=Cinzel+Decorative:wght@400;700;900&family=Codystar:wght@300;400&family=Coiny&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Convergence&family=Courgette&family=Croissant+One&family=Dancing+Script:wght@400;500;562;600;700&family=Denk+One&family=Diplomata&family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,531;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ewert&family=Faster+One&family=Fondamento:ital@0;1&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Fredericka+the+Great&family=Fredoka+One&family=Frijole&family=Fugaz+One&family=Gabriela&family=Galada&family=Gayathri:wght@100;400;700&family=Goblin+One&family=Great+Vibes&family=Grenze+Gotisch:wght@100;200;300;400;500;531;600;700;800;900&family=Hanalei&family=Handlee&family=Imprima&family=Indie+Flower&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;531;600;700;800;900&family=Italianno&family=Jacques+Francois+Shadow&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kumar+One+Outline&family=La+Belle+Aurore&family=Lobster&family=Londrina+Shadow&family=Mandali&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mitr:wght@200;300;400;500;600;700&family=Monoton&family=Niconne&family=Orbitron:wght@400;500;600;669;700;800;900&family=Oswald:wght@200;300;400;469;500;600;700&family=Pacifico&family=Parisienne&family=Pattaya&family=Petit+Formal+Script&family=Piedra&family=Pinyon+Script&family=Playball&family=Poiret+One&family=Ramabhadra&family=Ranchers&family=Revalia&family=Righteous&family=Satisfy&family=Shrikhand&family=Sora:wght@100;200;300;400;477;500;600;700;800&family=Spicy+Rice&family=Sriracha&family=Srisakdi:wght@400;700&family=Syncopate:wght@400;700&family=Tangerine:wght@400;700&family=Trade+Winds&family=Ultra&family=Vast+Shadow&display=swap" rel="stylesheet">
+
+<STYLE>
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@500;700;900&family=Noto+Serif+KR:wght@600;700;900&family=Sunflower:wght@500;700&display=swap');
+
+BODY { scrollbar-3dlight-color:#FFCCFF;scrollbar-arrow-color:#9900FF;
+scrollbar-track-color:#FFFFFF;scrollbar-darkshadow-color:#9900FF;
+scrollbar-face-color:#FFCCFF;scrollbar-highlight-color:#FFFFFF;scrollbar-shadow-color:#9966FF}
+  A:link { text-decoration:none; color: gray;}
+  A:visited { text-decoration:none; color: red;}
+  A:active { text-decoration:none; color:green ;}
+  A:hover { text-decoration:underline; color: violet; }
+ #menu { position: absolute; right: 3%; top: 300px;  } 
+// #menu button { color:#fff; } 
+
+font.Noto_Sans_KR {font-size:25pt; font-family: 'Noto Sans KR', sans-serif; }
+font.Noto_Serif_KR {font-size:25pt; font-family: 'Noto Serif KR', sans-serif; }
+
+font.Nanum_Gothic {font-size:25pt; font-family: 'Nanum Gothic', sans-serif; }
+font.Nanum_Gothic_Coding {font-size:25pt; font-family: 'Nanum Gothic Coding', monospace; }
+font.Nanum_Myeongjo {font-size:25pt; font-family: 'Nanum Myeongjo', sans-serif; }
+font.Nanum_Pen_Script {font-size:25pt; font-family: 'Nanum Pen Script', sans-serif; }
+font.Nanum_Brush_Script {font-size:25pt; font-family: 'Nanum Brush Script', sans-serif; }
+
+font.Gothic_A1 {font-size:25pt; font-family: 'Gothic A1', sans-serif; }
+
+font.Gaegu {font-size:25pt; color:red; font-family: 'Gaegu', cursive;}
+font.Jua { color:sandybrown; font-size:25pt; font-family: 'Jua', sans-serif; text-align : left; margin-right:10px; }
+font.Do_Hyeon {font-size:25pt; font-family: 'Do Hyeon', sans-serif; }
+font.Black_Han_Sans {font-size:25pt; font-family: 'Black Han Sans', sans-serif; }
+font.Black_And_White_Picture {font-size:25pt; font-family: 'Black And White Picture', sans-serif; }
+
+font.Sunflower {font-size:25pt; font-family: 'Sunflower', sans-serif; }
+font.Gamja_Flower {font-size:25pt; font-family: 'Gamja Flower', cursive; }
+font.Gugi {font-size:25pt; font-family: 'Gugi', cursive; }
+font.Dokdo {font-size:25pt; font-family: 'Dokdo', cursive; }
+font.East_Sea_Dokdo {font-size:25pt; font-family: 'East Sea Dokdo', cursive; }
+font.Hi_Melody {font-size:25pt; font-family: 'Hi Melody', cursive; }
+font.Yeon_Sung {font-size:25pt; font-family: 'Yeon Sung', cursive; }
+font.Song_Myung {font-size:25pt; font-family: 'Song Myung', serif; }
+font.Stylish {font-size:25pt; font-family: 'Stylish', sans-serif; }
+font.Cute_Font {font-size:25pt; font-family: 'Cute Font', cursive; }
+font.Poor_Story {font-size:25pt; font-family: 'Poor Story', cursive; }
+font.Kirang_Haerang {font-size:25pt; font-family: 'Kirang Haerang', cursive; }
+font.Single_Day {font-size:25pt; font-family: 'Single Day', cursive; }
+
+font.Noto_Sans_HK {font-size:25pt; font-family: 'Noto Sans HK', sans-serif; }
+font.Noto_Sans_TC {font-size:25pt; font-family: 'Noto Sans TC', sans-serif; }
+font.Noto_Sans_SC {font-size:25pt; font-family: 'Noto Sans SC', sans-serif; }
+font.Noto_Serif_SC {font-size:25pt; font-family: 'Noto Serif SC', serif; }
+font.Noto_Serif_TC {font-size:25pt; font-family: 'Noto Serif TC', serif; }
+font.ZCOOL_XiaoWei {font-size:25pt; font-family: 'ZCOOL XiaoWei', serif; }
+font.ZCOOL_QingKe_HuangYou {font-size:25pt; font-family: 'ZCOOL QingKe HuangYou', cursive; }
+font.ZCOOL_KuaiLe {font-size:25pt; font-family: 'ZCOOL KuaiLe', cursive; }
+font.Ma_Shan_Zheng {font-size:25pt; font-family: 'Ma Shan Zheng', cursive; }
+font.Liu_Jian_Mao_Cao {font-size:25pt; font-family: 'Liu Jian Mao Cao', cursive; }
+font.Zhi_Mang_Xing {font-size:25pt; font-family: 'Zhi Mang Xing', cursive; }
+font.Long_Cang {font-size:25pt; font-family: 'Long Cang', cursive; }
+
+font.Sora {font-size:25pt; font-family: 'Sora', sans-serif; }
+font.Oswald {font-size:25pt; font-family: 'Oswald', sans-serif; }
+font.Epilogue {font-size:25pt; font-family: 'Epilogue', sans-serif; }
+font.Merriweather {font-size:25pt; font-family: 'Merriweather', serif; }
+font.Grenze_Gotisch {font-size:25pt; font-family: 'Grenze Gotisch', cursive; }
+font.Ranchers {font-size:25pt; font-family: 'Ranchers', cursive; }
+font.Lobster {font-size:25pt; font-family: 'Lobster', cursive; }
+font.Gayathri {font-size:25pt; font-family: 'Gayathri', sans-serif; }
+font.Dancing_Script {font-size:25pt; font-family: 'Dancing Script', cursive; }
+font.Indie_Flower {font-size:25pt; font-family: 'Indie Flower', cursive; }
+font.Kanit {font-size:25pt; font-family: 'Kanit', sans-serif; }
+font.Pacifico {font-size:25pt; font-family: 'Pacifico', cursive; }
+font.Fredoka_One {font-size:25pt; font-family: 'Fredoka One', cursive; }
+font.Bree_Serif {font-size:25pt; font-family: 'Bree Serif', serif; }
+font.Orbitron {font-size:25pt; font-family: 'Orbitron', sans-serif; }
+font.Righteous {font-size:25pt; font-family: 'Righteous', cursive; }
+font.Inter {font-size:25pt; font-family: 'Inter', sans-serif; }
+font.Satisfy {font-size:25pt; font-family: 'Satisfy', cursive; }
+font.Frank_Ruhl_Libre {font-size:25pt; font-family: 'Frank Ruhl Libre', serif; }
+font.Courgette {font-size:25pt; font-family: 'Courgette', cursive; }
+font.Great_Vibes {font-size:25pt; font-family: 'Great Vibes', cursive; }
+font.Piedra {font-size:25pt; font-family: 'Piedra', cursive; }
+font.Berkshire_Swash {font-size:25pt; font-family: 'Berkshire Swash', cursive; }
+font.Poiret_One {font-size:25pt; font-family: 'Poiret One', cursive; }
+font.Parisienne {font-size:25pt; font-family: 'Parisienne', cursive; }
+font.Ramabhadra {font-size:25pt; font-family: 'Ramabhadra', sans-serif; }
+font.Monoton {font-size:25pt; font-family: 'Monoton', cursive; }
+font.Ultra {font-size:25pt; font-family: 'Ultra', serif; }
+font.Playball {font-size:25pt; font-family: 'Playball', cursive; }
+font.Handlee {font-size:25pt; font-family: 'Handlee', cursive; }
+font.Mitr {font-size:25pt; font-family: 'Mitr', sans-serif; }
+font.Bad_Script {font-size:25pt; font-family: 'Bad Script', cursive; }
+font.Fondamento {font-size:25pt; font-family: 'Fondamento', cursive; }
+font.Amaranth {font-size:25pt; font-family: 'Amaranth', sans-serif; }
+font.Tangerine {font-size:25pt; font-family: 'Tangerine', cursive; }
+font.Carter_One {font-size:25pt; font-family: 'Carter One', cursive; }
+font.Candal {font-size:25pt; font-family: 'Candal', sans-serif; }
+font.Fugaz_One {font-size:25pt; font-family: 'Fugaz One', cursive; }
+font.Alex_Brush {font-size:25pt; font-family: 'Alex Brush', cursive; }
+font.Pinyon_Script {font-size:25pt; font-family: 'Pinyon Script', cursive; }
+font.Sriracha {font-size:25pt; font-family: 'Sriracha', cursive; }
+font.Aclonica {font-size:25pt; font-family: 'Aclonica', sans-serif; }
+font.Shrikhand {font-size:25pt; font-family: 'Shrikhand', cursive; }
+font.Fredericka_the_Great {font-size:25pt; font-family: 'Fredericka the Great', cursive; }
+font.Capriola {font-size:25pt; font-family: 'Capriola', sans-serif; }
+font.Black_Ops_One {font-size:25pt; font-family: 'Black Ops One', cursive; }
+font.Galada {font-size:25pt; font-family: 'Galada', cursive; }
+font.Italianno {font-size:25pt; font-family: 'Italianno', cursive; }
+font.Niconne {font-size:25pt; font-family: 'Niconne', cursive; }
+font.Arima_Madurai {font-size:25pt; font-family: 'Arima Madurai', cursive; }
+font.Syncopate {font-size:25pt; font-family: 'Syncopate', sans-serif; }
+font.Cinzel_Decorative {font-size:25pt; font-family: 'Cinzel Decorative', cursive; }
+font.Comic_Neue {font-size:25pt; font-family: 'Comic Neue', cursive; }
+font.Pattaya {font-size:25pt; font-family: 'Pattaya', sans-serif; }
+font.Bungee_Inline {font-size:25pt; font-family: 'Bungee Inline', cursive; }
+font.Arizonia {font-size:25pt; font-family: 'Arizonia', cursive; }
+font.Aladin {font-size:25pt; font-family: 'Aladin', cursive; }
+font.Petit_Formal_Script {font-size:25pt; font-family: 'Petit Formal Script', cursive; }
+font.Calligraffitti {font-size:25pt; font-family: 'Calligraffitti', cursive; }
+font.Vast_Shadow {font-size:25pt; font-family: 'Vast Shadow', cursive; }
+font.Gabriela {font-size:25pt; font-family: 'Gabriela', serif; }
+font.Convergence {font-size:25pt; font-family: 'Convergence', sans-serif; }
+font.Amita {font-size:25pt; font-family: 'Amita', cursive; }
+font.Mandali {font-size:25pt; font-family: 'Mandali', sans-serif; }
+font.La_Belle_Aurore {font-size:25pt; font-family: 'La Belle Aurore', cursive; }
+font.Frijole {font-size:25pt; font-family: 'Frijole', cursive; }
+font.Faster_One {font-size:25pt; font-family: 'Faster One', cursive; }
+font.Bungee_Shade {font-size:25pt; font-family: 'Bungee Shade', cursive; }
+font.Denk_One {font-size:25pt; font-family: 'Denk One', sans-serif; }
+font.Imprima {font-size:25pt; font-family: 'Imprima', sans-serif; }
+font.Codystar {font-size:25pt; font-family: 'Codystar', cursive; }
+font.Inknut_Antiqua {font-size:25pt; font-family: 'Inknut Antiqua', serif; }
+font.Srisakdi {font-size:25pt; font-family: 'Srisakdi', cursive; }
+font.Trade_Winds {font-size:25pt; font-family: 'Trade Winds', cursive; }
+font.Spicy_Rice {font-size:25pt; font-family: 'Spicy Rice', cursive; }
+font.Ewert {font-size:25pt; font-family: 'Ewert', cursive; }
+font.Coiny {font-size:25pt; font-family: 'Coiny', cursive; }
+font.Jacques_Francois_Shadow {font-size:25pt; font-family: 'Jacques Francois Shadow', cursive }
+font.Croissant_One {font-size:25pt; font-family: 'Croissant One', cursive; }
+font.Cagliostro {font-size:25pt; font-family: 'Cagliostro', sans-serif; }
+font.Diplomata {font-size:25pt; font-family: 'Diplomata', cursive; }
+font.Goblin_One {font-size:25pt; font-family: 'Goblin One', cursive; }
+font.Revalia {font-size:25pt; font-family: 'Revalia', cursive; }
+font.Londrina_Shadow {font-size:25pt; font-family: 'Londrina Shadow', cursive; }
+font.Kumar_One_Outline {font-size:25pt; font-family: 'Kumar One Outline', cursive; }
+font.Hanalei {font-size:25pt; font-family: 'Hanalei', cursive; }
+
+p.mid, font.mid, table.box { color:black; font-size:33pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
+td.lt { color:black; font-size:33pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; border: 5px ridge #ff5722;}
+td.lp { background-color:pink; color:black; font-size:33pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; border: 5px ridge #ff5722;}
+td.tt { color:blue; font-size:33pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; border: 5px ridge #ff5722;}
+font.green { color:green; line-height:60px; margin-left:0px; font-size:30pt; font-weight : bold;}
+table.box { color:black; line-height:55px; margin-left:0px; font-size:25pt; font-weight : bold;}
+td.right { color:black; line-height:55px; margin-left:0px; font-size:25pt; font-weight : bold; text-align : right;}
+tr.center { color:black; line-height:55px; margin-right:0px; font-size:30pt; font-weight : bold; text-align : center;}
+#mok {line-height:70px;}
+#link1 button {color:red; line-height:10px; margin-left:0px; font-size:20pt; font-weight : bold; width: 60px; height: 40px;}
+#link2 button {color:blue; line-height:20px; virtical-align:0px; margin-left:0px; font-size:20pt; font-weight : bold; width: 60px; height: 40px;}
+#bgmSel {color:blue; font-family: 'Jua'; font-size:35pt; font-weight : bold; text-align:left; virtical-align:center; line-height:110%; margin-left:0px; }
+#mTime, #mTime2 {font-size:40pt; font-weight : bold; font-family: 'Noto Sans KR', sans-serif; line-height:105%;}
+.fix { width:100%; height:44; background-color: white; position: fixed; top: 0px;left: 0px; opacity: 0.5; color:blue; font-size:30pt; font-family: 'Noto Sans KR', sans-serif; font-weight : bold; text-align:left; line-height:120%; display:none; } // aquamarine
+
+font.title {color:red; font-size:25pt; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:20px 12px 20px #333; }
+p.middle {color:black; font-size:25pt; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; }
+
+p.title {color:blue; font-size:50pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-face:휴먼옛체; }
+p.tit {color:blue; font-family: 'Noto Sans KR', sans-serif; font-size:35pt; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:20px 12px 20px #333; } 
+p.titr {color:red; font-family: 'Noto Sans KR', sans-serif; font-size:30pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:20px 12px 20px #333; } 
+p.ct {color:blue; font-size:33pt; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; }
+p.lt {color:green; font-family: 'Noto Sans KR', sans-serif; font-size:33pt; font-weight : bold; text-align : center; line-height:130%; margin-left:0px;}
+p.rt {color:black; font-size:33pt; font-weight : bold; text-align : right; line-height:130%; margin-right:0px; font-face:맑은 고딕; }
+p.title1 {color:blue; font-size:35pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-face:휴먼옛체; }
+
+button.Jua { color:purple; font-size:30pt; font-family: 'Jua', sans-serif; text-align : left; margin-right:10px; }
+button.bt {color:red; line-height:130%; virtical-align:center; margin-left:0px; font-size:25pt; font-weight : bold; width: 90px; height: 50px;}
+button.tj {background-color:blue; color:white; line-height:130%; virtical-align:center; margin-left:0px; font-size:20pt; font-weight : bold; width: 70px; height: 40px;}
+button.ky {background-color:green; color:white; line-height:130%; virtical-align:center; margin-left:0px; font-size:20pt; font-weight : bold; width: 70px; height: 40px;}
+
+.button1:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+	background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+	background-color:#dfdfdf;
+            text-decoration:none;
+}
+.button1:active {
+	position:relative;
+	top:1px;
+            text-decoration:none;
+}
+
+.button1, .button2 {
+	-moz-box-shadow: 4px 4px 0px 0px #efdcfb;
+	-webkit-box-shadow: 4px 4px 0px 0px #efdcfb;
+	box-shadow: 4px 4px 0px 0px #efdcfb;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfbdfa), color-stop(1, #bc80ea));
+	background:-moz-linear-gradient(top, #dfbdfa 5%, #bc80ea 100%);
+	background:-webkit-linear-gradient(top, #dfbdfa 5%, #bc80ea 100%);
+	background:-o-linear-gradient(top, #dfbdfa 5%, #bc80ea 100%);
+	background:-ms-linear-gradient(top, #dfbdfa 5%, #bc80ea 100%);
+	background:linear-gradient(to bottom, #dfbdfa 5%, #bc80ea 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfbdfa', endColorstr='#bc80ea',GradientType=0);
+	background-color:#dfbdfa;
+	-webkit-border-radius:15px;
+	-moz-border-radius:15px;
+	border-radius:15px;
+	border:2px solid #c584f3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+            width:50px;
+            height:80px;
+	font-family:맑은 고딕;
+	font-size:35px;
+	font-weight:bold;
+	padding:0px 0px 0px 0px;
+            margin:0px 10px 0px 0px;
+	text-shadow:0px 1px 0px #9752cc;
+}
+.button2:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bc80ea), color-stop(1, #dfbdfa));
+	background:-moz-linear-gradient(top, #bc80ea 5%, #dfbdfa 100%);
+	background:-webkit-linear-gradient(top, #bc80ea 5%, #dfbdfa 100%);
+	background:-o-linear-gradient(top, #bc80ea 5%, #dfbdfa 100%);
+	background:-ms-linear-gradient(top, #bc80ea 5%, #dfbdfa 100%);
+	background:linear-gradient(to bottom, #bc80ea 5%, #dfbdfa 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc80ea', endColorstr='#dfbdfa',GradientType=0);
+	background-color:#bc80ea;
+}
+.button2:active {
+	position:relative;
+	top:1px;
+}
+
+h1{
+    text-align: center;
+    margin-top: 17px;
+    font-size: 66px;
+}  
+h1 span:nth-child(1) {
+    color: #4285f4;
+}    
+  h1 span:nth-child(2) {
+    color: #ea4335;
+}
+  h1 span:nth-child(3) {
+    color: #fbbc05;
+}    
+  h1 span:nth-child(4) {
+    color: #ea4335;
+}    
+  h1 span:nth-child(5) {
+    color: #4285f4;
+}    
+  h1 span:nth-child(6) {
+    color: #34a853;
+}    
+  h1 span:nth-child(7) {
+    color: #ea4335;
+}        
+.search-bar{
+    width:500px;
+}
+</STYLE>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script language=javascript>
+var tScroll, userHeight, curPos, userBottom = 0, n = 0;
+
+function runTimer() {
+// n++
+ var scrollPosition = window.scrollY || document.documentElement.scrollTop;
+ curPos = document.body.scrollTop + scrollPosition + 1;
+ window.scroll(0, curPos);
+ userBottom = document.body.scrollTop + document.body.scrollHeight;  // 시각적으로 볼 수 없는 높이의 합
+ 
+ if (curPos >= userBottom) window.scroll(0, userBottom);  // 볼 수 없는 높이와 스크롤바top좌표가 같으면 스크롤바의 이동완료를 의미
+ if (n < userBottom) {tscroll = window.setTimeout("runTimer()", 50);
+  }
+}
+
+function stop() {
+    clearTimeout(tscroll);
+}
+</script> 
+
+<script> 
+$(document).ready(function() { 
+  var floatPosition = parseInt($("#menu").css('top')); 
+  $(window).scroll(function() { 
+  var scrollTop = $(window).scrollTop(); 
+  var newPosition = scrollTop + floatPosition + "px"; 
+  $("#menu").stop().animate({ 
+    "top" : newPosition 
+    }, 800); 
+    }).scroll(); 
+ }); 
+
+function fnMove(seq){ 
+   var offset = $("#div" + seq).offset(); 
+   $('html, body').animate({scrollTop : offset.top - 200}, 400); 
+ } 
+
+var font_size = 25 // 
+var font_size2 = parseInt($('font').css('font-size'))
+function fontSz(val) {
+        if (val == "B") {
+           font_size++;
+           font_size2++;
+           if(font_size>60){font_size=60;}
+        }else if (val == "S") {
+          font_size--;
+          font_size2--;
+          if(font_size<7){font_size=7;} 
+        }
+ $("p.tit").css({"font-size": (5 + font_size) + "pt"})
+ $("p.mid").css({"font-size":(2 + font_size) + "pt"})
+// $("p.mid").css({"line-height":(130 + font_size) + "%"})
+ $("p.ct").css({"font-size": (5 + font_size) + "pt"})
+ $("font").css({"font-size": (font_size2) + "pt"})
+ }
+</script> 
+
+<script type='text/javascript'>
+
+var generateRandom = function (min, max) {
+  var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
+  return ranNum;
+}
+
+function hideDiv(){  
+    //test.innerHTML = "hide()";
+    //$( '#fix' ).remove();   // empty() 내용만
+    $('#fix').hide()       // $('#id').hide()
+}
+
+function youtube_parser(url){  // 유튜브 비디오 ID 추출
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    return (match&&match[7].length==11)? match[7] : false;
+}
+
+function chanPlay() {
+//var memo1 = "<br><br><center><button class='btn btn-outline-info' width=200px onClick='javascript:window.close()' onFocus=blur() class='huboja' title='창 닫기'>[닫기]</button></center>" 
+//    memo1 += " <DIV style='LEFT: 0px; POSITION: relative; TOP:0px'><DIV id=img1 style='Z-INDEX: 11; LEFT: 0px; POSITION: absolute; TOP:0px; WIDTH:300px; HEIGHT:500px'>"
+//    memo1 += "close</div></div>"
+var q = document.forms["formA"].elements['info'].value
+var url = "https://www.google.com/search?q=" + q
+     goo = window.open(url, 'goog', "toolbar=yes,location=no,directories=no,status=no,menubar=no, scrollbars=yes, resizable=yes, width=880, height=980, left=0, top=0");
+//goo.document.write(memo1); 
+//chan.innerHTML = url;
+}
+
+function stringSplit(strData, strIndex){  // 문자열 배열 나누기 함수
+ var stringList = new Array(); 
+ while(strData.indexOf(strIndex) != -1){
+  stringList[stringList.length] = strData.substring(0, strData.indexOf(strIndex)); 
+  strData = strData.substring(strData.indexOf(strIndex)+(strIndex.length), strData.length); 
+  } 
+ stringList[stringList.length] = strData; 
+ return stringList; 
+}
+ 
+function Left(str, n){
+if (n <= 0) // 만약 n 이 0보다 작거나 같다면 Left함수에서 0보다 작은경우는 없기에
+    return '';
+else if (n > String(str).length) //n이 바꿀 문자열보다 짧다면 
+    return str; // str을 그냥 리턴
+else // 정상적이라면 
+    return String(str).substring(0,n); // 0번째 문자열 부터 n번째 문자열을 substring한다
+}
+
+function Right(str, n){ //매개변수로 문자열 값과 바꿀 n번째문자열
+    if (n <= 0) // 만약 n 이 0보다 작거나 같다면 Right 함수에서 0보다 작은경우는 없기에
+       return '';
+    else if (n > String(str).length) //n이 바꿀 문자열보다 짧다면 
+       return str;
+    else { //정상적이라면
+       var iLen = String(str).length; 
+       return String(str).substring(iLen, iLen -  n); // 문자열 끝에서 문자열의 길이 - n까지
+    }
+}
+
+</script> 
+
+</head>
+<!-- body onload='bgmLoad()' onclick='stop()' ondblclick='runTimer()' //-->
+
+<center>
+<a name=top></a>
+<!-- TABLE style="BACKGROUND:white url('http://cfile217.uf.daum.net/original/202D503E4FADD3BB1A50A0') repeat right bottom" 
+WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><TR valign=top><TD> 
+<div id="player"></div>
+</TD></TR></TBODY></TABLE></TD></TR></TABLE>
+
+<div id='fix' class='fix' onClick='hideDiv()'>
+<TABLE width=100% style="BORDER-RIGHT: darkpink 1px ridge; BORDER-TOP: darkpink 1px ridge; BORDER-LEFT: darkpink 1px ridge; BORDER-BOTTOM: darkpink 1px ridge; BACKGROUND-COLOR: violet"><TD width=20%><div id='mTime2'>mTime2</div></td><td><div id='mTitle'>mTitle</div>
+</TD></TR></TABLE></div>
+
+<table style="BACKGROUND:white url('') repeat fixed left top" width=920 height=104 border=1 bordercolor=#464B4E cellspacing='0' cellpadding='10'><tr valign=middle><td>
+
+<img src="https://blog.kakaocdn.net/dn/dt58IY/btrdOoOaDhq/vMXzeXEhLRsEgB10IJd1uk/img.jpg?original" height=1>
+<table width=100%><tr><td>
+<a href='javascript:music_control()'><img id='music_button_img' src='http://cfile231.uf.daum.net/original/2255B6475636CD34137768' height=100 title='일시 정지'>
+<input type=text style='font-size: 16px; display:none;' id='music_button' value='start'></a>&nbsp; &nbsp; &nbsp; 
+<a href='javascript:music_Random()'><img id='RS_button_img' src='https://k.kakaocdn.net/dn/ctAf3c/btqFAfda0TQ/x9nZ76BHBm8htukTUm4aAk/img.png?original' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button' value='sequence'></a>&nbsp; &nbsp; &nbsp; 
+<a href='javascript:music_Prev()'><img src='http://cfile219.uf.daum.net/original/215BE7475636CD35158322' height=100 title='이전 곡'><img src='http://cfile205.uf.daum.net/original/26628B475636CD3B0F68AE' height=100 title='이전 곡'></a>&nbsp; &nbsp; &nbsp;   
+<a href='javascript:music_Next()'><img src='http://cfile212.uf.daum.net/original/216420475636CD390D7829' height=100 title='다음 곡'><img src='http://cfile240.uf.daum.net/original/276B7A475636CD37064E0B' height=100 title='다음 곡'></a>&nbsp; &nbsp; &nbsp; 
+<a href='javascript:music_Repeat()'><img id='Re_button_img' src='https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button' value='noRepeat'></a> 
+</td><td width=25%><div id='mTime'>mTime</div></TD></TR></TABLE>
+
+<div id="test2">test2</div>
+<div id="List">List</div>
+</TD></TR></TABLE //-->
+
+<table style="BACKGROUND:white url('http://cfile238.uf.daum.net/image/150C971E4B36CD0D81370F') repeat fixed left top" width=920 height=104 border=5 bordercolor=#464B4E cellspacing='0' cellpadding='10'><tr valign=top><td>
+
+<span id="aaa">
+</p><P class="mid"><div id="test5"></div><br><br><br><br>
+
+<P class="tit">210901 골프장 예약 매크로<br><br>
+
+</P><P class="mid">
+코로나가 창궐한 이후부터 국내 골퍼들이 외국에 나가지 못하고, 모두 국내로만 밀려들다 보니 골프장 예약이 "하늘의 별 따기"가 되었다고 한다.<br><br>
+
+급기야 양양의 "설해원" 골프장에도 예외 없는 현상이 일어나서 "회원이 회원이면서도 예약을 하지 못해.." 그야말로 '낙동강 오리알' 신세가 되어 타지로 떠돌아 다녀야 한다고 한다~ ㅋㅋ<br><br>
+
+나야 뭐,, 골프를 안하니깐.. <br>
+아니 못하니깐 몰랐었는데..<br><br>
+
+친구들의 이야기를 들어보니 한달에 두번.. <br>
+1일과, 15일 9시에 다음달 15일분 예약을 접수한다고 한다.  <br><br>
+
+그러한 연고로 골프장 예약 개시 시간에 맞춰.. 날고 긴다는 아들 며느리 손자 모두 컴퓨터 앞에 앉아서, 불나게 마우스 클릭을 해봐도 예약이 제대로 잡히지 않는다고 했다~ ㅎ<br><br><br>
+
+
+그래서 나는 사람이 아닌 컴퓨터가 자동으로 예약하는 "매크로"를 만들어 보리라 마음 먹었다.<br><br>
+
+매크로라고 해서 드루킹처럼 "불법 댓글 무작위 배포"가 아니라, "1일 1인 1예약"에 한정된 프로그램이다.<br><br>
+
+매크로를 이용하여 획득한 예약 티켓팅을 전매하지 않는 한은 불법이 아니라고 한다.<br><br><br><br>
+
+
+
+1주일 넘게 작업을 했을 것이다.<br>
+html(인터넷 문서의 source)의 구조를 분석해야만 완전한 프로그램을 짤 수 있는데..<br>
+ <br>
+디데이(2021.9.1일 9시)의 구조를 미리 볼 수 없는 관계로..<br>
+9월의 문서 구조를 바탕으로 여러번의 시행착오를 겪고, 약 20번의 업데이트 과정을 걸치면서 나름대로 다듬고 다듬어서 완성(?) 시켰다.<br><br><br>
+
+
+디데이 전야에 '최종 테스트'를 해봤다.<br>
+10월의 문서 구조를 볼 수 없으니 일단 9월의 문서를 토대로 테스트하기 위하여 9월의 예약 잔여분을 검색해 보았다.<br><br>
+
+검색 시작일자를 정하고 [전체 검색]을 클릭하였다.<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/1M63m/btrdJjtAHpZ/KfJ8yq5qnfTGyPYxMYj9s0/img.jpg?original" width=100%><br><br><br>
+
+
+
+"1분 12초" 만에 검색이 완료되었다.<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/D0fmp/btrdHkzDiI9/kTZmgQspjvsp4xHPVX9lv0/img.jpg?original" width=100%><br><br><br>
+
+
+
+검색 결과를 토대로...<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/b9yKYA/btrdOWqsL3u/iZKLbKoQhqlkREgSXapkF0/img.jpg?original" width=50%><br><br><br>
+
+
+
+"2021-09-02 씨뷰 코스 06:24"를 타켓으로 설정하고,<br>
+가정(假定)의 예약개시 시간을 "20:17:00"으로 설정한 후에..<br><br>
+
+최종 업데이트 버전의 매크로 버튼 [실제 예약]을 클릭하였다.<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/MWa8J/btrdJ4ps388/vaMiWxskZo1eSJWQCZmUzk/img.jpg?original" width=100%><br><br>
+
+그러면 예약 사이트로 자동 '로그인' 한 후에..<br>
+월별 예약일자 선택 화면까지 진입하여<br>
+예약개시 시간까지 대기하게 된다.<br><br><br><br>
+
+
+
+모니터 화면에는<br>
+회색 바탕의 예약개시 일자, 시간이 표시되고,<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/q1LG0/btrdOXo3KV6/UC03Udkk1QyRaS4fx7zqiK/img.jpg?original" width=100%><br><br>
+
+분홍색 바탕에는 현재 시간의 진행이 "초 단위"로 표시 되어진다.<br><br><br>
+
+
+
+예약개시 시간에 대비하여 30초 이내가 남으면..<br>
+초 단위의 표시는 빨간색 바탕으로 변한다.<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/tzR9D/btrdOxD8Vnx/8fQWR7eNHZfqdPlel5JirK/img.jpg?original" width=100%><br><br><br>
+
+
+
+시간을 단축시키기 위하여 "예약개시 시간" 2초 전인 58초부터 작동하도록 프로그램을 짰더니..<br><br>
+
+시작 시간은 59초부터 표시되고,<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/LL4Bh/btrdOLa7VFd/6Z8ieOvl4MINB4H4XmAqA0/img.jpg?original" width=100%><br><br>
+
+"3. 21094초" 만에 "씨뷰 코스 06:24"가 예약되었다고 표시 되어졌다.<br><br>
+
+
+다행히도 최종 테스트에서는 가볍게(?) 성공했지만, <br>
+내일 아침 실전에서는 어떤 결과가 나올지...<br><br>
+
+떨린다~~~ ㅎㅎㅎ<br><br><br>
+
+
+아래는 테스트 화면을 녹화한 동영상이다.<br><br>
+
+( ※ 소리는 없슴 )<br><br>
+
+<TABLE style="BACKGROUND:white url('http://cfile217.uf.daum.net/original/202D503E4FADD3BB1A50A0') repeat right bottom" 
+WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><TR valign=top><TD> 
+<iframe width="874" height="492" src="https://www.youtube.com/embed/vj562o7PNy4" title="예약 매크로 테스트 01" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</TD></TR></TABLE>
+
+</P><P class="mid"><br><br><br>
+
+
+
+마침내 D-Day 아침!<br>
+예약 개시 2시간 전부터 테스트를 해보고자 하였더니..<br>
+html 구조가 변경되고 있는지 없었던 '에러'가 빈번하게 발생한다.<br>
+  <br>
+오히려 "긁어 부스럼"이 될까봐 걍~ 차분하게 기다리기로 했다.<br>
+드디어 그 날의 그 시간이 다가왔다.<br><br>
+
+"2021-09-01 09:00:00"에 설정하고..<br>
+개시 2분 전에 [실제 예약] 버튼을 클릭했다~☆<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/cqD2xW/btrdJU75R6a/zpPIO69TrInYWnWomeQAC1/img.jpg?original" width=100%><br><br>
+
+그런데 '초 단위' 표시가 개시 30초 전부터 적색 바탕이 되어야 하는데, 아직 1분 30초나 남았음에도 불구하고 벌써부터 적색 바탕이 되어버렸다.<br><br>
+
+뭐가 잘못 된 것일까 ???<br><br><br><br>
+
+
+
+아직까지 10월달 달력은 예약 가능일이 활성화되어 있지 않았다.<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/qqHne/btrdQBMQVKJ/tS8vZU6GBVOfy6a6FqMFdK/img.jpg?original" width=100%><br><br>
+
+ <br><br>
+
+나 뿐만 아니라 전국에서 접속하는 사람들이 모두 매크로를 이용할 것 같기에..<br>
+단 1초라도 아낄려고 "예약개시 2초 전"에 작동되도록 설계했더니...<br><br>
+
+아. 뿔. 싸~ !!<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/c1PRUv/btrdPAArY5A/ODMwiaTUN4XQwHr8M8ptYK/img.jpg?original" width=100%><br><br>
+
+아직 [오픈전]이라는 알림창이 떴다. 이룬~~~<br><br><br><br>
+
+
+
+언릉 초기화시키고 다시 클릭했더니..<br>
+이미 21초나 흘러가고 있었다.<br>
+ <br>
+<img src="https://blog.kakaocdn.net/dn/z2J4a/btrdHlZBWkf/OBW5bBtVekwtgkTCKnZ2Uk/img.jpg?original" width=100%><br><br>
+
+※ 영상 녹화 프로그램인 '곰캠'을 작동시키면 컴퓨터 속도가 느려지지 않을까 하는 우려가 있긴 했었지만..<br><br>
+
+역사적인(?) 순간을 놓치고 싶지 않았고, 실수의 장면을 포착해 놓아야 다음을 대비할 수 있기에 '곰캠'을 작동하기로 결정했다.<br><br>
+
+그 덕분에..<br>
+당시에는 '혼비백산(魂飛魄散)'의 정신 없는 상태라 뭐가 뭔지도 제대로 파악하지 못했지만,<br>
+나중에야 녹화 영상을 보면서 순간 순간의 정황을 파악할 수 있었다~ ㅎ  <br><br><br><br>
+
+
+
+어쨌거나 다시 접속하여 예약의 수순을 밟으면서..<br>
+마지막 관문인 아래의 [예약 정보 확인] 창까지 열렸는데..<br><br>
+
+아~~~ 근데 창이 닫혀지질 않는다.<br><br>
+
+그 다음으로 넘어가야 "예약 성공"인데, 수작업 마우스로 [확인] 버튼을 수차례 클릭해보았으나 도대체 창이 닫혀지지 않는 것이었다~~~ ♨<br>
+  <br>
+<img src="https://blog.kakaocdn.net/dn/AwB7P/btrdJiVMscR/8rkaRfOwpvEQop1qPoRM6K/img.jpg?original" width=100%><br><br>
+
+아~~ 고지가 바로 저긴데...<br><br><br><br>
+
+
+
+눈물을 머금고..(?) 또 다시 초기화를 시킬 수 밖에 없었다. ㅠ.ㅠ<br><br>
+
+그 사이에 시간은 또 "1분 33초"가 지나가고 있었다.<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/k0Vky/btrdOoN0KVD/CaXFaKhiFoXjWpWe8BjqGk/img.jpg?original" width=100%><br><br><br><br>
+
+
+
+앗 !! <br>
+그런데 또 무슨 알림창이 뜨는 것이 아닌가?<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/cq9KmY/btrdPJc1VmM/xK9S6Ji75Y5zMdHEQZnh40/img.jpg?original" width=100%><br><br>
+
+내용도 미처 읽어 볼 겨를도 없이..<br>
+"에이.. 또 무슨 에러 창이 뜨는거야?"<br>
+하면서 또 다시 초기화를 시킬 수 밖에 없었다.<br><br><br><br>
+
+
+
+시간은 벌써 "2분 15초"가 지나가고 있었다.<br>
+ <br>
+<img src="https://blog.kakaocdn.net/dn/cp7eC3/btrdOWKrOil/5muJvxkZqI8vU9tC1odwy1/img.jpg?original" width=100%><br><br>
+
+또 에러(?) 창 ! 또 초기화 !<br><br><br><br>
+
+
+
+약 3 여분이면 "모든 것이 상황 끝!" 이라는데..<br>
+이미 시간은 "3분 19초"나 흘러가고 있었다.<br>
+ <br>
+<img src="https://blog.kakaocdn.net/dn/FCyae/btrdOxD8Vtx/RlrQeLBf6LTbhVwwkSfBGk/img.jpg?original" width=100%><br><br>
+
+아니나 다를까.<br>
+이번에는 알림창이 아닌 '프로그램 에러 창'이 떴다.<br><br>
+
+이미 "예약이 매진" 된 상태인 모양이다. ㅜ.ㅜ<br><br><br><br>
+
+
+
+10 여일 정도의 노고가 단 몇분만에 허망함으로 날아가는 순간이었다.<br><br>
+
+내 마음이 그렇듯이 모니터의 화면도 깜깜해졌다~~~ ㄲ. ㄲ.<br><br><br><br>
+
+
+
+비몽사몽~ 맥싸리 빠진 상태로 있던 그 무렵,<br>
+양중고 2023 이상경 친구로부터 전화가 걸려왔다.<br>
+  <br>
+"예약, 성공했어?"<br>
+"아니.. 어쩌구.. 저쩌구.."<br><br>
+
+"문자가 들어왔던데...?"<br>
+"뭐야, 문자가 들어왔어? 코스는?"<br>
+"그건 확인 못했는데.."<br><br>
+
+고비용 코스인 "레전드" 코스가 잡힌 건 아닌지 염려스러워 물어 보았다..<br><br>
+
+내가 사이트에 들어가서 확인해 보았더니...<br>
+ <br>
+<img src="https://blog.kakaocdn.net/dn/bxggkH/btrdNYvvMjZ/0FTWvzR5bSIC6nIK0lFgm0/img.jpg?original" width=100%><br><br>
+
+야호~!!! 성공이닷 !!!<br>
+꺼져가던 절망감에서 환희가 솟구치는 순간이었습니다~~~ ☆ ㅎㅎ<br><br><br><br>
+
+
+
+안내 팝업창의 메세지가 에러 안내인 줄 알았더니..<br>
+나중에 녹화된 영상을 살펴보니 다음과 같은 내용의 메세지였다~ ('타임'이 '타인'으로 읽혔던 모양이다~ ㅋ)<br><br>
+
+"동일한 사람이 동일한 날짜에 이미 예약된 타임이 있으니 더 이상 예약할 수 없다."<br><br>
+
+그런 줄도 모르고 허둥대고 말았으니 웃기지 않는 일이 아닐 수 없다.<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/bcjQQ5/btrdJVsj4lF/kXy11QxgPhRlK359gBQKM1/img.jpg?original" width=100%><br><br>
+
+그래도 성공했기에 웃음이 나온다~~~ 허. 허.<br><br><br><br>
+
+
+
+그런데 친구가 7시에서 8시 사이의 시간대로 예약해 달라고 했었는데<br>
+왜 "06:52" 분으로 예약 됐을까?<br>
+ <br>
+<img src="https://blog.kakaocdn.net/dn/bJtehq/btrdQBlPDkw/JO0QbSYVjqe92Te0IelaAk/img.jpg?original" width=100%><br><br>
+
+나는 뜻하지 않은 만일의 순간을 대비하기 위하여 "4단계의 예약 로직"으로 만들었다.<br><br>
+
+첫번째는 '예약 개시' 전에는 '예약 시간 테이블'의 구조를 전혀 알 수 없으므로,<br>
+위 사진처럼 9월 테이블을 참조하여 "07:00"의 5번째 테이블을 타켓으로 정했었다.<br><br>
+
+그런데 9월에는 없었던 "06:52"이 잡힌 걸 보니, 10월에는 "07:00" 이전 테이블 중 하나가 없어진 것 같다.<br><br>
+
+이런 걸로 보아 아마도 첫 빵에 '캐취'가 된 모양이다.<br>
+그러므로 매크로가 밀리세컨드(millisecond, ms)를 다투는 정도는 아닌 것 같다.<br><br>
+
+프로그램을 개시 2초 전에 작동되도록 하였으나 다음에는 정시에 작동되도록 해야겠다~ ㅎ<br>
+  <br>
+ <br><br>
+
+두번째는 '씨뷰 코스'를 검색하다가 7시에서 8시 사이의 시간이 잡히면 캐치하도록 만들었다.<br><br>
+
+세번째는 '셀몬 코스'를 검색하다가 7시에서 8시 사이의 시간이 잡히면 캐치하도록 만들었다.<br><br>
+
+네번째는 '파인 코스'를 검색하다가 7시에서 8시 사이의 시간이 잡히면 캐치하도록 만들었다.<br><br><br><br>
+
+
+
+
+사태(?)가 정리된 뒤..<br>
+한 10분 쯤 뒤에 예약사이트에 접속해보니..<br>
+예약 가능일은 3일 밖에 없었고,<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/diudgu/btrdIL4XZ9I/JQNKLli2cVrX1GzUT7H4ik/img.jpg?original" width=100%><br><br><br><br>
+
+
+
+그 중에 1일자를 클릭해보니..<br>
+역시나 고비용 코스인 '레전드' 코스를 제외하고는..<br><br>
+
+일반의 3가지 코스는 모두 전멸(?)된 상태였다~~~ ㅎ<br>
+  <br>
+<img src="https://blog.kakaocdn.net/dn/C0Qbn/btrdPJ5rh91/7ersPRtS2HmnLXyVD0lSzk/img.jpg?original" width=100%><br><br><br>
+
+
+ <br>
+'전광석화(電光石火)'와도 같은 짧은 시간에..<br>
+지옥과 천당을 오가는 희비가 교차되는 아슬한 아침이었다~~~ ㅎㅎㅎ ♪<br><br><br><br><br>
+
+
+</p></span>
+</center>
+</b></font>
+</TD></TR></TABLE>
+</center>
+
+<div id="menu">
+<a href="#top"><img src=http://cfile203.uf.daum.net/original/225FCD4C5271C8552EB01A height=100 title="위로 ↑" border="0"></a><br><br>
+<button onClick="fontSz('S')" onFocus=blur() class='button1' title="글씨 작게"><font color=red size=50px>-</font></button><br><br>
+<button onClick="fontSz('B')" onFocus=blur() class='button2' title="글씨 크게"><font color=red size=50px>+</font></button><br><br>
+<a href='javascript:music_Next()'><img src='http://cfile212.uf.daum.net/original/216420475636CD390D7829' height=70 title='다음 곡'><img src='http://cfile240.uf.daum.net/original/276B7A475636CD37064E0B' height=70 title='다음 곡'></a><br><br>
+<a href='javascript:music_control()'><img id='music_button_img2' src='http://cfile231.uf.daum.net/original/2255B6475636CD34137768' height=70 title='일시 정지'>
+<input type=text style='font-size: 16px; display:none;' id='music_button' value='start'></a>
+</div>
+
+</body>
+</html>
+
