@@ -30,7 +30,7 @@ scrollbar-face-color:#FFCCFF;scrollbar-highlight-color:#FFFFFF;scrollbar-shadow-
 
 #link1 button {color:red; line-height:10px; margin-left:0px; font-size:20pt; font-weight : bold; width: 60px; height: 40px;}
 #link2 button {color:blue; line-height:20px; virtical-align:0px; margin-left:0px; font-size:20pt; font-weight : bold; width: 60px; height: 40px;}
-#bgmSel {color:blue; font-family: 'Jua'; font-size:35pt; font-weight : bold; text-align:left; virtical-align:center; line-height:110%; margin-left:0px; }
+#bgmSel {color:blue; font-family: 'Jua'; font-size:44px; font-weight : bold; text-align:left; virtical-align:center; line-height:110%; margin-left:0px; }
 #mTime, #mTime2 {font-size:40pt; font-weight : bold; font-family: 'Noto Sans KR', sans-serif; line-height:105%;}
 .fix { width:940; height:700; background-color: white; position: fixed; top: 0px; left: 50%; transform: translate(-50%, 0); color:blue; } // opacity: 0.5; display:none; aquamarine
 
@@ -165,7 +165,7 @@ button { style="border: none; background: none; padding: 0;"}
 
 <!-- 
     1.  jsDelivr의 [Purge Cache] ( https://www.jsdelivr.com/tools/purge ) 페이지로 이동합니다.
-    2.  캐시를 삭제하고 싶은 URL (`https://cdn.jsdelivr.net/gh/deokchan/js@KangSang_Songs.js`)을 입력하고 "Purge" 버튼을 클릭합니다.
+    2.  캐시를 삭제하고 싶은 URL (`https://cdn.jsdelivr.net/gh/deokchan/js@latest/KangSang_Songs.js`)을 입력하고 "Purge" 버튼을 클릭합니다.
     이렇게 하면 jsDelivr 서버에서 해당 파일의 캐시가 삭제되고 다음 요청 시 GitHub에서 최신 버전을 가져오게 됩니다. 다만, 전 세계 모든 엣지 서버에 즉시 반영되지는 않을 수 있습니다.
 https://cdn.jsdelivr.net/gh/deokchan/js@latest/AI-IoT_Song.js Ctrl + Shift + R (또는 Ctrl + F5)
 https://cdn.jsdelivr.net/gh/deokchan/js@latest/AI-IoT_Song.js?timestamp //-->
@@ -258,8 +258,8 @@ const currentPage = location.pathname.split('/').pop().replace('.html', '');
 var n = 0;
 var ctl;
 var list_num = odi.length-1;
-var a = 0
-var b = list_num
+var a = 69
+var b = 91 // list_num
 
 function init() {
     bgmLoad();
@@ -600,6 +600,10 @@ function music_Repeat() {
     }
 }
 
+function isAllLowerCase(str) {
+    return str === str.toUpperCase();
+}
+
 function bgmLoad() {
    var tag0 = "<P class='Gugi'><b>" + title0 + " (" + odi.length + " 곡)</b></p>"
    var tag2 = ""
@@ -611,6 +615,8 @@ for (var i=0;i<=odi.length-1;i++) {
  var title1 = title.split("_")[0] 
  var title2 = title.split("_")[1] 
  var title3 = title1 + " " + title2
+//      if ( title3.includes(isAllLowerCase('KCH')) ) { title3 = title3.replace("KCH", "<font color='red'>KCH</font>") }; // 251205 KCH 적색으로 치환
+//      if ( title3.includes("KCH") ) { title3 = title3.replace("KCH", "<font color=red>KCH</font>") }; // 251205 KCH 적색으로 치환
 
       tag2 = tag2 + '<OPTION VALUE=' + i + '>' +  (i+1) + ". " + title3 + ' <br>';
       tag5 = tag5 + "<button class='bt' onclick='play_it(" + i + " )'>" + (i+1) + "</button> " + title3 + "<br><br>"; }
@@ -634,6 +640,7 @@ for (var i=cN;i<=odi.length-1;i++) {
  var title1 = title.split("_")[0] 
  var title2 = title.split("_")[1] 
  var title3 = title1 + " " + title2
+      if ( title3.includes("KCH") ) { title3 = title3.replace("KCH", "<font color=red>KCH</font>") }; // 251205 KCH 적색으로 치환
 
       tag5 = tag5 + "<button class='bt' onclick='play_it(" + i + " )'>" + (i+1) + "</button> " + title3 + "<br><br>"; 
  }
