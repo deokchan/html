@@ -46,6 +46,17 @@ p.ct {color:blue; font-size:45px; font-weight : bold; text-align : center; line-
 p.title {color:blue; font-size:67px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-face:휴먼옛체; }
 p.tit {color:blue; font-family: 'Noto Sans KR', sans-serif; font-size:54px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:10px 10px 10px gray; } 
 
+p.highlight { color: #d4af37; font-size: 54px; font-weight: bold; text-align : center; } /* 황금빛 강조색 */
+.parent { text-align: center; }
+p.tag { display: block; background: #ff4757; color: white; padding: 10px; border-radius: 15px; font-size: 54px; text-align : center; margin: 0 auto 10px auto; width: fit-content; }
+p.blue { display: block; background: blue; color: white; padding: 10px; border-radius: 15px; font-size: 54px; text-align : center; margin: 0 auto 10px auto; width: fit-content; }
+p.edit { display: block; background: #ff9f43; color: white; padding: 10px; border-radius: 20px; font-size: 54px; text-align : center; margin: 0 auto 10px auto; width: fit-content; }
+p.sticker { display: block; background: #457b9d; color: white; padding: 10px; border-radius: 4px; font-size: 54px; text-align : center; margin: 0 auto 10px auto; width: fit-content; }
+
+p.main { color:#0077b6; font-size:54px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; margin-bottom: 10px; }
+p.red-title { color:#e63946; font-size:54px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; margin-bottom: 10px; }
+
+
 audio:hover, audio:focus, audio:active
 {
 -webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
@@ -771,16 +782,7 @@ var temp = result[1]
      }
      temp5 = stringSplit(temp5, "] ")[1]
 */
-
      tag5 = tag5 + "<button class='bt' onclick='bgmPlay(" + i + " )'>" + (i+1) + "</button> " + temp + "<br><br>"; 
-/*
- var title = odi[i].split("|")[1] 
- var title1 = title.split("_")[0] 
- var title2 = title.split("_")[1] 
- var title3 = title1 + " " + title2
-      if ( title3.includes("KCH") ) { title3 = title3.replace("KCH", "<font color=red>KCH</font>") }; // 251205 KCH 적색으로 치환
-      tag5 = tag5 + "<button class='bt' onclick='play_it(" + i + " )'>" + (i+1) + "</button> " + title3 + "<br><br>"; 
-*/
  }
     test.innerHTML = "<P class='mid'>" + memo + tag5; 
 }
@@ -1013,18 +1015,133 @@ X = 플레이어 감춤, O = 플레이어 보기</font>
 <P class="tit">260118 낙산 바닷가 & 봉포 머구리집<br><br><font color=dimgray></font>
 
 </P><P class="mid"><br><br>
-<img src='https://i.imgur.com/mW6AXLT.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/qZfmzAw.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/XjkzjCd.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/ya6GVk7.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/NzoNcTV.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/bGAuVR0.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/EZm3bft.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/3ZFmJXN.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/2brzaC9.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/CFwiHPV.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/nDbQ9hl.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/ZHcZa4d.jpeg' width=100% title='📷 '><br><br><br><br><br>
+<img src='https://i.imgur.com/mW6AXLT.jpeg' width=100% title='📷 기울어진 그네 사진'>
+<P class="highlight">"함께라서 따뜻한 겨울"
+</p><P class="mid">둥근 원 안에 담긴 두 분의 예쁜 계절,<br>
+지금처럼 늘 포근한 일상 되시길 바랍니다.<br><br>
+
+황금빛 프레임 속에 담긴 영화 같은 <br>
+두 분! 늘 지금처럼 행복하세요.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/qZfmzAw.jpeg' width=100% title='📷 수직 그네 사진'>
+<P class="highlight">"환한 미소, 닮은 행복"
+</p><P class="mid">마주 보는 눈빛보다 함께 보는 곳이 <br>
+같아서 더 아름다운 부부.<br><br>
+
+세상의 모든 행복을 동그랗게 모아<br>
+두 분께 선물하고 싶은 아름다운 날입니다.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/XjkzjCd.jpeg' width=100% title='📷 독서하는 동상과 함께'>
+<P class="tag">낭만 여행
+</p><P class="mid">"어떤 이야기에 푹 빠지셨나요?"<br>
+낯선 이의 책장 속에 잠시 머물러 보는 시간.<br><br>
+
+무슨 재미있는 책인가요? <br>
+저도 같이 좀 봐요! <br>
+낭만 가득한 겨울 바다 산책.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/ya6GVk7.jpeg' width=100% title='📷 속삭이는 모습'>
+<P class="tag">비밀 대화
+</p><P class="mid">동상에게만 살짝 들려주는 비밀 이야기 <br>
+바다는 모든 비밀을 알고 있겠죠?<br><br>
+
+말 없는 그에게 건네는 따뜻한 인사말. 겨울 바다에서 만난 뜻밖의 대화 상대.<br><br>
+
+바다 소리에 실어 보내는 소근소근 비밀 이야기. 동상도 웃음 짓게 만드는 마법 같은 미소.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/NzoNcTV.jpeg' width=100% title='📷 클로즈업 미소'>
+<P class="tag">겨울 바다의 주인공
+</p><P class="mid">붉은 모자보다 더 화사하게 피어난 웃음꽃, 겨울 바다를 배경으로 한 편의 영화가 됩니다.<br><br>
+
+바다를 배경으로 한 폭의 그림처럼. <br>
+붉은 모자가 포인트인 겨울의 뮤즈.<br><br>
+
+동상도 반할 것 같은 화사한 미소! <br>
+겨울 바다의 주인공은 바로 당신입니다
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/bGAuVR0.jpeg' width=100% title='📷 겨울 바다와 여유'>
+<P class="blue">겨울 바다의 속삭임
+</p><P class="mid">겨울 바다의 <font color="green">고요함</font> 속에 담긴<br>지적인 여유와 낭만<br><br>
+
+"새로운 친구를 사귀었습니다. <br>
+말은 없지만 참 속이 깊은 친구네요."<br><br>
+
+풍경이 되고 예술이 되는, <br>
+어느 겨울날의 기록.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/EZm3bft.jpeg' width=100% title='📷 따뜻한 미소'>
+<P class="blue">따뜻한 미소가 돋보이는 클로즈업
+</p><P class="mid">동상의 차가움마저 녹이는<br><font color="green">따스한 미소</font>를 간직한 당신<br><br>
+
+함께 읽으니 더 재미있나요? <br>
+곁을 내어준 강아지도 반가워하네요.<br><br>
+
+차가운 금속의 온기마저 깨울 것 같은, 당신의 선한 미소.<br>
+가장 빛나는 주인공은 바로 당신입니다
+<br><br><br><br><br>
+
+
+
+
+<img src='https://i.imgur.com/3ZFmJXN.jpeg' width=100% title='📷 낙산 바닷가에서 남편1'>
+<P class="main">낙산의 바다를 닮은 미소
+</p><P class="mid">시원한 파도 소리를 뒤로하고<br>여유로운 겨울 바다를 만끽하는 멋진 순간!
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/2brzaC9.jpeg' width=100% title='📷 낙산 바닷가에서 남편2'><br><br>
+겨울 낙산의 푸른 파도처럼, <br>
+가슴 시원한 여유를 품은 멋진 남편분!
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/CFwiHPV.jpeg' width=100% title='📷 낙산 바닷가에서 남편3'><br><br>
+거친 파도 앞에서도 흔들림 없는 미소, <br>
+든든한 바다 같은 당신을 응원합니다.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/nDbQ9hl.jpeg' width=100% title='📷 부인 낙산 통화1'>
+<P class="sticker">ON AIR
+</p><P class="red-title">낙산 바다를 수화기에 담다
+</p><P class="mid">장시간 통화도 화보처럼!<br>
+파도 소리가 배경음악이 되는 낭만적인 순간입니다.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/ZHcZa4d.jpeg' width=100% title='📷 부인 낙산 통화2'><br><br>
+
+낙산의 파도 소리를 수화기 너머로 전하는 중. <br>
+바다만큼 깊은 이야기가 흐르는 오후.<br><br>
+
+장시간 통화 중! <br>
+낙산 바다를 통째로 중계하고 계신 오늘의 리포터님.
+<br><br><br><br><br>
+
+
+
 <img src='https://i.imgur.com/mtZcSSS.jpeg' width=100% title='📷 '><br><br><br><br><br>
 <img src='https://i.imgur.com/02TuB1n.jpeg' width=100% title='📷 '><br><br><br><br><br>
 <img src='https://i.imgur.com/Yko9Zu0.jpeg' width=100% title='📷 '><br><br><br><br><br>
@@ -1046,10 +1163,48 @@ X = 플레이어 감춤, O = 플레이어 보기</font>
 <img src='https://i.imgur.com/E8kGJOq.jpeg' width=100% title='📷 '><br><br><br><br><br>
 <img src='https://i.imgur.com/XZ4xp26.jpeg' width=100% title='📷 '><br><br><br><br><br>
 <img src='https://i.imgur.com/t3L9tcF.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/HCGZucG.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/g8ITpRp.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/YWSSovp.jpeg' width=100% title='📷 '><br><br><br><br><br>
-<img src='https://i.imgur.com/W3e02T0.jpeg' width=100% title='📷 '><br><br><br><br><br>
+
+
+
+
+<img src='https://i.imgur.com/HCGZucG.jpeg' width=100% title='📷 합성 편집 사진 남편1'>
+<P class="edit">Special Edit
+</p><P class="main">세상에 단 하나뿐인 작품
+</p><P class="mid">정성스런 편집으로 탄생한 특별한 컷!<br>낙산의 주인공은 바로 당신입니다.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/g8ITpRp.jpeg' width=100% title='📷 합성 편집 사진 남편2'><br><br>
+특별한 편집으로 더 빛나는 순간! <br>
+세상에 단 하나뿐인 예술 작품이 된 주인공.<br><br>
+
+멋진 모델과 정성 가득한 편집의 만남. <br>
+낙산 바다를 통째로 선물합니다!
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/YWSSovp.jpeg' width=100% title='📷 무지갯빛 합성 부부'>
+</p><P class="red-title">무지갯빛
+</p><P class="mid">무지개 위를 걷는 듯한 두 분의 발걸음. <br>
+언제나 꽃길, 아니 무지갯길만 걸으세요<br><br>
+
+함께라서 더 찬란한 빛깔. 낙산 바다보다 더 아름다운 두 분의 실루엣입니다.
+<br><br><br><br><br>
+
+
+
+<img src='https://i.imgur.com/W3e02T0.jpeg' width=100% title='📷 합성 : 부인은 통화중'>
+</p><P class="red-title">예술로 재탄생한 순간
+</p><P class="mid">정성스러운 편집으로 탄생한 <br>
+나만의 뮤즈!<br><br>
+
+붉은 모자만큼이나 열정적이고 아름다운 모습입니다.
+<br><br><br><br><br>
+
+
+
 <img src='https://i.imgur.com/IHmyB5q.jpeg' width=100% title='📷 '><br><br><br><br><br>
 <img src='https://i.imgur.com/p8BTp7f.jpeg' width=100% title='📷 '><br><br><br><br><br>
 <img src='https://i.imgur.com/P1HCEVl.jpeg' width=100% title='📷 '><br><br><br><br><br>
