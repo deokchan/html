@@ -755,7 +755,6 @@ function listLoad() {
    let cN = window.vd; // 현재 vd 값 가져오기
 
 for (var i=cN;i<=bgm.length-1;i++) {
-
      result = stringSplit(bgm[i], "|");  //  인자 앞에 녀석은 쪼개고자 하는 문자열, 뒤에는 구분자
 var temp = result[1]
      temp = stringSplit(temp, "* ")[0]
@@ -783,9 +782,8 @@ var temp = result[1]
       tag5 = tag5 + "<button class='bt' onclick='play_it(" + i + " )'>" + (i+1) + "</button> " + title3 + "<br><br>"; 
 */
  }
-    test.innerHTML = "<P class='mid2'>" + memo + tag5; 
+    test.innerHTML = "<P class='mid'>" + memo + tag5; 
 }
-
 
 function play() { 
      if ( $("#Re_button").val() == "Repeat" ) {
@@ -889,8 +887,8 @@ function bgmPlay(sel) {
 
 $(document).ready(function(){ 
   $("#List1").hide();
-     listLoad()                     
   $("#tog_1").click(function(){                                       
+     listLoad()                     
    $("#List1").toggle(2000); 
      if ( $("#tog_1").text() === '재생 목록 (List) 펼쳐 보기') { 
          $("#tog_1").text('재생 목록 (List) 닫기')
