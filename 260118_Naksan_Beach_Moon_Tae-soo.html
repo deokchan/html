@@ -748,6 +748,25 @@ var temp = result[1]
    }
 }
 
+function listLoad() {
+   let memo = "※ 지금 재생되는 곡부터 이후의 목록이 표시되며, 이전의 목록은 맨 위의 노란색 [셀렉트 박스]에서 확인할 수 있습니다.<br>"
+       memo += "※ 목록의 왼쪽 [적색 번호] 버튼을 클릭하면 해당 곡부터 재생됩니다.<br><br>"
+   let tag5 = ""
+   let cN = window.n; // 현재 n 값 가져오기
+
+for (var i=cN;i<=odi.length-1;i++) {
+ var title = odi[i].split("|")[1] 
+ var title1 = title.split("_")[0] 
+ var title2 = title.split("_")[1] 
+ var title3 = title1 + " " + title2
+      if ( title3.includes("KCH") ) { title3 = title3.replace("KCH", "<font color=red>KCH</font>") }; // 251205 KCH 적색으로 치환
+
+      tag5 = tag5 + "<button class='bt' onclick='play_it(" + i + " )'>" + (i+1) + "</button> " + title3 + "<br><br>"; 
+ }
+    test.innerHTML = "<P class='mid2'>" + memo + tag5; 
+}
+
+
 function play() { 
      if ( $("#Re_button").val() == "Repeat" ) {
          vd = vd
@@ -850,6 +869,7 @@ function bgmPlay(sel) {
 
 $(document).ready(function(){ 
   $("#List1").hide();
+     listLoad()                     
   $("#tog_1").click(function(){                                       
    $("#List1").toggle(2000); 
      if ( $("#tog_1").text() === '재생 목록 (List) 펼쳐 보기') { 
