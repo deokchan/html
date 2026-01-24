@@ -847,6 +847,8 @@ function music_control() {
         document.getElementById('music_button_img').title="일시 정지" 
         document.getElementById('music_button_img2').src="https://i.imgur.com/TQFP08p.png"  // pause 
         document.getElementById('music_button_img2').title="일시 정지" 
+        document.getElementById('music_button_img3').src="https://i.imgur.com/TQFP08p.png"  // pause 
+        document.getElementById('music_button_img3').title="일시 정지" 
     }else{
         player.pauseVideo();
         document.getElementById('music_button').value = 'stop'
@@ -854,30 +856,40 @@ function music_control() {
         document.getElementById('music_button_img').title="재생" 
         document.getElementById('music_button_img2').src="https://i.imgur.com/mNMdXMC.png" //play
         document.getElementById('music_button_img2').title="재생" 
+        document.getElementById('music_button_img3').src="https://i.imgur.com/mNMdXMC.png" //play
+        document.getElementById('music_button_img3').title="재생" 
     }
 }
 
 function music_Random() {
-    if ( document.getElementById('RS_button').value=='sequence'){
+    if ( document.getElementById('RS_button').value === 'sequence'){
         document.getElementById('RS_button').value = 'random';
         document.getElementById('RS_button_img').src="https://i.imgur.com/Au17Uxe.png"  // sequence
         document.getElementById('RS_button_img').title="순차 재생" 
+        document.getElementById('RS_button_img3').src="https://i.imgur.com/Au17Uxe.png"  // sequence
+        document.getElementById('RS_button_img3').title="순차 재생" 
     }else{
         document.getElementById('RS_button').value = 'sequence'
         document.getElementById('RS_button_img').src="https://i.imgur.com/LOi8XuQ.png" // random
         document.getElementById('RS_button_img').title="랜덤 재생" 
+        document.getElementById('RS_button_img3').src="https://i.imgur.com/LOi8XuQ.png" // random
+        document.getElementById('RS_button_img3').title="랜덤 재생" 
     }
 }
 
 function music_Repeat() {
-    if ( document.getElementById('Re_button').value=='noRepeat'){
+    if ( document.getElementById('Re_button').value === 'noRepeat'){
         document.getElementById('Re_button').value = 'Repeat';
         document.getElementById('Re_button_img').src="https://i.imgur.com/5qbfwpX.png"  // sequence
         document.getElementById('Re_button_img').title="반복 해제" 
+        document.getElementById('Re_button_img3').src="https://i.imgur.com/5qbfwpX.png"  // sequence
+        document.getElementById('Re_button_img3').title="반복 해제" 
     }else{
         document.getElementById('Re_button').value = 'noRepeat'
         document.getElementById('Re_button_img').src="https://i.imgur.com/gP56fwE.png" // random
         document.getElementById('Re_button_img').title="한곡 반복" 
+        document.getElementById('Re_button_img3').src="https://i.imgur.com/gP56fwE.png" // random
+        document.getElementById('Re_button_img3').title="한곡 반복" 
     }
 }
 
@@ -2235,6 +2247,190 @@ X = 플레이어 감춤, O = 플레이어 보기</font>
 
 
 
+
+<P class="mid"> 
+<center><button id="tog_3" type="button" class="Jua btn btn-outline-info pin">플레이어 사용법 ))) 열기 (((</button><br><br><div id=List2>
+<table style="BACKGROUND:#CCFFFF url('') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
+<P class="tit">유튜브 동영상 플레이어 사용법<br><br><br></p>
+<P class="mid"> 
+제가 만들어 본 <font color=sienna>플레이어</font>의 각 <font color=red>버튼</font>에 대한 <font color=blue>기능</font>을 설명해보려 합니다.<br><br><br>
+
+
+듣고싶은 <font color=red>노래</font>를 바로 <font color=red>재생</font>시키려면..<br><br>
+
+위 동영상 아래의 노란색 <br>
+<font style='color:green;background-color:gold'> 셀렉트 박스(목록) </font>을 클릭하여 <br>
+<font color=blue>노래 제목</font>을 <font color=blue>선택</font>하시면 됩니다.<br><br><br>
+
+
+아래 <font color=red>버튼</font>들을 <font color=blue>직접 눌러보면서</font> <br>
+동영상의 반응을 살펴보시기 바랍니다<br><br><br>
+
+
+<a href='javascript:music_control()'><img id='music_button_img3' src='https://i.imgur.com/TQFP08p.png' height=100 title='일시 정지'>
+<input type=text style='font-size: 16px; display:none;' id='music_button3' value='start'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'일시 정지' 및 '재생' </font><br><br>
+
+동영상 작동중에 <font color=sienna>||</font> 버튼을 클릭하면 <br>
+'<font color=red>일시 정지</font>'가 되고, <br><br>
+
+<font color=sienna>▶</font> 버튼을 클릭하면 동영상이 '<font color=blue>재생</font>' 됩니다.<br><br>
+
+한번씩 누를 때마다 '<font color=red>일시 정지</font>', '<font color=blue>재생</font>'<br>
+이 <font color=sienna>반복(토글)</font> 됩니다.<br><br><br>
+
+
+<a href='javascript:music_Random()'><img id='RS_button_img3' src='https://i.imgur.com/LOi8XuQ.png' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button3' value='sequence'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'순차 재생' 및 '랜덤 재생'</font><br><br>
+
+<font color=blue>기본</font>은 동영상 목록(list) 순서대로 <br>
+재생되는 '<font color=blue>순차</font>'로 되어있지만 <br><br>
+
+<font color=red>한번</font> 누르면 <font color=red>랜덤(무작위)</font>으로 재생됩니다.<br><br>
+
+역시 한번씩 누를 때마다 <br>
+'<font color=blue>순차 재생</font>'과 '<font color=red>랜덤 재생</font>'이 <br>
+<font color=sienna>반복(토글)</font> 됩니다.<br><br><br>
+
+
+<a href='javascript:music_Next()'><img src='https://i.imgur.com/mNMdXMC.png' height=100 title='다음 곡'><img src='https://i.imgur.com/TFw4TDC.png' height=100 title='다음 곡'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'다음 곡'</font><br><br>
+
+동영상 작동중에 <font color=sienna>▶|</font> 버튼을 클릭하면 현재 재생 영상은 <font color=sienna>skip</font> 되고 <br>
+'<font color=red>다음 곡</font>' 동영상이 '<font color=blue>재생</font>' 됩니다.<br><br>
+
+물론 '<font color=blue>순차 재생</font>'과 '<font color=red>랜덤 재생</font>'이 설정된대로 <font color=sienna>skip</font> 되어 재생됩니다.<br><br><br>
+
+
+좀 전 까지 잘 나오던 동영상이 갑자기 <font color=red>먹통</font>이 되는 경우가 있습니다.<br><br>
+
+그건 동영상의 원래 <font color=blue>게시자가</font> 원본을 <font color=red>삭제</font>했거나 <font color=red>비공개</font>로 전환했기 때문이므로 이용자는 어쩔 도리가 없습니다.<br><br>
+
+그럴 때에는 <font color=sienna>▶|</font> 버튼을 클릭하여 <font color=sienna>skip</font> 하세요^^<br><br><br>
+
+
+<a href='javascript:music_Prev()'><img src='https://i.imgur.com/4pZ3zXN.png' height=100 title='이전 곡'><img src='https://i.imgur.com/tkZvFNw.png' height=100 title='이전 곡'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'이전 곡'</font><br><br>
+
+동영상 작동중에 <font color=sienna>|◀</font> 버튼을 클릭하면 <br>
+현재 재생되고 있는 영상의 <br>
+'<font color=red>이전 곡</font>' 동영상이 '<font color=blue>재생</font>' 됩니다.<br><br>
+
+이 때는 '순차 재생'과 '랜덤 재생'의 <br>
+설정과는 <font color=red>상관 없이</font> 영상목록의 <br>
+<font color=blue>순서가 -1씩 차감</font>되어 재생됩니다.<br><br><br>
+
+
+<a href='javascript:music_Repeat()'><img id='Re_button_img3' src='https://i.imgur.com/gP56fwE.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button3' value='noRepeat'></a>&nbsp;&nbsp;&nbsp;<font class=Gaegu>'한곡 반복'  및 '반복 해제'</font><br><br>
+
+현재 재생중인 동영상이 마음에 쏙~ 들거나 노래를 배우고 싶을 때에는.. <br><br>
+
+'<font color=red>한곡 반복</font>' 버튼을 클릭하면 현재의 <br>
+동영상이 <font color=sienna>무한대로 계속 반복</font>하여 <br>
+'<font color=blue>재생</font>' 됩니다.<br><br>
+
+한번씩 누를 때마다 '<font color=red>한곡 반복</font>'  및 <br>
+'<font color=blue>반복 해제</font>'가 <font color=sienna>반복(토글)</font> 됩니다.<br><br>
+
+'<font color=sienna>다음 곡 (▶|)</font>'이나 '<font color=sienna>이전 곡 (|◀)</font>' <br>
+버튼을 클릭하면 '<font color=red>한곡 반복</font>' 설정은 <br>
+<font color=blue>자동으로 해제</font>됩니다.<br><br>
+
+또한 예전처럼 위의 <br>
+<font style='color:green;background-color:gold'> Select Box(목록 선택) </font>을 이용하면 <br>
+바로 <font color=blue>해당 곡</font>이 재생됩니다.<br><br>
+
+마찬가지로 그 이후의 곡들은 <br>
+'순차 재생' 또는 '랜덤 재생'을 설정한대로 재생되어집니다.<br><br><br>
+
+
+<div id='mTime2'>mTime2</div>&nbsp;&nbsp;&nbsp;
+'현재 진행시간'  및 '총 재생시간'</font><br><br><br>
+
+
+</P><P class="mid">
+영상의 아래 <font style='color:green;background-color:gold'> 목록 선택 창 </font> 위에 있는<br>
+<font color=red>적색</font>의 숫자는 '<font color=red>현재 진행시간</font>'을..<br>
+<font color=sienna>흑색</font>의 숫자는 '<font color=sienna>총 재생시간</font>'을 표시합니다.<br><br>
+
+또한 동영상이 변환될 때마다 해당곡의 <font color=blue>타이틀(제목)</font>이 <font style='color:green;background-color:gold'> 목록 선택 창 </font>에 <br>
+<font color=green>디스플레이(display)</font> 됩니다.<br><br><br><br><br>
+
+
+오른쪽 옆의 따라다니는 메뉴 중..<br><br>
+
+<a href="#top"><img src="https://blog.kakaocdn.net/dn/yE5Ka/btsOaYM0d10/U8K1PO60E7nl0Q7wNroC31/img.png" height="50" title="위로 ↑" border="0"></a> (↑ TOP)는 <br>
+"<font color=blue>맨 위로(top) 이동</font>" 입니다.<br><br>
+
+※ ↑ 이걸 누르면 맨 위로 올라갔다가 다시 내려와야 하는 불편함이 있으니 누르지 마세요~~ ㅋ<br><br><br><br>
+
+
+    <button onClick="fontSz('S')" onFocus="blur()" title="글씨 작게" style="border: none; background: none; padding: 0;">
+        <img src="https://blog.kakaocdn.net/dn/bQr8vW/btsOaHMdYpi/D7yf2Q64K3HeHnQg0auGv0/img.png" width="50">
+    </button> 는 "<font color=red>글씨 작게</font>"로 현재 54px에서 <font color=red>최소 30px</font>까지 2px씩 작아지고,<br><br><br>
+
+
+    <button onClick="fontSz('B')" onFocus="blur()" title="글씨 크게" style="border: none; background: none; padding: 0;">
+        <img src="https://blog.kakaocdn.net/dn/cn6O88/btsOb6Rsa2X/1g9TI3BTtBcMurYutV6CDk/img.png" width="50">
+    </button> 는 "<font color=blue>글씨 크게</font>"로 현재 54px에서 <font color=blue>최대 74px</font>까지 2px씩 커집니다.<br><br>
+
+한번 터치할 때마다 글자가 작아지거나 커집니다.<br><br><br><br>
+
+ 
+그 아래의 [<font color=sienna>다음 곡</font>]이나 [<font color=sienna>일시 정지</font>] 버튼은 위의 설명과 같습니다.<br><br><br><br>
+
+
+
+※ 아래의 버튼은 실행되지 않으니 우측의 '따라다니는 메뉴' 최하단의 버튼을 클릭하여 확인하세요!<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/ce3CYA/btsOaHyI26O/uMlsiSqRJOZXkfkfYrPW7K/img.png" width="50" title="🎨 '오디오 플레이어 & 메뉴' 감춤"> (메뉴 감춤) <br>
+'오디오 플레이어 & 따라다니는 메뉴'<br>
+가 O형 아이콘 하나만을 남기고 모두 스윽~ 사라집니다.<br><br><br>
+
+
+<img src="https://blog.kakaocdn.net/dn/bckV1n/btsOb5yjray/zpTgpp4jJye1NL4QEvwiPk/img.png" width="50" title="🎨 '오디오 플레이어 & 메뉴' 보기"> (메뉴 보기) <br>
+'오디오 플레이어 & 따라다니는 메뉴'<br>
+가 다시 짜잔~ 나타납니다~ ㅎ<br>
+<!-- br><br><br><br>
+
+
+
+
+<P class="title">[장르] 버튼 등에 관한 설명<br><br>
+
+</P><P class="mid">
+위 노란 색의 <font style='color:green;background-color:gold'> [셀렉트 박스]</font> 아래로 <br><br>
+
+청색의 <font style='color:white; background-color:blue'> [장르]</font> 선택 버튼이 있고,<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/bWGT7m/btsNXArug5m/uKwUnkHn5INTAkI2GbQfJK/img.jpg" width=100% title='🎨 장르. 목록 버튼'><br><br><br>
+
+
+분홍색 부분은 사용자의 선택에 따라 토글 (toggle) 방식으로 <br><br>
+
+<font style='color:#81007F; background-color:pink'> 재생 목록(List)을 [열기/닫기]</font> 할 수 있습니다.<br><br>
+
+그리고 청색 글씨는 글의 제목입니다.<br><br><br><br><br>
+
+
+
+
+청색의 <font style='color:white; background-color:blue'> [주 장르]</font> 버튼을 클릭하면 <br><br>
+
+녹색의 <font style='color:white; background-color:green'> [부 장르]</font> 버튼이 나타나며,<br><br>
+
+<img src="https://blog.kakaocdn.net/dn/bDy4H8/btsNVKWKmLC/pdO4KmKgEkSV0cQIuehZ6K/img.jpg" width=100% title='🎨 주 장르와 부 장르 버튼'><br><br>
+
+주 장르와 부 장르의 <font style='color:white;background-color:#1E90FF'> [하늘색] </font>은 이미 조회한 장르이고, <br><br>
+
+<font style='color:white;background-color:red'> [적색] </font>은 지금 선택한 장르입니다.<br><br><br><br><br>
+
+
+
+목록을 펼쳤을 때는 아래 이미지처럼 (<font color=blue>주 장르 > 부 장르 : 해당 영상 개수</font>)가 나타나고<br><br>
+
+사용자가 목록을 살펴보다가 <br>
+<font style='color:red;background-color:gold'> [노란 버튼] </font>을 클릭함으로써 보고 싶은 영상으로 쉽게 접근할 수 있습니다.<br>
+ <br>
+<img src="https://blog.kakaocdn.net/dn/xNfie/btsNV2iwGQs/HAkH7K875eJnKp1pc6d9J0/img.jpg" width=100% title='🎨 재생 목록(List)'><br><br //-->
+
+</TD></TR></TABLE></div></center>
 
 
 
