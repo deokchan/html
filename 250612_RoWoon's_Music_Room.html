@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head><title>RoWoon's Music Room</title>
-<meta property="og:image" content="https://blog.kakaocdn.net/dn/q8CKY/btsOjWt7wEo/NVz4OloifS44LV18qoafL0/img.jpg">
+<meta property="og:image" content="https://i.imgur.com/0XHALzA.png">
 <meta property=”og:image:width” content=”800">
  <meta property=”og:image:height” content=”600"> 
 <meta property="og:description"  content="힘차게 높게 꿈을 펼쳐라~~ ☆">
@@ -621,21 +621,34 @@ var generateRandom = function (min, max) {
 
 function gasa(n) {
    var z = 0
-   var title5 = odi[n].split("|")[1] 
-        title5 = title5.split(" (")[0]
+   var title5 = odi[n].split("|")[1];
+        title5 = title5.split("] ")[1];
+        title5 = title5.split("_")[0];
+   var title6 = title5;
+        if ( title5.includes(' (')) { title5 = title5.split(" (")[0] }; // 250808 제목에 괄호 추가시
 
   for (var k=0;k<=song.length-1;k++) {
      var song2 = song[k].split("<b>")[1] 
           song2 = song2.split("</b>")[0]
-     if ( title5 == song2 ) { z = 1; break; }
+     if ( title5 == song2 ) {
+         z = 1;
+         break; }
   }
-   $('#test3').text(z);
 
   if ( z == 0) 
   { 
       $('#test3').html("<P class='mid'><font color=red>((( 가사 없음 )))</font></p>");
   } else {
-      $('#test3').html(song[k]); z = 0; 
+      /*
+      // song 배열의 HTML에서 gasaTitle 부분을 title6으로 교체
+      song[k] = song[k].replace(
+          /<div id="gasaTitle"><\/div>/g, 
+          '<div id="gasaTitle">' + title6 + '</div>'
+      );
+      */
+      $('#gasaTitle').html("<font class='box'><b>" + title6 + "</b></font>"); 
+      $('#test3').html(song[k]); 
+      z = 0; 
   }
 }
 
@@ -721,6 +734,9 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 <table style="BACKGROUND:linen url('') repeat fixed left top; table-layout: fixed;" width=940 height=104 border=3 bordercolor=blue cellspacing='0' cellpadding='10'><tr valign=top><td>
 
 <span id="aaa">
+<table style='BACKGROUND:pink url('') repeat fixed left top;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
+<div id="gasaTitle"></div></td></tr></table><br>
+
 <div id=test3>test3 </div>
 <br><br><br><P class="tit">250612 <br>RoWoon's Music Room.. ♪<br><br>
 
