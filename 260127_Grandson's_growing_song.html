@@ -752,7 +752,11 @@ function gasa(n) {
         title5 = title5.split("] ")[1];
         title5 = title5.split("_")[0];
    var title6 = title5;
-        if ( title5.includes(' (')) { title5 = title5.split(" (")[0] }; // 250808 제목에 괄호 추가시
+//        if ( title5.includes(' (')) { title5 = title5.split(" (")[0] }; // 250808 제목에 괄호 추가시
+        if ( title5.includes(' <') ) { title5 = title5.split(" <")[0]; // 260127 제목에 괄호 추가시
+        } else if ( title5.includes(' (')) { title5 = title5.split(" (")[0]; // 250808 제목에 괄호 추가시
+        } else {
+        }
 
   for (var k=0;k<=song.length-1;k++) {
      var song2 = song[k].split("<b>")[1] 
