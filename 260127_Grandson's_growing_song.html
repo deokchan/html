@@ -203,7 +203,7 @@ button { style="border: none; background: none; padding: 0;"}
 </STYLE>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://www.youtube.com/iframe_api"></script>
+<script src="httpshttps://cdn.jsdelivr.net/gh/deokchan/js@latest/://www.youtube.com/iframe_api"></script>
 
 <script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/RoWoon.js"></script>
 
@@ -316,7 +316,6 @@ function init() {
     ctl = document.getElementById('bg_music');
     ctl.volume = 0.5;
     n = 0 // generateRandom(a, b);
-//    let savedIndex = localStorage.getItem("lastTrackIndex");
     let savedIndex = localStorage.getItem("lastTrackIndex_" + currentPage);
 
     // 저장된 값이 있다면 이어듣기
@@ -384,9 +383,9 @@ function Count() {
     // ===== 시간 제한 기능 추가 시작 =====
     // odi 배열에서 endTime 값 가져오기
     var endTime = null;
-    if (odi[n] && odi[n].split("|").length >= 3) {
-        endTime = odi[n].split("|")[2];
-    }
+//    if (odi[n] && odi[n].split("|").length >= 4) {
+        endTime = odi[n].split("|")[3];
+//    }
 
     // endTime이 설정되어 있고 숫자라면 시간 제한 적용
     if (endTime && !isNaN(parseInt(endTime))) {
@@ -414,7 +413,6 @@ function Count() {
     const progressPercentage = (c / d) * 100; // 삽입
     progressBar.style.width = `${progressPercentage}%`; // 삽입
     localStorage.setItem("lastTrackIndex_" + currentPage, n);
-//    localStorage.setItem("lastTrackIndex", n);  // 삽입
     
     if ( c > 3600 ) { 
         hc = parseInt( c / 3600 );
@@ -430,9 +428,6 @@ function Count() {
         var sc = c % 60
         sc = ( sc < 10 ) ? "0" + sc : sc
     }
-    
-    // 주석 처리된 기존 코드 (이미 위에서 처리함)
-    // if ( parseInt(stringSplit(odi[n], "|")[2]) > 0 ) { d = parseInt(stringSplit(odi[n], "|")[2]) }  // 실제로 끝나는 시간을 Duration Time으로 변경 230704
     
     if ( d > 3600 ) { 
         hd = parseInt( d / 3600 );
