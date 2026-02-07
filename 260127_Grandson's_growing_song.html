@@ -331,25 +331,41 @@ function init() {
 }
 
 function play_it(n) {
-      $('#gasaTitle').html(""); 
-
+    $('#gasaTitle').html(""); 
     // 현재 n 값을 명확하게 설정
     window.n = parseInt(n); // 문자열로 들어올 경우를 대비해 정수로 변환
     
     $('#bgmSel').val(n).prop("selected", true);
-
     var url = odi[n].split("|")[0];
     var title = odi[n].split("|")[1];
     
+    // 시작 시간 가져오기 (3번째 항목) 2026.02.07 추가
+    var startTime = null;   
+//    if (odi[n] && odi[n].split("|").length >= 4) {
+        startTime = odi[n].split("|")[2];
+//    }
+    
+    // 음악 소스 설정
     document.getElementById('sos').src = url;
     document.getElementById('sos').type = "audio/mpeg";
     
     // 이벤트 리스너 제거 후 다시 추가
     ctl.removeEventListener("ended", TheNext);
-    ctl.removeEventListener("loadedmetadata", Count);
+    ctl.removeEventListener("loadedmetadata", handleLoadedMetadata);
+    
+    // loadedmetadata 이벤트 핸들러 정의
+    function handleLoadedMetadata() {
+        // 시작 시간이 설정되어 있으면 적용
+        if (startTime && !isNaN(parseInt(startTime))) {
+            ctl.currentTime = parseInt(startTime);
+        } else {
+            ctl.currentTime = 0; // 시작 시간이 없으면 처음부터
+        }
+        Count(); // Count 함수 호출
+    }
     
     ctl.addEventListener("ended", TheNext);
-    ctl.addEventListener("loadedmetadata", Count);
+    ctl.addEventListener("loadedmetadata", handleLoadedMetadata);
     
     ctl.load();
     ctl.play();
@@ -357,8 +373,6 @@ function play_it(n) {
     // n값 확인 후 가사 호출
     //console.log("현재 n 값:", window.n); 
     gasa(window.n);
-//   $('#test3').text(n);
-
 }
 
 function Count() {
