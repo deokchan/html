@@ -329,33 +329,36 @@ function init() {
     //console.log("n : " + n);
 }
 
+// 전역 변수로 타이머 ID 저장
+var countTimer = null;
+
 function play_it(n) {
     $('#gasaTitle').html(""); 
-    // 현재 n 값을 명확하게 설정
-    window.n = parseInt(n); // 문자열로 들어올 경우를 대비해 정수로 변환
+    window.n = parseInt(n); // 현재 n 값을 명확하게 설정, 문자열로 들어올 경우를 대비해 정수로 변환
     
     $('#bgmSel').val(n).prop("selected", true);
     var url = odi[n].split("|")[0];
     var title = odi[n].split("|")[1];
     
-    // 시작 시간 가져오기 (3번째 항목) 2026.02.07 추가
-    var startTime = null;   
-//    if (odi[n] && odi[n].split("|").length >= 4) {
+    var startTime = null;       // 시작 시간 가져오기 (3번째 항목) 2026.02.07 추가
+    if (odi[n] && odi[n].split("|").length >= 4) {
         startTime = odi[n].split("|")[2];
-//    }
+    }
     
-    // 음악 소스 설정
-    document.getElementById('sos').src = url;
+    document.getElementById('sos').src = url;    // 음악 소스 설정
     document.getElementById('sos').type = "audio/mpeg";
     
-    // 이벤트 리스너 제거 후 다시 추가
-    ctl.removeEventListener("ended", TheNext);
+    ctl.removeEventListener("ended", TheNext);    // 이벤트 리스너 제거 후 다시 추가
     ctl.removeEventListener("loadedmetadata", handleLoadedMetadata);
     
-    // loadedmetadata 이벤트 핸들러 정의
-    function handleLoadedMetadata() {
-        // 시작 시간이 설정되어 있으면 적용
-        if (startTime && !isNaN(parseInt(startTime))) {
+    // 기존 Count 타이머 정리
+    if (countTimer) {
+        clearTimeout(countTimer);
+        countTimer = null;
+    }
+    
+    function handleLoadedMetadata() {    // loadedmetadata 이벤트 핸들러 정의
+        if (startTime && !isNaN(parseInt(startTime))) {        // 시작 시간이 설정되어 있으면 적용
             ctl.currentTime = parseInt(startTime);
         } else {
             ctl.currentTime = 0; // 시작 시간이 없으면 처음부터
@@ -369,9 +372,7 @@ function play_it(n) {
     ctl.load();
     ctl.play();
     
-    // n값 확인 후 가사 호출
-    //console.log("현재 n 값:", window.n); 
-    gasa(window.n);
+    gasa(window.n);     // n값 확인 후 가사 호출 console.log("현재 n 값:", window.n); 
 }
 
 function Count() {
@@ -380,33 +381,24 @@ function Count() {
     var c = parseInt(ctl.currentTime); 
     var d = parseInt(ctl.duration);
     
-    // ===== 시간 제한 기능 추가 시작 =====
-    // odi 배열에서 endTime 값 가져오기
-    var endTime = null;
-//    if (odi[n] && odi[n].split("|").length >= 4) {
+    var endTime = null;    // ===== 시간 제한 기능 추가 시작 ===== odi 배열에서 endTime 값 가져오기
+    if (odi[n] && odi[n].split("|").length >= 4) {
         endTime = odi[n].split("|")[3];
-//    }
+    }
 
-    // endTime이 설정되어 있고 숫자라면 시간 제한 적용
-    if (endTime && !isNaN(parseInt(endTime))) {
+    if (endTime && !isNaN(parseInt(endTime))) {    // endTime이 설정되어 있고 숫자라면 시간 제한 적용
         var maxSeconds = parseInt(endTime);
-        
-        // 제한 시간에 도달했는지 체크
-        if (c >= maxSeconds) {
+
+        if (c >= maxSeconds) {        // 제한 시간에 도달했는지 체크
             ctl.pause();
-            
-            // 옵션 1: 자동으로 다음 곡으로 넘어가기
-             TheNext();
-            
-            // 옵션 2: 처음부터 다시 시작
-            // ctl.currentTime = 0;
-            
-            console.log(`재생 완료: ${maxSeconds}초 제한`);
-            return; // 더 이상 Count 함수 실행하지 않음
+            clearTimeout(countTimer); // 타이머 정리
+            countTimer = null;
+            TheNext();            // 옵션 1: 자동으로 다음 곡으로 넘어가기
+            // ctl.currentTime = 0;            // 옵션 2: 처음부터 다시 시작
+            return; // 더 이상 Count 함수 실행하지 않음,             // console.log(`재생 완료: ${maxSeconds}초 제한`);
         }
         
-        // duration을 제한 시간으로 변경 (진행바와 시간 표시용)
-        d = maxSeconds;
+        d = maxSeconds;        // duration을 제한 시간으로 변경 (진행바와 시간 표시용)
     }
     // ===== 시간 제한 기능 추가 끝 =====
     
@@ -451,56 +443,9 @@ function Count() {
     mTime.innerHTML = "<font color=red>" + cc + "</font><br>" + dd 
     mTime2.innerHTML = "<font color=red>" + cc + "</font><br><font color=blue>" + dd    
     
-    setTimeout(Count, 1000);
+    countTimer = setTimeout(Count, 1000); // 타이머 ID 저장
+//    setTimeout(Count, 1000);
 }
-
-/*
-function Count() {
-    var hc = 0
-    var hd = 0
-    var c = parseInt(ctl.currentTime); var d = parseInt(ctl.duration);
-
-    const progressPercentage = (c / d) * 100; // 삽입
-    progressBar.style.width = `${progressPercentage}%`; // 삽입
-    localStorage.setItem("lastTrackIndex", n);  // 삽입
-
-    if ( c > 3600 ) { hc = parseInt( c / 3600 );
-                             //hc = ( hc < 10 ) ? "0" + hc : hc
-                              c = c % 3600;
-                       var mc = parseInt( c / 60 );
-                            mc = ( mc < 10 ) ? "0" + mc : mc
-                       var sc = c % 60
-                            sc = ( sc < 10 ) ? "0" + sc : sc
-    } else { 
-        var mc = parseInt( c / 60 );
-             mc = ( mc < 10 ) ? "0" + mc : mc
-        var sc = c % 60
-             sc = ( sc < 10 ) ? "0" + sc : sc
-    }
-
-//    if ( parseInt(stringSplit(bgm[vd], "|")[3]) > 0 ) { d = parseInt(stringSplit(bgm[vd], "|")[3]) }  // 실제로 끝나는 시간을 Duration Time으로 변경 230704
-    if ( d > 3600 ) { hd = parseInt( d / 3600 );
-                             //hd = ( hd < 10 ) ? "0" + hd : hd
-                              d = d % 3600;
-                       var md = parseInt( d / 60 );
-                            md = ( md < 10 ) ? "0" + md : md
-                       var sd = d % 60
-                            sd = ( sd < 10 ) ? "0" + sd : sd
-    } else {  
-        var md = parseInt( d / 60 );
-             md = ( md < 10 ) ? "0" + md : md
-        var sd = d % 60
-             sd = ( sd < 10 ) ? "0" + sd : sd
-    }
-    if ( hc > 0  ||  hd > 0 ) { var cc = hc + ":" + mc + ":" + sc; } else { var cc = mc + ":" + sc;}
-    if ( hd > 0 ) { var dd = hd + ":" + md + ":" + sd; } else { var dd = md + ":" + sd;}
-    if ( isNaN(d) ) { var dd = "00:00"};
-
-    mTime.innerHTML = "<font color=red>" + cc + "</font><br>" + dd 
-    mTime2.innerHTML = "<font color=red>" + cc + "</font><br><font color=blue>" + dd    
-    setTimeout(Count, 1000);
-}
-*/
 
 document.addEventListener('DOMContentLoaded', function() {
     const progressContainer = document.getElementById("progressContainer");
