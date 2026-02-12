@@ -218,16 +218,27 @@ https://cdn.jsdelivr.net/gh/deokchan/js@latest/RoWoon.js?timestamp //-->
 var tscroll = null;  // 타이머 ID를 저장할 변수 초기화
 
 function runTimer() {
-    // 현재 스크롤 위치 계산
-    var scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    // 기존 타이머가 있으면 먼저 정리
+    if (tscroll) {
+        clearTimeout(tscroll);
+        tscroll = null;
+    }
+
+    var scrollPosition = window.scrollY || document.documentElement.scrollTop;    // 현재 스크롤 위치 계산
     var curPos = scrollPosition + 1; // 스크롤 속도 조절 (1 = 느리게, 2 = 빠르게), 정수 픽셀 단위
     
-    // 페이지의 전체 높이 계산 (스크롤 가능한 최대 높이)
     var maxScrollHeight = Math.max(
         document.body.scrollHeight,
         document.documentElement.scrollHeight
-    ) - window.innerHeight; // 뷰포트 높이를 빼서 실제 스크롤 가능한 최대값 계산
-    
+    ) - window.innerHeight; // 뷰포트 높이를 빼서 실제 스크롤 가능한 최대값 계산 * 페이지의 전체 높이 계산 (스크롤 가능한 최대 높이)
+   
+    if (curPos >= maxScrollHeight) {
+        window.scroll(0, 0);
+    } else {
+        window.scroll(0, curPos);
+    }
+
+/*
     // 최하단에 도달했는지 확인
     if (curPos >= maxScrollHeight) {
         // 최하단에 도달하면 최상단(0)으로 이동
@@ -241,9 +252,9 @@ function runTimer() {
         // 아직 최하단에 도달하지 않았으면 계속 아래로 스크롤
         window.scroll(0, curPos);
     }
+*/
     
-    // 16ms 후에 다시 runTimer 함수 실행 (약 60fps로 부드럽게)
-    tscroll = window.setTimeout(runTimer, 18);
+    tscroll = window.setTimeout(runTimer, 18);    // 16ms 후에 다시 runTimer 함수 실행 (약 60fps로 부드럽게)
 }
 
 function stop() {
@@ -253,6 +264,12 @@ function stop() {
         tscroll = null;         // 변수 초기화
         console.log("자동 스크롤 정지");
     }
+}
+
+// 스크롤 시작 함수 (중복 실행 방지)
+function startScroll() {
+    stop(); // 기존 타이머 정리
+    runTimer(); // 새로운 타이머 시작
 }
 </script> 
 
@@ -309,13 +326,13 @@ var n = 0;
 var ctl;
 var list_num = odi.length-1;
 var a = 0
-var b = list_num
+var b = 24 // list_num
 
 function init() {
     bgmLoad();
     ctl = document.getElementById('bg_music');
     ctl.volume = 0.5;
-    n = 0 // generateRandom(a, b);
+    n = generateRandom(a, b);
     let savedIndex = localStorage.getItem("lastTrackIndex_" + currentPage);
 
     // 저장된 값이 있다면 이어듣기
@@ -544,7 +561,7 @@ function TheNext() {
         if ($("#RS_button").val() == "sequence") {
             currentN = currentN + 1;
         } else {
-            currentN = generateRandom(a, b);
+            currentN = generateRandom(a, list_num);
         }
     }
     
@@ -591,7 +608,7 @@ function music_Next() {
     if (document.getElementById('RS_button').value == 'sequence') {
         currentN = currentN + 1;
     } else {
-        currentN = generateRandom(a, b);
+        currentN = generateRandom(a, list_num);
     }
     
     if (currentN > list_num) { currentN = 0; }
@@ -612,7 +629,7 @@ function music_Prev() {
     if (document.getElementById('RS_button').value == 'sequence') {
         currentN = currentN - 1;
     } else {
-        currentN = generateRandom(a, b);
+        currentN = generateRandom(a, list_num);
     }
     
     if (currentN < 0) { currentN = list_num; }
@@ -787,7 +804,7 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 
 </script> 
 </head>
-<body onload='init()' onclick='stop()' ondblclick='runTimer()'>
+<body onload='init()' onclick='stop()' ondblclick='startScroll()'>
 
 <a name=top></a>
 <center>
