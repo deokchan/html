@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head><title>수노 가요 리스트</title>
-<meta property="og:image" content="https://i.imgur.com/Pg3K0iC.jpeg">
+<meta property="og:image" content="https://i.imgur.com/bQlKsd3.jpeg">
 <meta property=”og:image:width” content=”800">
  <meta property=”og:image:height” content=”600"> 
-<meta property="og:description"  content="힘차게 높게 꿈을 펼쳐라~~ ☆">
+<meta property="og:description"  content="내가 선택한 노래들.. ♬">
 <meta property=”og:type” content=”website”/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -209,11 +209,11 @@ button { style="border: none; background: none; padding: 0;"}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/suno_list.js"></script>
+<script src="suno_list.js"></script>
 
 <!-- 
     1.  jsDelivr의 [Purge Cache](https://www.jsdelivr.com/tools/purge) 페이지로 이동합니다.
-    2.  캐시를 삭제하고 싶은 URL (https://cdn.jsdelivr.net/gh/deokchan/js@latest/suno_list.js)을 입력하고 "Purge" 버튼을 클릭합니다.
+    2.  캐시를 삭제하고 싶은 URL (https://cdn.jsdelivr.net/gh/deokchan/js@latest/RoWoon.js)을 입력하고 "Purge" 버튼을 클릭합니다.
     이렇게 하면 jsDelivr 서버에서 해당 파일의 캐시가 삭제되고 다음 요청 시 GitHub에서 최신 버전을 가져오게 됩니다. 다만, 전 세계 모든 엣지 서버에 즉시 반영되지는 않을 수 있습니다.
 https://cdn.jsdelivr.net/gh/deokchan/js@latest/RoWoon.js
 https://cdn.jsdelivr.net/gh/deokchan/js@latest/RoWoon.js?timestamp //-->
@@ -258,7 +258,7 @@ function runTimer() {
     }
 */
     
-    tscroll = window.setTimeout(runTimer, 18);    // 16ms 후에 다시 runTimer 함수 실행 (약 60fps로 부드럽게)
+    tscroll = window.setTimeout(runTimer, 50);    // 16ms 후에 다시 runTimer 함수 실행 (약 60fps로 부드럽게)
 }
 
 function stop() {
@@ -743,72 +743,43 @@ async function loadData(title5) {
     return;
   }
 
-  // ── JSON 방식 먼저 시도 ──
   try {
-    // Step 1: JSON 시작점 찾기 (여러 패턴 시도)
-    var jsonStart = -1;
-    var patterns  = [`{\\\"status\\\"`, `{\"status\"`, `{\\"status\\"`];
-    for (var p of patterns) {
-      jsonStart = html.indexOf(p);
-      if (jsonStart !== -1) break;
-    }
-    if (jsonStart === -1) throw new Error("JSON 시작점 없음");
-
-    // Step 2: JSON 끝점 찾기
-    var jsonStr = html.slice(jsonStart);
-    var jsonEnd = -1;
-    var endPatterns = [`}]\\n"`, `}]\n"`, `}]"`];
-    for (var ep of endPatterns) {
-      jsonEnd = jsonStr.indexOf(ep);
-      if (jsonEnd !== -1) break;
-    }
-    if (jsonEnd === -1) throw new Error("JSON 끝점 없음");
-    jsonStr = jsonStr.slice(0, jsonEnd + 1);
-
-    // Step 3: 이스케이프 제거 후 파싱
-    var cleaned = jsonStr
-      .replace(/\\"/g,  '"')
-      .replace(/\\n/g,  "\n")
-      .replace(/\\t/g,  "\t");
-    var obj = JSON.parse(cleaned);
-
-    // Step 4: 값 추출
-    var version = obj.major_model_version ?? "(없음)";
-    var model   = obj.model_name          ?? "(없음)";
-    var created = obj.created_at          ?? "(없음)";
-    var tags    = obj.metadata?.tags      ?? "(없음)";
-    var prompt  = obj.metadata?.prompt    ?? "(없음)";
-
-    // $('#gasaTitle').html("✅ JSON 방식 성공");
-
-  } catch(e) {
-
-    // ── split 방식으로 자동 전환 ──
-    // $('#gasaTitle').html("⚠️ JSON 실패 → split 방식 전환: " + e.message);
-
+    // ── 기본 정보 추출 ──
     var version = html.split(`major_model_version\\\":\\\"`)[1].split(`\\\"`)[0];
-//    var model   = html.split(`model_name\\\":\\\"`)[1].split(`\\\"`)[0];
+    var model   = html.split(`model_name\\\":\\\"`)[1].split(`\\\"`)[0];
     var created = html.split(`created_at\\\":\\\"`)[1].split(`\\\"`)[0];
-    var yymmdd = new Date(created).toLocaleDateString('sv-SE').replace(/-/g, '').slice(2);
-   // 'sv-SE' 로케일은 YYYY-MM-DD 형식을 반환하므로, 이를 변환하여 YYMMDD로 생성 [2, 4]
-
+    var yymmdd  = new Date(created).toLocaleDateString('sv-SE').replace(/-/g, '').slice(2);
     var tags    = html.split(`tags\\\":\\\"`)[1].split(`\\\"`)[0];
     var prompt  = html.split(`prompt\\\":\\\"`)[1].split(`\\\"`)[0];
+
+    if (prompt.length < 10) {
+       prompt = html.split(`self.__next_f.push([1,"\\n`)[1].split(`"])`)[0];
+    }
+
+  } catch(e) {
+    $('#test3').html("⚠️ 파싱 실패: " + e.message + "<br><br>Song ID: " + songId);
+    $('#gasaTitle').html("파싱 실패");
+    return;
   }
 
-  // ── 공통: prompt 개행 처리 및 화면 표시 ──
+  // ── prompt 개행 처리 ──
   prompt = prompt
-    .replace(/\\\\n/g, "\n")  // \\n → 줄바꿈
-    .replace(/\\n/g,   "\n")  // \n  → 줄바꿈
-    .replace(/\\\\/g,  "")    // \\ 제거
-    .replace(/\\/g,    "")    // \  제거
-//    .replace(/\n{2}/g, "\n"); // \n\n → \n (1개씩 감소)
+    .replace(/\\\\n/g, "\n")
+    .replace(/\\n/g,   "\n")
+    .replace(/\\\\/g,  "")
+    .replace(/\\/g,    "");
+
+  // ── 과도한 줄바꿈 제거 ──
+  if (prompt.includes("\n\n\n") || 
+      prompt.includes("\n\n \n\n") || 
+      prompt.includes("\n\n  \n\n")) {
+    prompt = prompt.replace(/\n{2}/g, "\n");
+  }
 
   tags = tags.replace(/\\/g, "");
 
   $('#test3').html(prompt.replace(/\n/g, "<br>"));
   $('#gasaTitle').html("{" + yymmdd + "} " + tags);
-  // $('#test4').text(model);
   adjustLayout();
 }
 
