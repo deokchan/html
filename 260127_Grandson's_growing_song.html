@@ -113,14 +113,36 @@ p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; li
 
 .volume-control { font-size:22px; font-weight : bold; }
 
+/*
 #volumeSlider {
   width: 88%;
+  height: 20px;
+
+  -webkit-appearance: none; 
+  appearance: none; 
+  background: pink; //transparent
+  outline: none;  
+  border-radius: 5px;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+*/
+
+#volumeSlider {
+  width: 77%; /* 88% → 50%로 변경 */
   height: 20px;
 
   /* 기본 스타일 초기화 */
   -webkit-appearance: none; 
   appearance: none; 
-  background: pink; //transparent
+  background: pink;
   outline: none;  
   border-radius: 5px;
 }
@@ -135,6 +157,16 @@ p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; li
   cursor: pointer;
 }
 
+/* 정렬 셀렉트 박스 스타일 */
+#sortSelector {
+  height: 20px;
+  padding: 0 5px;
+  font-size: 12px;
+  background: #fff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 button.Jua { color:purple; font-size:40pt; font-family: 'Jua', sans-serif; text-align : center; virtical-align:middle; margin-right:10px; width:100%; height: 70px; background-color: pink;} 
 button.Jua2 { margin:auto; display: flex; align-items:center; justify-content: center; border-radius: 10px; margin-top:5px; margin-right:0px; margin-bottom:0px; color:purple; font-size:40pt; font-family: 'Jua', sans-serif; float: right; width:50px; height: 50px; background-color: pink;}
@@ -328,7 +360,13 @@ var list_num = odi.length-1;
 var a = 0
 var b = 24 // list_num
 
+let originalOdi = null;
 function init() {
+
+  if (!originalOdi) {
+    originalOdi = [...odi]; // 원본 배열 복사 260224
+  }
+
     bgmLoad();
     ctl = document.getElementById('bg_music');
     ctl.volume = 0.5;
@@ -344,6 +382,142 @@ function init() {
     play_it(n);
     //music_Random()
     //console.log("n : " + n);
+}
+
+function sortPlaylist(sortType) {
+  
+  // 원본 배열 복원 (정렬 전 초기화) 260224
+  odi = [...originalOdi];
+  
+  switch(sortType) {
+    
+    case 'default':
+      // 기본 순서 (원본 그대로)
+      break;
+      
+    case 'prefer':
+      // 선호도순 (숫자 → 장르)
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        const preferA = titleA.split("[")[0].trim();
+        const preferB = titleB.split("[")[0].trim();
+        
+        // 숫자 비교
+        const numA = parseInt(preferA) || 0;
+        const numB = parseInt(preferB) || 0;
+        
+        if (numA !== numB) return numA - numB;
+        
+        // 숫자 같으면 장르로 2차 정렬
+        const genreA = titleA.split("[")[1]?.split("]")[0] || "";
+        const genreB = titleB.split("[")[1]?.split("]")[0] || "";
+        return genreA.localeCompare(genreB, 'ko');
+      });
+      break;
+      
+    case 'genre':
+      // 장르순 (장르 → 선호도)
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        const genreA = titleA.split("[")[1]?.split("]")[0] || "";
+        const genreB = titleB.split("[")[1]?.split("]")[0] || "";
+        
+        if (genreA !== genreB) {
+          return genreA.localeCompare(genreB, 'ko');
+        }
+        
+        // 장르 같으면 선호도로 2차 정렬
+        const preferA = parseInt(titleA.split("[")[0].trim()) || 0;
+        const preferB = parseInt(titleB.split("[")[0].trim()) || 0;
+        return preferA - preferB;
+      });
+      break;
+      
+    case 'title-asc':
+      // 제목 가나다순 (ㄱ→ㅎ)
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        
+        // "] " 다음부터 " (" 또는 " <" 까지
+        let nameA = titleA.split("] ")[1] || titleA;
+        let nameB = titleB.split("] ")[1] || titleB;
+        
+        // " <br>" 처리
+        if (nameA.includes(" <")) {
+          nameA = nameA.split(" <")[0];
+        } else {
+          nameA = nameA.split(" (")[0];
+        }
+        
+        if (nameB.includes(" <")) {
+          nameB = nameB.split(" <")[0];
+        } else {
+          nameB = nameB.split(" (")[0];
+        }
+        
+        return nameA.localeCompare(nameB, 'ko');
+      });
+      break;
+      
+    case 'title-desc':
+      // 제목 역순 (ㅎ→ㄱ)
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        
+        let nameA = titleA.split("] ")[1] || titleA;
+        let nameB = titleB.split("] ")[1] || titleB;
+        
+        if (nameA.includes(" <")) {
+          nameA = nameA.split(" <")[0];
+        } else {
+          nameA = nameA.split(" (")[0];
+        }
+        
+        if (nameB.includes(" <")) {
+          nameB = nameB.split(" <")[0];
+        } else {
+          nameB = nameB.split(" (")[0];
+        }
+        
+        return nameB.localeCompare(nameA, 'ko');
+      });
+      break;
+      
+    case 'version-asc':
+      // 버전 오름차순 (낮은 버전 → 높은 버전)
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        
+        const versionA = titleA.split("_")[1]?.split(" ")[1] || "";
+        const versionB = titleB.split("_")[1]?.split(" ")[1] || "";
+        
+        return versionA.localeCompare(versionB);
+      });
+      break;
+      
+    case 'version-desc':
+      // 버전 내림차순 (높은 버전 → 낮은 버전)
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        
+        const versionA = titleA.split("_")[1]?.split(" ")[1] || "";
+        const versionB = titleB.split("_")[1]?.split(" ")[1] || "";
+        
+        return versionB.localeCompare(versionA);
+      });
+      break;
+  }
+  
+  // 정렬 후 목록 갱신 및 첫 곡 재생
+  bgmLoad();     // 전체 목록 다시 그리기
+  listLoad();    // 현재 이후 목록 다시 그리기
+  play_it(0);    // 첫 곡부터 재생
 }
 
 // 전역 변수로 타이머 ID 저장
@@ -693,8 +867,8 @@ for (var i=0;i<=odi.length-1;i++) {
     List.innerHTML = tag0 + tag1 + tag2 + tag3;
     test.innerHTML = "<P class='mid2'>" + tag5; 
 
-    updateButton();
-    DdayList();
+//    updateButton();
+//    DdayList();
 }
 
 function listLoad() {
@@ -708,7 +882,6 @@ for (var i=cN;i<=odi.length-1;i++) {
  var title1 = title.split("_")[0] 
  var title2 = title.split("_")[1] 
  var title3 = title1 + " " + title2
-//      if ( title3.includes("KCH") ) { title3 = title3.replace("KCH", "<font color=red>KCH</font>") }; // 251205 KCH 적색으로 치환
 
       tag5 = tag5 + "<button class='bt' onclick='play_it(" + i + " )'>" + (i+1) + "</button> " + title3 + "<br><br>"; 
  }
@@ -826,10 +999,27 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
     <div id="progressBar"></div>
 </div><br>
 
+<!-- div class="volume-control">
+    <span onclick="toggleMute()">🔊</span>
+    <input type="range" id="volumeSlider" min="0" max="100" value="50">
+    <span id="volumeDisplay">50%</span>
+</div //-->
+
 <div class="volume-control">
     <span onclick="toggleMute()">🔊</span>
     <input type="range" id="volumeSlider" min="0" max="100" value="50">
     <span id="volumeDisplay">50%</span>
+    
+    <!-- 정렬 셀렉트 박스 추가 -->
+    <select id="sortSelector" onchange="sortPlaylist(this.value)" style="height:20px; margin-left:10px;">
+        <option value="default">🔢 기본순서</option>
+        <option value="prefer">⭐ 선호도순</option>
+        <option value="genre">🎵 장르순</option>
+        <option value="title-asc">📖 제목(ㄱ→ㅎ)</option>
+        <option value="title-desc">📕 제목(ㅎ→ㄱ)</option>
+        <option value="version-asc">🆙 버전(낮→높)</option>
+        <option value="version-desc">🆕 버전(높→낮)</option>
+    </select>
 </div>
 
 <div id="List">List</div>
