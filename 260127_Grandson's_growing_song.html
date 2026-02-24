@@ -64,6 +64,14 @@ p.title {color:blue; font-size:67px; font-weight : bold; text-align : left; line
 p.tit {color:blue; font-family: 'Noto Sans KR', sans-serif; font-size:54px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:10px 10px 10px gray; } 
 p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; line-height:110%; margin-left:0px; font-family: 'Gugi'; }
 
+.theme-lightpink .fix, .theme-lightpink .gasaTitle { background: lightpink !important; } /* 엄마 아빠 */
+.theme-khaki .fix, .theme-khaki .gasaTitle { background: khaki !important; } /* 할아버지 할머니 */
+.theme-palegreen .fix, .theme-palegreen .gasaTitle { background: palegreen !important; } /* 100일 */
+.theme-lightgrey .fix, .theme-lightgrey .gasaTitle { background: lightgrey !important; } /* 증조모 */
+.theme-lavenderblush .fix, .theme-lavenderblush .gasaTitle { background: lavenderblush !important; } /* 생일 */
+.theme-white .fix, .theme-white .gasaTitle { background: white !important; } /* 결혼 */
+.theme-sandybrown .fix, .theme-sandybrown .gasaTitle { background: sandybrown !important; } /* 로운 */
+
   .circle-img {
     border-radius: 20%;
     opacity: 0.6;
@@ -113,30 +121,8 @@ p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; li
 
 .volume-control { font-size:22px; font-weight : bold; }
 
-/*
 #volumeSlider {
-  width: 88%;
-  height: 20px;
-
-  -webkit-appearance: none; 
-  appearance: none; 
-  background: pink; //transparent
-  outline: none;  
-  border-radius: 5px;
-}
-
-#volumeSlider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #007bff;
-  border-radius: 50%;
-  cursor: pointer;
-}
-*/
-
-#volumeSlider {
-  width: 77%; /* 88% → 50%로 변경 */
+  width: 76%;
   height: 20px;
 
   /* 기본 스타일 초기화 */
@@ -162,10 +148,36 @@ p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; li
   height: 20px;
   padding: 0 5px;
   font-size: 12px;
-  background: #fff;
+  background: pink;
   border: 1px solid #007bff;
   border-radius: 4px;
   cursor: pointer;
+  outline: none;
+}
+
+/* 포커스 시 테두리도 제거 */
+#sortSelector:focus {
+  outline: none;
+  border: 1px solid #007bff; /* 원래 테두리 유지 */
+}
+
+body.dark-mode {
+  background: #1a1a2e;
+  color: #eee;
+}
+body.dark-mode .fix {
+  background: #16213e !important;
+}
+
+#dark-mode-btn {
+  height: 0px;
+  padding: 0 5px;
+  font-size: 54px;
+  background: ;
+  border: 0px solid #007bff;
+  border-radius: 0px;
+  cursor: pointer;
+  outline: none;
 }
 
 button.Jua { color:purple; font-size:40pt; font-family: 'Jua', sans-serif; text-align : center; virtical-align:middle; margin-right:10px; width:100%; height: 70px; background-color: pink;} 
@@ -237,7 +249,7 @@ button { style="border: none; background: none; padding: 0;"}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="httpshttps://cdn.jsdelivr.net/gh/deokchan/js@latest/://www.youtube.com/iframe_api"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/RoWoon.js"></script>
+<script src="RoWoon.js"></script>
 
 <!-- 
     1.  jsDelivr의 [Purge Cache](https://www.jsdelivr.com/tools/purge) 페이지로 이동합니다.
@@ -350,6 +362,17 @@ function fontSz(val) {
     $("p.ct").css({"font-size": (5 + font_size) + "px"});
     $("font").css({"font-size": font_size + "px"});
 }
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  
+  // 이모티콘 변경
+  const btn = document.getElementById('dark-mode-btn');
+  btn.textContent = isDark ? '☀️' : '🌙';
+  
+  localStorage.setItem('darkMode', isDark);
+}
 </script> 
 
 <script type='text/javascript'>
@@ -416,24 +439,41 @@ function sortPlaylist(sortType) {
       });
       break;
       
-    case 'genre':
-      // 장르순 (장르 → 선호도)
-      odi.sort((a, b) => {
-        const titleA = a.split("|")[1];
-        const titleB = b.split("|")[1];
-        const genreA = titleA.split("[")[1]?.split("]")[0] || "";
-        const genreB = titleB.split("[")[1]?.split("]")[0] || "";
-        
-        if (genreA !== genreB) {
-          return genreA.localeCompare(genreB, 'ko');
-        }
-        
-        // 장르 같으면 선호도로 2차 정렬
-        const preferA = parseInt(titleA.split("[")[0].trim()) || 0;
-        const preferB = parseInt(titleB.split("[")[0].trim()) || 0;
-        return preferA - preferB;
-      });
-      break;
+case 'genre':
+  // 장르 우선순위 정의
+  const genreOrder = {
+    "잉태 기쁨": 1,
+    "태담 희망": 2,
+    "건강 기원": 3,
+    "탄생 파랑": 4,
+    "탄생 로운": 5,
+    "작명 축복": 6,
+    "백일 축하": 7,
+    "결혼 기념": 8,
+    "생일 축하": 9,
+    "증조모 생일": 10,
+  };
+
+  odi.sort((a, b) => {
+    const titleA = a.split("|")[1];
+    const titleB = b.split("|")[1];
+    const genreA = titleA.split("[")[1]?.split("]")[0] || "";
+    const genreB = titleB.split("[")[1]?.split("]")[0] || "";
+    
+    // 우선순위로 정렬
+    const orderA = genreOrder[genreA] || 999; // 없으면 맨 뒤
+    const orderB = genreOrder[genreB] || 999;
+    
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+    
+    // 같으면 선호도로 2차 정렬
+    const preferA = parseInt(titleA.split("[")[0].trim()) || 0;
+    const preferB = parseInt(titleB.split("[")[0].trim()) || 0;
+    return preferA - preferB;
+  });
+  break;
       
     case 'title-asc':
       // 제목 가나다순 (ㄱ→ㅎ)
@@ -487,6 +527,23 @@ function sortPlaylist(sortType) {
       });
       break;
       
+case 'keyword':
+  odi.sort((a, b) => {
+    const titleA = a.split("|")[1];
+    const titleB = b.split("|")[1];
+    const keywordA = titleA.split("(")[1]?.split(")")[0] || "";
+    const keywordB = titleB.split("(")[1]?.split(")")[0] || "";
+    
+    if (keywordA !== keywordB) {
+      return keywordA.localeCompare(keywordB, 'ko');
+    }
+    
+    const preferA = parseInt(titleA.split("[")[0].trim()) || 0;
+    const preferB = parseInt(titleB.split("[")[0].trim()) || 0;
+    return preferA - preferB;
+  });
+  break;
+
     case 'version-asc':
       // 버전 오름차순 (낮은 버전 → 높은 버전)
       odi.sort((a, b) => {
@@ -896,6 +953,24 @@ var generateRandom = function (min, max) {
 function gasa(n) {
    var z = 0
    var title5 = odi[n].split("|")[1];
+  if (title5.includes("엄마 아빠")) {
+    applyTheme('lightpink'); // 라이트 핑크 테마
+  } else if (title5.includes("할아")) {
+    applyTheme('khaki'); 
+  } else if (title5.includes("100일") || title5.includes("百日")) {
+    applyTheme('palegreen'); 
+  } else if (title5.includes("증조모")) {
+    applyTheme('lightgrey');
+  } else if (title5.includes("생일")) {
+    applyTheme('lavenderblush');
+  } else if (title5.includes("결혼")) {
+    applyTheme('white');
+  } else if (title5.includes("로운")) {
+    applyTheme('sandybrown');
+  } else {
+    applyTheme('default'); // 기본 테마
+  }
+
         title5 = title5.split("] ")[1];
         title5 = title5.split("_")[0];
    var title6 = title5;
@@ -917,17 +992,23 @@ function gasa(n) {
   { 
       $('#test3').html("<P class='mid'><font color=red>((( 가사 없음 )))</font></p>");
   } else {
-      /*
-      // song 배열의 HTML에서 gasaTitle 부분을 title6으로 교체
-      song[k] = song[k].replace(
-          /<div id="gasaTitle"><\/div>/g, 
-          '<div id="gasaTitle">' + title6 + '</div>'
-      );
-      */
       $('#gasaTitle').html("<font class='box'><b>" + title6 + "</b></font>"); 
       $('#test3').html(song[k]); 
       z = 0; 
   }
+
+  // 레이아웃 재조정
+  adjustLayout();
+}
+
+function adjustLayout() {
+  var fixedHeight = document.getElementById('fix').offsetHeight;
+  document.getElementById('content-wrap').style.paddingTop = (fixedHeight + 1) + 'px';
+}
+
+function applyTheme(themeName) {
+  document.body.className = ''; // 초기화
+  document.body.classList.add('theme-' + themeName);
 }
 
 $(document).ready(function(){ 
@@ -989,8 +1070,8 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 <a href='javascript:music_Random()'><img id='RS_button_img' src='https://i.imgur.com/LOi8XuQ.png' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button' value='sequence'></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <a href='javascript:music_Prev()'><img src='https://i.imgur.com/4pZ3zXN.png' height=100 title='이전 곡 1'><img src='https://i.imgur.com/tkZvFNw.png' height=100 title='이전 곡  2'></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
 <a href='javascript:music_Next()'><img src='https://i.imgur.com/mNMdXMC.png' height=100 title='다음 곡 1'><img src='https://i.imgur.com/TFw4TDC.png' height=100 title='다음 곡 2'></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<a href='javascript:music_Repeat()'><img id='Re_button_img' src='https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button' value='noRepeat'></a> 
-</td><td width=20%><div id='mTime'>mTime</div></TD></TR></TABLE>
+<a href='javascript:music_Repeat()'><img id='Re_button_img' src='https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button' value='noRepeat'></a>&nbsp;&nbsp;<button id="dark-mode-btn" onclick="toggleDarkMode()">🌙</button>
+</td><td width=20%><div id='mTime' style='text-align : right;'>mTime</div></TD></TR></TABLE>
 <audio id='bg_music' controls preload='preload' autoplay='autoplay' style="display:none">
   <source id='sos' src=''  type=''>
 </audio>
@@ -999,43 +1080,42 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
     <div id="progressBar"></div>
 </div><br>
 
-<!-- div class="volume-control">
-    <span onclick="toggleMute()">🔊</span>
-    <input type="range" id="volumeSlider" min="0" max="100" value="50">
-    <span id="volumeDisplay">50%</span>
-</div //-->
-
 <div class="volume-control">
     <span onclick="toggleMute()">🔊</span>
     <input type="range" id="volumeSlider" min="0" max="100" value="50">
     <span id="volumeDisplay">50%</span>
     
     <!-- 정렬 셀렉트 박스 추가 -->
-    <select id="sortSelector" onchange="sortPlaylist(this.value)" style="height:20px; margin-left:10px;">
-        <option value="default">🔢 기본순서</option>
-        <option value="prefer">⭐ 선호도순</option>
-        <option value="genre">🎵 장르순</option>
-        <option value="title-asc">📖 제목(ㄱ→ㅎ)</option>
-        <option value="title-desc">📕 제목(ㅎ→ㄱ)</option>
-        <option value="version-asc">🆙 버전(낮→높)</option>
-        <option value="version-desc">🆕 버전(높→낮)</option>
-    </select>
+<select id="sortSelector" onchange="sortPlaylist(this.value)">
+    <option value="default">🔢 기본순서</option>
+    <option value="prefer">⭐ 선호도순</option>
+    <option value="genre">🎵 장르순</option>
+    <option value="title-asc">📖 제목(ㄱ→ㅎ)</option>
+    <option value="title-desc">📕 제목(ㅎ→ㄱ)</option>
+    <option value="keyword">🔑 키워드순</option>     ← 추가
+    <option value="date-asc">📅 날짜(오래된순)</option>  ← 추가
+    <option value="date-desc">📆 날짜(최신순)</option>  ← 추가
+    <option value="version-asc">🆙 버전(낮→높)</option>
+    <option value="version-desc">🆕 버전(높→낮)</option>
+</select>
 </div>
 
 <div id="List">List</div>
+<table id='gasaTitleTable' class="gasaTitle" style='BACKGROUND:pink url('') repeat fixed left top; display:none;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
+<div id="gasaTitle"></div></td></tr></table>
 </TD></TR></TABLE>
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <table style="BACKGROUND:linen url('') repeat fixed left top; table-layout: fixed;" width=940 height=104 border=3 bordercolor=blue cellspacing='0' cellpadding='10'><tr valign=top><td>
 
 <span id="aaa">
 
-<table style='BACKGROUND:pink url('') repeat fixed left top;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
-<div id="gasaTitle"></div></td></tr></table><br>
-
+<div id="content-wrap">
+<table style="BACKGROUND:linen url('https://blog.kakaocdn.net/dn/bvn2Wa/btsOyojFwNE/oQF6pyZs1UJR5h2oDftYeK/img.png') repeat fixed center top; table-layout: fixed;" width=100% height=10 border=0 bordercolor=blue cellspacing='0' cellpadding='0'><tr valign=top><td>
 <div id="test3">test3 </div>
-<br><br><br><P class="tit">250612 <br>RoWoon's Music Room.. ♪<br><br>
+</TD></TR></TABLE>
+</div>  <!-- content-wrap 끝 -->
+
+<br><br><P class="tit">250612 <br>RoWoon's Music Room.. ♪<br><br>
 
 </P><P class="mid">
 ※ 재생 영상의 목록을 보려면 아래의 분홍색 버튼을 클릭하세요! <br>
