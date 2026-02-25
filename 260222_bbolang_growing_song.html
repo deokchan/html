@@ -64,6 +64,14 @@ p.title {color:blue; font-size:67px; font-weight : bold; text-align : left; line
 p.tit {color:blue; font-family: 'Noto Sans KR', sans-serif; font-size:54px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:10px 10px 10px gray; } 
 p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; line-height:110%; margin-left:0px; font-family: 'Gugi'; }
 
+.theme-lightpink .fix, .theme-lightpink .gasaTitle { background: lightpink !important; } /* 엄마 아빠 */
+.theme-khaki .fix, .theme-khaki .gasaTitle { background: khaki !important; } /* 할아버지 할머니 */
+.theme-palegreen .fix, .theme-palegreen .gasaTitle { background: palegreen !important; } /* 100일 */
+.theme-lightgrey .fix, .theme-lightgrey .gasaTitle { background: lightgrey !important; } /* 증조모 */
+.theme-lavenderblush .fix, .theme-lavenderblush .gasaTitle { background: lavenderblush !important; } /* 생일 */
+.theme-white .fix, .theme-white .gasaTitle { background: white !important; } /* 결혼 */
+.theme-sandybrown .fix, .theme-sandybrown .gasaTitle { background: sandybrown !important; } /* 로운 */
+
   .circle-img {
     border-radius: 20%;
     opacity: 0.6;
@@ -220,7 +228,7 @@ button { style="border: none; background: none; padding: 0;"}
 </STYLE>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="httpshttps://cdn.jsdelivr.net/gh/deokchan/js@latest/://www.youtube.com/iframe_api"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/bbolang.js"></script>
 
@@ -253,22 +261,6 @@ function runTimer() {
         window.scroll(0, curPos);
     }
 
-/*
-    // 최하단에 도달했는지 확인
-    if (curPos >= maxScrollHeight) {
-        // 최하단에 도달하면 최상단(0)으로 이동
-        window.scroll(0, 0);
-        console.log("최하단 도달 - 최상단으로 이동");
-        
-        // 최상단에서 스크롤 중지 (무한 반복을 원하면 이 줄을 주석 처리)
-        // stop();
-        // return; // 함수 종료
-    } else {
-        // 아직 최하단에 도달하지 않았으면 계속 아래로 스크롤
-        window.scroll(0, curPos);
-    }
-*/
-    
     tscroll = window.setTimeout(runTimer, 18);    // 16ms 후에 다시 runTimer 함수 실행 (약 60fps로 부드럽게)
 }
 
@@ -291,12 +283,6 @@ function startScroll() {
 
 <script> 
 $(document).ready(function() { 
-/*
-  var script = document.createElement('script');
-  script.src = `https://cdn.jsdelivr.net/gh/deokchan/js@latest/YangCho.js?v=${new Date().getTime()}`;
-  document.head.appendChild(script);
-*/
-
   var floatPosition = parseInt($("#menu").css('top')); 
   $(window).scroll(function() { 
   var scrollTop = $(window).scrollTop(); 
@@ -367,6 +353,20 @@ function init() {
     //console.log("n : " + n);
 }
 
+  // 장르 우선순위 정의
+  const genreOrder = {
+    "잉태 기쁨": 1,
+    "태담 희망": 2,
+    "건강 기원": 3,
+    "탄생 파랑": 4,
+    "탄생 로운": 5,
+    "작명 축복": 6,
+    "백일 축하": 7,
+    "결혼 기념": 8,
+    "생일 축하": 9,
+    "증조모 생일": 10,
+  };
+
 function sortPlaylist(sortType) {
   
   // 원본 배열 복원 (정렬 전 초기화) 260224
@@ -392,28 +392,18 @@ function sortPlaylist(sortType) {
         
         if (numA !== numB) return numA - numB;
         
-        // 숫자 같으면 장르로 2차 정렬
-        const genreA = titleA.split("[")[1]?.split("]")[0] || "";
-        const genreB = titleB.split("[")[1]?.split("]")[0] || "";
-        return genreA.localeCompare(genreB, 'ko');
+      // 2차: 장르를 genreOrder 순서대로 정렬
+      const genreA = titleA.split("[")[1]?.split("]")[0] || "zzz미분류";
+      const genreB = titleB.split("[")[1]?.split("]")[0] || "zzz미분류";
+    
+      const orderA = genreOrder[genreA] || 999;
+      const orderB = genreOrder[genreB] || 999;
+    
+      return orderA - orderB;
       });
       break;
 
 case 'genre':
-  // 장르 우선순위 정의
-  const genreOrder = {
-    "잉태 기쁨": 1,
-    "태담 희망": 2,
-    "건강 기원": 3,
-    "탄생 뽈랑": 4,
-    "탄생 로운": 5,
-    "작명 축복": 6,
-    "백일 축하": 7,
-    "결혼 기념": 8,
-    "생일 축하": 9,
-    "증조모 생일": 10,
-  };
-
   odi.sort((a, b) => {
     const titleA = a.split("|")[1];
     const titleB = b.split("|")[1];
@@ -884,8 +874,8 @@ for (var i=0;i<=odi.length-1;i++) {
     List.innerHTML = tag0 + tag1 + tag2 + tag3;
     test.innerHTML = "<P class='mid2'>" + tag5; 
 
-    updateButton();
-    DdayList();
+//    updateButton();
+//    DdayList();
 }
 
 function listLoad() {
@@ -914,6 +904,24 @@ var generateRandom = function (min, max) {
 function gasa(n) {
    var z = 0
    var title5 = odi[n].split("|")[1];
+  if (title5.includes("사랑가")) {
+    applyTheme('lightpink'); // 라이트 핑크 테마
+  } else if (title5.includes("의 꿈")) {
+    applyTheme('khaki'); 
+  } else if (title5.includes("100일") || title5.includes("百日")) {
+    applyTheme('palegreen'); 
+  } else if (title5.includes("증조모")) {
+    applyTheme('lightgrey');
+  } else if (title5.includes("생일")) {
+    applyTheme('lavenderblush');
+  } else if (title5.includes("결혼")) {
+    applyTheme('white');
+  } else if (title5.includes("의 노래")) {
+    applyTheme('sandybrown');
+  } else {
+    applyTheme('default'); // 기본 테마
+  }
+
         title5 = title5.split("] ")[1];
         title5 = title5.split("_")[0];
    var title6 = title5;
@@ -947,6 +955,11 @@ function gasa(n) {
 function adjustLayout() {
   var fixedHeight = document.getElementById('fix').offsetHeight;
   document.getElementById('content-wrap').style.paddingTop = (fixedHeight + 1) + 'px';
+}
+
+function applyTheme(themeName) {
+  document.body.className = ''; // 초기화
+  document.body.classList.add('theme-' + themeName);
 }
 
 $(document).ready(function(){ 
@@ -1035,19 +1048,16 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
     <option value="version-asc">🆙 버전(낮→높)</option>
     <option value="version-desc">🆕 버전(높→낮)</option>
 </select>
+</div>
 
 <div id="List">List</div>
-<table id='gasaTitleTable' style='BACKGROUND:pink url('') repeat fixed left top; display:none;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
+<table id='gasaTitleTable' class="gasaTitle" style='BACKGROUND:pink url('') repeat fixed left top; display:none;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
 <div id="gasaTitle"></div></td></tr></table>
 </TD></TR></TABLE>
 
 <table style="BACKGROUND:linen url('') repeat fixed left top; table-layout: fixed;" width=940 height=104 border=3 bordercolor=blue cellspacing='0' cellpadding='10'><tr valign=top><td>
 
 <span id="aaa">
-
-<!-- table style='BACKGROUND:pink url('') repeat fixed left top;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
-<div id="gasaTitle"></div></td></tr></table><br>
-<div id="test3">test3 </div //-->
 
 <div id="content-wrap">
 <table style="BACKGROUND:linen url('https://blog.kakaocdn.net/dn/bvn2Wa/btsOyojFwNE/oQF6pyZs1UJR5h2oDftYeK/img.png') repeat fixed center top; table-layout: fixed;" width=100% height=10 border=0 bordercolor=blue cellspacing='0' cellpadding='0'><tr valign=top><td>
@@ -1072,7 +1082,7 @@ X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 <table style="border-radius: 30px; BACKGROUND:#CCFFFF url('') repeat fixed left top" cellpadding='10'><tr valign=middle width=100%><td>
 <P class='mid'><font color='blue'><b>오디오 재생 시점</b></font><br><br>
 
-처음에는 '랜덤'으로 재생되지만 <br><br>
+처음에는 '첫 곡'부터 재생되지만 <br><br>
 
 다음부터는 직전에 "듣고 있었던.." 곡부터 재생됩니다.
 </td></tr></table>
@@ -1080,8 +1090,7 @@ X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 
 <div id=upmemo>upmemo</div><P class='mid'><br><br>
 
-
-</P><P class="title">뽈랑이의 탄생 기념일 타이머<br>
+<!-- /P><P class="title">뽈랑이의 탄생 기념일 타이머<br>
 
 <table width=100% background=http://cfile239.uf.daum.net/original/25600340525FBE6129DF07 cellSpacing=3 cellPadding=0><tr valign=center><td>
 <TABLE title="탄생기념일 타이머" bgcolor=tomato border=1 width=100% height=30><tr valign=center>
@@ -1093,8 +1102,7 @@ X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 </td></tr></table></td></tr></table>
 
 </P><P class="mid">
-※ 위 노란색 (셀렉트 박스)을 클릭하면 나이에 따른 '별칭'을 볼 수 있습니다~~<br><br><br>
-
+※ 위 노란색 (셀렉트 박스)을 클릭하면 나이에 따른 '별칭'을 볼 수 있습니다~~<br><br><br //-->
 
  
 <P class="mid"> 
