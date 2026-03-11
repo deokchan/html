@@ -68,13 +68,14 @@ p.title {color:blue; font-size:67px; font-weight : bold; text-align : left; line
 p.tit {color:blue; font-family: 'Noto Sans KR', sans-serif; font-size:54px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:10px 10px 10px gray; } 
 p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; line-height:110%; margin-left:0px; font-family: 'Gugi'; }
 
-.theme-lightpink .fix, .theme-lightpink .gasaTitle { background: lightpink !important; } /* 엄마 아빠 */
-.theme-khaki .fix, .theme-khaki .gasaTitle { background: khaki !important; } /* 할아버지 할머니 */
-.theme-palegreen .fix, .theme-palegreen .gasaTitle { background: palegreen !important; } /* 100일 */
-.theme-lightgrey .fix, .theme-lightgrey .gasaTitle { background: lightgrey !important; } /* 증조모 */
-.theme-lavenderblush .fix, .theme-lavenderblush .gasaTitle { background: lavenderblush !important; } /* 생일 */
-.theme-white .fix, .theme-white .gasaTitle { background: white !important; } /* 결혼 */
-.theme-sandybrown .fix, .theme-sandybrown .gasaTitle { background: sandybrown !important; } /* 로운 */
+.theme-lightpink .fix, .theme-lightpink .gasaTitle { background: lightpink !important; } /* 발라드 */
+.theme-khaki .fix, .theme-khaki .gasaTitle { background: khaki !important; } /* 포크 */
+.theme-palegreen .fix, .theme-palegreen .gasaTitle { background: palegreen !important; } /* 로운 */
+.theme-lightgrey .fix, .theme-lightgrey .gasaTitle { background: lightgrey !important; } /* 댄스 */
+.theme-lavenderblush .fix, .theme-lavenderblush .gasaTitle { background: lavenderblush !important; } /* 트롯, 트롯댄스, 트롯발라드 */
+.theme-white .fix, .theme-white .gasaTitle { background: white !important; } /* 테마 가족, 테마 사유, 팝컨추리 */
+.theme-sandybrown .fix, .theme-sandybrown .gasaTitle { background: sandybrown !important; } /* 뽈랑 */
+.theme-purple .fix, .theme-purple .gasaTitle { background: #B894C3 !important; } /* 브라스, 심포니 */
 
   .circle-img {
     border-radius: 20%;
@@ -354,10 +355,30 @@ function init() {
     bgmLoad();
     ctl = document.getElementById('bg_music');
     ctl.volume = 0.5;
-    n = 0 // generateRandom(a, b);
+    n = 107 // generateRandom(a, b);
+
+   // ─── 저장된 정렬 복원 ───
+   let savedSort = localStorage.getItem("lastSortType_" + currentPage);
+  
+   if (savedSort && savedSort !== 'default') {
+     document.getElementById("sortSelector").value = savedSort;     // 셀렉트 박스 값 설정
+     sortPlaylist(savedSort, false);  // ← 재생 안 함
+   }
+  
+/*  
+  // ─── 저장된 곡 위치 복원 ───
+  let savedIndex = localStorage.getItem("lastTrackIndex_" + currentPage);
+  if (savedIndex !== null) {
+    n = parseInt(savedIndex);
+    play_it(n);
+  } else {
+    play_it(0);
+  }
+*/
+
+  // ─── 저장된 곡 위치 복원 ───
     let savedIndex = localStorage.getItem("lastTrackIndex_" + currentPage);
 
-    // 저장된 값이 있다면 이어듣기
     if (savedIndex !== null) {
         n = parseInt(savedIndex);
     }
@@ -375,20 +396,21 @@ function init() {
     "포크": 1,
     "트롯": 2,
     "트롯댄스": 3,
-    "브라스": 4,
-    "미분류": 5,
-    "트롯발라드": 6,
-    "발라드": 7,
-    "댄스": 8,
-    "심포니": 9,
-    "팝컨추리": 10,
+    "댄스": 4,
+    "브라스": 5,
+    "심포니": 6,
+    "팝컨추리": 7,
+    "트롯발라드": 8,
+    "발라드": 9,
+    "미분류": 10,
     "테마 가족": 11,
     "테마 사유": 12,
     "로운": 13,
     "뽈랑": 14,
   };
 
-function sortPlaylist(sortType) {
+// function sortPlaylist(sortType) {
+function sortPlaylist(sortType, shouldPlay = true) {
   
   // 원본 배열 복원 (정렬 전 초기화) 260224
   odi = [...originalOdi];
@@ -424,6 +446,55 @@ function sortPlaylist(sortType) {
       });
       break;
       
+    case 'prefer-0':
+      // 0순위만 필터링 후 장르순 정렬
+      odi = odi.filter(item => {
+        const title = item.split("|")[1];
+        const prefer = parseInt(title.split("[")[0].trim()) || 0;
+        return prefer === 0;   // return prefer <= 10;  // Top 10만
+      });
+      
+      // 장르순 2차 정렬
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        const genreA = titleA.split("[")[1]?.split("]")[0] || "zzz미분류";
+        const genreB = titleB.split("[")[1]?.split("]")[0] || "zzz미분류";
+        
+        const orderA = genreOrder[genreA] || 999;
+        const orderB = genreOrder[genreB] || 999;
+        
+        return orderA - orderB;
+      });
+      break;
+      
+    case 'prefer-0-2':
+      odi = odi.filter(item => {
+        const title = item.split("|")[1];
+        const prefer = parseInt(title.split("[")[0].trim()) || 0;
+        return prefer >= 0 && prefer <= 2;      // 0~2순위만 필터링 후 선호도 → 장르순 정렬
+      });
+      
+      // 선호도순 1차 정렬
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        const preferA = parseInt(titleA.split("[")[0].trim()) || 0;
+        const preferB = parseInt(titleB.split("[")[0].trim()) || 0;
+        
+        if (preferA !== preferB) return preferA - preferB;
+        
+        // 장르순 2차 정렬
+        const genreA = titleA.split("[")[1]?.split("]")[0] || "zzz미분류";
+        const genreB = titleB.split("[")[1]?.split("]")[0] || "zzz미분류";
+        
+        const orderA = genreOrder[genreA] || 999;
+        const orderB = genreOrder[genreB] || 999;
+        
+        return orderA - orderB;
+      });
+      break;
+
 case 'genre':
   odi.sort((a, b) => {
     const titleA = a.split("|")[1];
@@ -542,16 +613,23 @@ case 'keyword':
       break;
   }
   
+  // ─── 정렬 상태 저장 ───
+  localStorage.setItem("lastSortType_" + currentPage, sortType);
+
   // 정렬 후 목록 갱신 및 첫 곡 재생
   bgmLoad();     // 전체 목록 다시 그리기
   listLoad();    // 현재 이후 목록 다시 그리기
-  play_it(0);    // 첫 곡부터 재생
+
+  if (shouldPlay) {
+    play_it(0);  // 정렬 후 재생
+  }
 }
 
 // 전역 변수로 타이머 ID 저장
 var countTimer = null;
 
 function play_it(n) {
+    list_num = odi.length-1;  // 260311 배열의 변경에 따라 재설정.
     $('#gasaTitle').html(""); 
     window.n = parseInt(n); // 현재 n 값을 명확하게 설정, 문자열로 들어올 경우를 대비해 정수로 변환
     
@@ -895,8 +973,8 @@ for (var i=0;i<=odi.length-1;i++) {
     List.innerHTML = tag0 + tag1 + tag2 + tag3;
     test.innerHTML = "<P class='mid2'>" + tag5; 
 
-    updateButton();
-    DdayList();
+//    updateButton();
+//    DdayList();
 }
 
 function listLoad() {
@@ -925,27 +1003,27 @@ var generateRandom = function (min, max) {
 function gasa(n) {
   var title5 = odi[n].split("|")[0];
   var title6 = odi[n].split("|")[1];
-  var title6 = title6.split(" ")[0];
-
-  if (title6.includes("발라드")) {
-    applyTheme('lightpink'); // 라이트 핑크 테마
-  } else if (title6.includes("포크")) {
-    applyTheme('khaki'); 
-  } else if (title6.includes("테마") || title6.includes("팝")) { 
-    applyTheme('white'); 
-  } else if (title6.includes("브라스") || title6.includes("심포니")) { 
-    applyTheme('#B894C3'); 
-  } else if (title6.includes("댄스")) {
-    applyTheme('lightgrey');
-  } else if (title6.includes("트롯")) {
-    applyTheme('lavenderblush');
-  } else if (title6.includes("뽈랑")) {
-    applyTheme('sandybrown');
-  } else if (title6.includes("로운")) {
-    applyTheme('palegreen');
-  } else {
-    applyTheme('default'); // 기본 테마
-  }
+  var genre = title6.split("[")[1].split("]")[0];  // ← 장르만 추출
+  
+  // 테마 매핑 객체
+  const themeMap = {
+    "발라드": 'lightpink',
+    "포크": 'khaki',
+    "테마 가족": 'white',
+    "테마 사유": 'white',
+    "팝컨추리": 'white',
+    "브라스": 'purple',    // ← 수정
+    "심포니": 'purple',    // ← 수정
+    "댄스": 'lightgrey',
+    "트롯": 'lavenderblush',
+    "트롯댄스": 'lavenderblush',
+    "트롯발라드": 'lavenderblush',
+    "뽈랑": 'sandybrown',
+    "로운": 'palegreen'
+  };
+  
+  const theme = themeMap[genre] || 'default';
+  applyTheme(theme);
 
       title5 = title5.split("ai/")[1];
       title5 = title5.split(".")[0];
@@ -969,7 +1047,15 @@ async function loadData(title5) {
     var model   = html.split(`model_name\\\":\\\"`)[1].split(`\\\"`)[0];
     var created = html.split(`created_at\\\":\\\"`)[1].split(`\\\"`)[0];
     var yymmdd  = new Date(created).toLocaleDateString('sv-SE').replace(/-/g, '').slice(2);
-    var tags    = html.split(`tags\\\":\\\"`)[1].split(`\\\"`)[0].replace(/\\/g, "");
+    var tags = html.split(`tags\\\":\\\"`)[1].split(`\\\"`)[0];
+   // ─── 개행 문자 먼저 제거 ───
+   tags = tags
+     .replace(/\\\\n/g, " ")   // \\n → 공백
+     .replace(/\\n/g, " ")     // \n → 공백
+     .replace(/\\\\/g, "")     // \\ → 제거
+     .replace(/\\/g, "");      // \ → 제거
+
+   // var tags    = html.split(`tags\\\":\\\"`)[1].split(`\\\"`)[0].replace(/\\n/g, "");
   } catch(e) {
     $('#test3').html(`
       ※ 곡 정보를 읽을 수 없습니다.<br>
@@ -1175,6 +1261,8 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 <select id="sortSelector" onchange="sortPlaylist(this.value)">
     <option value="default">🔢 기본순서</option>
     <option value="prefer">⭐ 선호도순</option>
+    <option value="prefer-0">⭐ 0순위만</option>        <!-- 추가 -->
+    <option value="prefer-0-2">⭐ 0~2순위</option>      <!-- 추가 -->
     <option value="genre">🎵 장르순</option>
     <option value="title-asc">📖 제목(ㄱ→ㅎ)</option>
     <option value="title-desc">📕 제목(ㅎ→ㄱ)</option>
@@ -1220,13 +1308,14 @@ X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 
 처음에는 '랜덤'으로 재생되지만 <br><br>
 
-다음부터는 직전에 "듣고 있었던.." 곡부터 재생됩니다.
+다음부터는 직전에 "듣고 있었던.." 
+'재생 목록과 재생 곡'부터 재생됩니다.
 </td></tr></table>
 </P><P class='mid'><br><br> <br>
 
 <div id=upmemo>upmemo</div><P class='mid'><br><br>
 
-</P><P class="title">로운이의 탄생 기념일 타이머<br>
+<!-- /P><P class="title">로운이의 탄생 기념일 타이머<br>
 
 <table width=100% background=http://cfile239.uf.daum.net/original/25600340525FBE6129DF07 cellSpacing=3 cellPadding=0><tr valign=center><td>
 <TABLE title="탄생기념일 타이머" bgcolor=tomato border=1 width=100% height=30><tr valign=center>
@@ -1238,7 +1327,7 @@ X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 </td></tr></table></td></tr></table>
 
 </P><P class="mid">
-※ 위 노란색 (셀렉트 박스)을 클릭하면 나이에 따른 '별칭'을 볼 수 있습니다~~<br><br><br>
+※ 위 노란색 (셀렉트 박스)을 클릭하면 나이에 따른 '별칭'을 볼 수 있습니다~~<br><br><br //-->
 
  
 <P class="mid"> 
