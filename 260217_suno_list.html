@@ -1035,8 +1035,23 @@ async function loadData(title5) {
   const html = await fetchWithProxy(`https://suno.com/song/${songId}`);
   
   if (!html) {
-    $('#test3').text("❌ 소스를 가져오지 못했습니다.");
-    return;
+    // ─── 프록시 실패 시 Suno 링크 표시 ───
+    $('#test3').html(`
+      ❌ 소스를 가져오지 못했습니다.<br>
+      <div style="text-align:center; margin:20px 0;">
+        <a href="https://suno.com/song/${songId}" target="_blank" 
+           style="display:inline-block; padding:15px 30px; background:#e94560; 
+                  color:white; text-decoration:none; border-radius:8px; 
+                  font-size:54px; font-weight:bold;">
+          🎵 Suno 사이트에서 직접 보기
+        </a>
+      </div>
+    `);
+    $('#gasaTitle').html("프록시 실패");
+    $('#gasaTitleTable').hide();
+    $('#i_button_img').attr('src', 'https://i.imgur.com/7GzEU6K.png').attr('title', '정보 보기');
+    adjustLayout();
+    return;  // ← 여기서 끝 (플레이어는 계속 작동)
   }
 
   // ─────────────────────────────────────
@@ -1142,6 +1157,49 @@ async function loadData(title5) {
 }
 
 async function fetchWithProxy(targetURL) {
+  const proxies = [
+    `https://corsproxy.io/?${encodeURIComponent(targetURL)}`,
+    `https://api.allorigins.win/get?url=${encodeURIComponent(targetURL)}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetURL)}`
+  ];
+
+  $('#test3').text(`⏳ 가사 가져오는 중...`);
+
+  for (let i = 0; i < proxies.length; i++) {
+    try {
+      $('#test3').text(`⏳ 프록시 ${i + 1}번 시도 중...`);
+
+      // ─── 타임아웃 설정 (5초) ───
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      const res = await fetch(proxies[i], { signal: controller.signal });
+      clearTimeout(timeoutId);
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      // allorigins는 JSON 래퍼 벗기기
+      if (proxies[i].includes('allorigins')) {
+        const wrapper = await res.json();
+        return wrapper.contents;
+      } else {
+        return await res.text();
+      }
+
+    } catch (e) {
+      console.log(`프록시 ${i + 1} 실패:`, e.message);
+      
+      // 마지막 프록시도 실패
+      if (i === proxies.length - 1) {
+        $('#test3').html(`❌ 모든 프록시 실패<br>잠시 후 다시 시도해 주세요.`);
+        return null;
+      }
+    }
+  }
+}
+
+/*
+async function fetchWithProxy(targetURL) {
   try {
     $('#test3').text(`⏳ 가사 가져오는 중...`);
     const url = `https://corsproxy.io/?${encodeURIComponent(targetURL)}`;
@@ -1153,6 +1211,7 @@ async function fetchWithProxy(targetURL) {
     return null;
   }
 }
+*/
 
 function adjustLayout() {
   var fixedHeight = document.getElementById('fix').offsetHeight;
