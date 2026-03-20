@@ -1069,8 +1069,6 @@ async function loadData(title5) {
      .replace(/\\n/g, " ")     // \n → 공백
      .replace(/\\\\/g, "")     // \\ → 제거
      .replace(/\\/g, "");      // \ → 제거
-     .replace(/\n{3,}/g, "\n\n")  // 3개 이상 → 2개로
-     .replace(/(\n\s*){3,}/g, "\n\n");  // 줄바꿈+공백 3회 이상 → 2개로
 
    // var tags    = html.split(`tags\\\":\\\"`)[1].split(`\\\"`)[0].replace(/\\n/g, "");
   } catch(e) {
