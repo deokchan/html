@@ -1069,6 +1069,8 @@ async function loadData(title5) {
      .replace(/\\n/g, " ")     // \n → 공백
      .replace(/\\\\/g, "")     // \\ → 제거
      .replace(/\\/g, "");      // \ → 제거
+     .replace(/\n{3,}/g, "\n\n")  // 3개 이상 → 2개로
+     .replace(/(\n\s*){3,}/g, "\n\n");  // 줄바꿈+공백 3회 이상 → 2개로
 
    // var tags    = html.split(`tags\\\":\\\"`)[1].split(`\\\"`)[0].replace(/\\n/g, "");
   } catch(e) {
@@ -1135,10 +1137,13 @@ async function loadData(title5) {
   // 개행 처리
   // ─────────────────────────────────────
   prompt = prompt
-    .replace(/\\\\n/g, "\n")
-    .replace(/\\n/g,   "\n")
-    .replace(/\\\\/g,  "")
-    .replace(/\\/g,    "");
+  .replace(/\\\\n/g, "\n")      // \\n → \n
+  .replace(/\\n/g,   "\n")      // \n → 줄바꿈
+  .replace(/\\\\/g,  "")        // \\ 제거
+  .replace(/\\/g,    "")        // \ 제거
+  .replace(/\n{3,}/g, "\n\n")  // 3개 이상 → 2개로
+  .replace(/(\n\s*){3,}/g, "\n\n");  // 줄바꿈+공백 3회 이상 → 2개로
+//  .replace(/\n\s*\n\s*\n/g, "\n\n");  // ← 수정: 공백 포함 3개 → 2개
 
   if (prompt.includes("\n\n \n\n") || prompt.includes("\n\n  \n\n")) {
     prompt = prompt.replace(/\n{2}/g, "\n");
@@ -1158,60 +1163,67 @@ async function loadData(title5) {
 
 async function fetchWithProxy(targetURL) {
   const proxies = [
-    `https://corsproxy.io/?${encodeURIComponent(targetURL)}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetURL)}`,
     `https://api.allorigins.win/get?url=${encodeURIComponent(targetURL)}`,
-    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetURL)}`
+    `https://corsproxy.io/?${encodeURIComponent(targetURL)}`
   ];
 
   $('#test3').text(`⏳ 가사 가져오는 중...`);
 
   for (let i = 0; i < proxies.length; i++) {
+    let fetchTimerId, dataTimerId;
+    
     try {
       $('#test3').text(`⏳ 프록시 ${i + 1}번 시도 중...`);
 
-      // ─── 타임아웃 설정 (5초) ───
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const res = await fetch(proxies[i], { signal: controller.signal });
-      clearTimeout(timeoutId);
+      // ─── fetch 타임아웃 (5초) ───
+      const fetchPromise = fetch(proxies[i]);
+      const fetchTimeout = new Promise((_, reject) => {
+        fetchTimerId = setTimeout(() => reject(new Error('fetch 타임아웃')), 5000);
+      });
+      
+      const res = await Promise.race([fetchPromise, fetchTimeout]);
+      clearTimeout(fetchTimerId);  // ✅ fetch 성공 시 타이머 해제
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      // allorigins는 JSON 래퍼 벗기기
+      // ─── 데이터 읽기 타임아웃 (5초) ───
+      let data;
       if (proxies[i].includes('allorigins')) {
-        const wrapper = await res.json();
-        return wrapper.contents;
+        const jsonPromise = res.json();
+        const jsonTimeout = new Promise((_, reject) => {
+          dataTimerId = setTimeout(() => reject(new Error('JSON 읽기 타임아웃')), 5000);
+        });
+        const wrapper = await Promise.race([jsonPromise, jsonTimeout]);
+        clearTimeout(dataTimerId);  // ✅ JSON 성공 시 타이머 해제
+        data = wrapper.contents;
       } else {
-        return await res.text();
+        const textPromise = res.text();
+        const textTimeout = new Promise((_, reject) => {
+          dataTimerId = setTimeout(() => reject(new Error('텍스트 읽기 타임아웃')), 5000);
+        });
+        data = await Promise.race([textPromise, textTimeout]);
+        clearTimeout(dataTimerId);  // ✅ 텍스트 성공 시 타이머 해제
       }
 
+      return data;
+
     } catch (e) {
+      // ✅ 실패 시 타이머 정리
+      clearTimeout(fetchTimerId);
+      clearTimeout(dataTimerId);
+      
       console.log(`프록시 ${i + 1} 실패:`, e.message);
       
-      // 마지막 프록시도 실패
       if (i === proxies.length - 1) {
         $('#test3').html(`❌ 모든 프록시 실패<br>잠시 후 다시 시도해 주세요.`);
         return null;
       }
     }
   }
+  
+  return null;
 }
-
-/*
-async function fetchWithProxy(targetURL) {
-  try {
-    $('#test3').text(`⏳ 가사 가져오는 중...`);
-    const url = `https://corsproxy.io/?${encodeURIComponent(targetURL)}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.text();
-  } catch (e) {
-    $('#test3').text(`❌ 실패: ${e.message}`);
-    return null;
-  }
-}
-*/
 
 function adjustLayout() {
   var fixedHeight = document.getElementById('fix').offsetHeight;
