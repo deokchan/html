@@ -1097,16 +1097,34 @@ async function loadData(title5) {
   
   // 방법 1: 정상 패턴
   try {
+  // 우선순위 1: \",\"type 패턴
+  if (html.includes(`\\",\\"type`)) {
+    prompt = html.split(`prompt\\\":\\\"`)[1].split(`\\",\\"type`)[0];
+//    console.log('✅ 패턴: \\",\\"type');
+  } 
+  // 우선순위 2: 일반 \" 패턴
+  else if (html.includes(`prompt\\\":\\\"`)) {
     prompt = html.split(`prompt\\\":\\\"`)[1].split(`\\\"`)[0];
-  } catch(e) {}
+//    console.log('✅ 패턴: \\"');
+  }
+  // 우선순위 3: 빈 문자열
+  else {
+    prompt = "";
+//    console.log('❌ 패턴 없음');
+  }
+  
+  } catch(e) {
+    console.error('에러:', e.message);
+    prompt = "";
+  }
 
   // 방법 2: 길이가 짧으면 특수 케이스들 시도
-  if (prompt.length < 70) {
+  if (prompt.length < 150) {
 
     for (let pattern of specialPatterns) {
       if (pattern.check(html)) {
         prompt = pattern.extract(html);
-        if (prompt && prompt.length > 70) break;
+        if (prompt && prompt.length > 150) break;
       }
     }
   }
