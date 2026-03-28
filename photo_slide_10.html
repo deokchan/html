@@ -1,0 +1,634 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>포토 슬라이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@500;700;900&family=Noto+Serif+KR:wght@600;700;900&family=Sunflower:wght@500;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
+  background: white  //#1e1e1e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 10px 40px;
+}
+
+h1 {
+  color: #ddd;
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 400;
+}
+
+/* ===== 슬라이드 래퍼 ===== */
+#slide-container {
+  width: 100%;
+  max-width: 920px;
+}
+
+/* ===== 디버그 정보 (필요시 display:none) ===== */
+#info-row {
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+#chips-row {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+  align-items: center;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 0.5px solid #555;
+  background: #2a2a2a;
+  color: #ccc;
+}
+.chip-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+#pal-row {
+  display: flex;
+  height: 16px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+#pal-row div { flex: 1; }
+#dbg-row {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* ===== 배경 탭 ===== */
+#tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+button.tab {
+  font-size: 12px;
+  padding: 4px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid #666;
+  background: transparent;
+  color: #ccc;
+  transition: background 0.2s, color 0.2s;
+}
+button.tab.on { color: #fff; }
+
+/* ===== 슬라이드 본체 ===== */
+.slide-wrap {
+  padding: 10px;          /* ← 추가 */
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid #888;
+  transition: border-color 0.5s ease;
+}
+table.sl {
+  width: 100%;
+  border-collapse: collapse;
+}
+table.sl td { padding: 10; }
+
+#slide-img {
+  border-radius: 6px;     /* ← 추가 */
+  width: 100%;
+  display: block;
+//  max-height: 340px;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+#slide-img.fade { opacity: 0; }
+
+.cap {
+  padding: 3px 14px 0px;
+  transition: background 0.5s ease, color 0.5s ease;
+  line-height: 1.3;
+}
+.cap-meta {
+  font-size: 54px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+.cap-title {
+  font-size: 54px;
+}
+.cap-sub {
+  font-size: 54px;
+  margin-top: 0px;
+  opacity: 0.85;
+}
+
+
+/* ===== 컨트롤 영역 ===== */
+#controls {
+  width: 100%;
+  max-width: 920px;
+  margin-top: 14px;
+}
+
+#ctrl-row {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.ctrl-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s, transform 0.1s;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.ctrl-btn:hover { opacity: 0.8; }
+.ctrl-btn:active { transform: scale(0.93); }
+.ctrl-btn img { height: 60px; display: block; }
+.ctrl-btn:focus,
+.ctrl-btn:focus-visible {
+  outline: none;
+}
+
+/* 재생/정지 버튼은 약간 크게 */
+#btn-play img { height: 60px; }
+
+#count-progress-wrap {
+  display: inline-block;
+  text-align: center;
+}
+#count-display {
+  font-size: 15px;
+  font-weight: 700;
+  color: skyblue; // #ddd;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+
+/* ===== 진행 바 ===== */
+#progress-wrap {
+  width: 100%;
+  height: 10px;
+  background: skyblue; //#444;
+  border-radius: 3px;
+  overflow: hidden;
+}
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, blue, red);
+//  background: #aaa;
+  transition: width 0.3s ease, background 0.5s ease;
+}
+
+.cap-meta, .cap-title, .cap-sub, #count-display { padding: 10px; font-size: 54px; font-weight: 700; line-height: 1.3; font-family: 'Noto Serif KR'; }
+#count-display { padding: 5px; font-size: 40px; font-weight: 700; line-height: 1.0; font-family: 'Noto Serif KR'; }
+
+</style>
+</head>
+<body>
+
+<h1>260328 양양의 노래 &amp; 자연과 풍경</h1>
+
+<div id="slide-container">
+
+  <!-- 디버그 정보 (필요시 아래 3개 div를 display:none 처리) -->
+  <div id="info-row"></div>
+  <div id="chips-row"></div>
+  <div id="pal-row"></div>
+  <div id="dbg-row"></div>
+
+  <!-- 배경색 탭 -->
+  <div id="tabs"></div>
+
+  <!-- 슬라이드 본체 -->
+  <div class="slide-wrap" id="slide-wrap">
+    <table class="sl" id="slide-table">
+      <tr><td>
+        <img id="slide-img" src="" alt="">
+      </td></tr>
+      <tr><td class="cap" id="cap">
+        <div class="cap-meta" id="cap-meta"></div>
+        <div class="cap-title" id="cap-title"></div>
+        <div class="cap-sub" id="cap-sub"></div>
+      </td></tr>
+    </table>
+  </div>
+
+</div><!-- /slide-container -->
+
+<!-- 컨트롤 -->
+<div id="controls">
+  <div id="ctrl-row">
+
+    <!-- 재생/일시정지 토글 -->
+    <button class="ctrl-btn" id="btn-play" onclick="img_control()" title="일시 정지">
+      <img id="img_button_img" src="https://i.imgur.com/TQFP08p.png" alt="재생">
+      <input type="text" style="display:none" id="img_button" value="start">
+    </button>
+
+    <!-- 순차/랜덤 토글 -->
+    <button class="ctrl-btn" id="btn-random" onclick="img_Random()" title="랜덤 재생">
+      <img id="img_RS_button_img" src="https://i.imgur.com/LOi8XuQ.png" alt="순차">
+      <input type="text" style="display:none" id="img_RS_button" value="sequence">
+    </button>
+
+    <!-- 이전 -->
+    <button class="ctrl-btn" onclick="img_Prev()" title="이전">
+      <img src="https://i.imgur.com/4pZ3zXN.png" alt="">
+      <img src="https://i.imgur.com/tkZvFNw.png" alt="">
+    </button>
+
+    <!-- 다음 -->
+    <button class="ctrl-btn" onclick="img_Next()" title="다음">
+      <img src="https://i.imgur.com/mNMdXMC.png" alt="">
+      <img src="https://i.imgur.com/TFw4TDC.png" alt="">
+    </button>
+
+<div id="count-progress-wrap" style="margin-left:auto;">
+  <div id="count-display">[ - / - ]</div>
+  <div id="progress-wrap">
+    <div id="progress-bar"></div>
+  </div>
+</div>
+</div>
+
+<canvas id="cv" style="display:none"></canvas>
+
+<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/slide.js"></script>
+
+<!-- ===================== slide.js 인라인 ===================== -->
+<script>
+// https://cdn.jsdelivr.net/gh/deokchan/js@latest/
+/* ===================================================
+   slide.js  —  포토 슬라이드 (자동 색상 추출 포함)
+   =================================================== */
+
+// ── 2. 상태 변수 ─────────────────────────────────────────
+const INTERVAL   = 5000;   // 자동재생 간격(ms)
+let   curIdx     = 0;
+let   isPlaying  = true;
+let   isRandom   = false;
+let   timer      = null;
+// let   progTimer  = null;
+// let   progStart  = 0;
+let   schemes    = [];
+let   activeSchemeId = 'tri';
+let   fontColor  = '#333333';
+
+// ── 3. 파일명 파싱 ───────────────────────────────────────
+function parseImgName(url) {
+  // URL 디코딩 후 파일명 추출
+  const decoded = decodeURIComponent(url.split('/').pop());
+  // 확장자 제거
+  const base = decoded.replace(/\.(jpg|jpeg|png|webp|gif)$/i, '');
+  // yymmdd_hhmmss_캡션 또는 yymmdd_hhmm_캡션
+  const parts = base.split('_');
+  const rawDate = parts[0] || '';
+  const rawTime = parts[1] || '';
+  const rawCap  = parts.slice(2).join('_');
+
+  // 날짜 포맷: yymmdd → yy.mm.dd
+  let iDate = rawDate;
+  if (/^\d{6}$/.test(rawDate)) {
+    iDate = rawDate.slice(0,2)+'.'+rawDate.slice(2,4)+'.'+rawDate.slice(4,6);
+  }
+
+  // 시간 포맷: hhmmss → hh:mm:ss  또는  hhmm → hh:mm
+  let iTime = rawTime;
+  if (/^\d{6}$/.test(rawTime)) {
+    iTime = rawTime.slice(0,2)+':'+rawTime.slice(2,4)+':'+rawTime.slice(4,6);
+  } else if (/^\d{4}$/.test(rawTime)) {
+    iTime = rawTime.slice(0,2)+':'+rawTime.slice(2,4);
+  }
+
+  // 캡션: '(' 포함 여부 분리
+  let mainCap = rawCap;
+  let subCap  = '';
+  // 수정 — 괄호 뒤 숫자/공백도 허용
+  //  const parenMatch = rawCap.match(/^(.*?)\s*\((.+)\)\s*[\d\s]*$/);
+  const parenMatch = rawCap.match(/^(.*?)\s*\((.+?)\)\s*(\d+)?\s*$/);
+  if (parenMatch) {
+    const suffix = parenMatch[3] ? ' ' + parenMatch[3] : '';
+    mainCap = (parenMatch[1] + suffix).trim();
+    subCap  = '부제 : ' + parenMatch[2].trim();
+  }
+/*
+  const parenMatch = rawCap.match(/^(.*?)\s*\((.+)\)\s*$/);
+  if (parenMatch) {
+    mainCap = parenMatch[1].trim();
+    subCap  = '부제 : ' + parenMatch[2].trim();
+  }
+*/
+  return { iDate, iTime, mainCap, subCap };
+}
+
+// ── 4. 색상 유틸 ─────────────────────────────────────────
+function h2r(hex){return{r:parseInt(hex.slice(1,3),16),g:parseInt(hex.slice(3,5),16),b:parseInt(hex.slice(5,7),16)};}
+function r2h({r,g,b}){return'#'+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');}
+function r2hsl({r,g,b}){
+  r/=255;g/=255;b/=255;
+  const mx=Math.max(r,g,b),mn=Math.min(r,g,b);
+  let h=0,s=0,l=(mx+mn)/2;
+  if(mx!==mn){
+    const d=mx-mn;s=l>0.5?d/(2-mx-mn):d/(mx+mn);
+    if(mx===r)h=(g-b)/d+(g<b?6:0);
+    else if(mx===g)h=(b-r)/d+2;
+    else h=(r-g)/d+4;
+    h/=6;
+  }
+  return{h:h*360,s:s*100,l:l*100};
+}
+function hsl2h(h,s,l){
+  s/=100;l/=100;const a=s*Math.min(l,1-l);
+  const f=n=>{const k=(n+h/30)%12;return l-a*Math.max(Math.min(k-3,9-k,1),-1);};
+  return'#'+[f(0),f(8),f(4)].map(v=>Math.max(0,Math.min(255,Math.round(v*255))).toString(16).padStart(2,'0')).join('');
+}
+
+// K-means++ 초기화 (안정적 결과)
+function kmeanspp(px, k) {
+  const centers = [px[Math.floor(Math.random()*px.length)]];
+  while (centers.length < k) {
+    const dists = px.map(p => {
+      let minD = Infinity;
+      for (const c of centers) {
+        const d = (p.r-c.r)**2+(p.g-c.g)**2+(p.b-c.b)**2;
+        if (d < minD) minD = d;
+      }
+      return minD;
+    });
+    const sum = dists.reduce((a,b)=>a+b,0);
+    let rnd = Math.random()*sum;
+    let chosen = px[px.length-1];
+    for (let i=0;i<dists.length;i++) { rnd-=dists[i]; if(rnd<=0){chosen=px[i];break;} }
+    centers.push({...chosen});
+  }
+  return centers;
+}
+
+function kmeans(px, k=10) {
+  let centers = kmeanspp(px, k);
+  for (let it=0;it<18;it++) {
+    const cl = Array.from({length:k},()=>({r:0,g:0,b:0,n:0}));
+    for (const p of px) {
+      let bi=0,bd=Infinity;
+      for (let ci=0;ci<k;ci++){const c=centers[ci];const d=(p.r-c.r)**2+(p.g-c.g)**2+(p.b-c.b)**2;if(d<bd){bd=d;bi=ci;}}
+      cl[bi].r+=p.r;cl[bi].g+=p.g;cl[bi].b+=p.b;cl[bi].n++;
+    }
+    for (let ci=0;ci<k;ci++) if(cl[ci].n>0) centers[ci]={r:cl[ci].r/cl[ci].n,g:cl[ci].g/cl[ci].n,b:cl[ci].b/cl[ci].n};
+  }
+  const counts=new Array(k).fill(0);
+  for (const p of px) {
+    let bi=0,bd=Infinity;
+    for (let ci=0;ci<k;ci++){const c=centers[ci];const d=(p.r-c.r)**2+(p.g-c.g)**2+(p.b-c.b)**2;if(d<bd){bd=d;bi=ci;}}
+    counts[bi]++;
+  }
+  return centers.map((c,i)=>({hex:r2h(c),count:counts[i],hsl:r2hsl(c)})).filter(p=>p.count>0).sort((a,b)=>b.count-a.count);
+}
+
+function weightedSample(data) {
+  const px=[];
+  for(let i=0;i<data.length;i+=4){
+    if(data[i+3]<180) continue;
+    const p={r:data[i],g:data[i+1],b:data[i+2]};
+    const hsl=r2hsl(p);
+    const w=hsl.s<15?1:hsl.s<35?2:hsl.s<55?3:hsl.s<75?4:5;
+    for(let j=0;j<w;j++) px.push(p);
+  }
+  if(px.length>6000){const step=Math.floor(px.length/6000);return px.filter((_,i)=>i%step===0);}
+  return px;
+}
+
+function pickVivid(palette) {
+  const colored=palette.filter(p=>p.hsl.s>=20&&p.hsl.l>=10&&p.hsl.l<=85);
+  if(!colored.length) return {hex:palette[0].hex,top3:[palette[0]]};
+  const scored=colored.map(p=>({
+    ...p,
+    score:(p.hsl.s/100)**2*70+(50-Math.abs(p.hsl.l-42))*0.6+Math.log1p(p.count)*0.5
+  })).sort((a,b)=>b.score-a.score);
+  return {hex:scored[0].hex, top3:scored.slice(0,3)};
+}
+
+function buildSchemes(fHex) {
+  const {h,s,l}=r2hsl(h2r(fHex));
+  return [
+    {id:'low', label:'① 동계열 저채도', bg:hsl2h(h,Math.max(s*0.2,5),l<50?91:11)},
+    {id:'tri', label:'② 3색 보색 120°', bg:hsl2h((h+120)%360,Math.min(s*0.6,60),l<50?89:13)},
+    {id:'adj', label:'③ 보색+명도 조정', bg:hsl2h((h+180)%360,Math.min(s+10,85),l<50?83:20)},
+  ];
+}
+
+// ── 5. UI 업데이트 ────────────────────────────────────────
+function applyScheme(id) {
+  activeSchemeId = id;
+  const sc = schemes.find(s=>s.id===id);
+  if (!sc) return;
+  const {h,s,l} = r2hsl(h2r(sc.bg));
+  const border = hsl2h(h, Math.min(s*1.5,72), Math.max(l-15,5));
+  document.getElementById('slide-wrap').style.borderColor = border;
+  document.getElementById('slide-table').style.background = sc.bg;
+  const cap = document.getElementById('cap');
+  cap.style.background = sc.bg;
+  cap.style.color = fontColor;
+  cap.style.borderTop = `2px solid ${border}`;
+  document.getElementById('progress-bar').style.background = fontColor;
+  document.querySelectorAll('button.tab').forEach(b=>{
+    const on = b.dataset.id===id;
+    b.classList.toggle('on', on);
+    b.style.background   = on ? fontColor : '';
+    b.style.borderColor  = on ? fontColor : '';
+    b.style.color        = on ? '#fff' : '';
+  });
+}
+
+function renderTabs() {
+  document.getElementById('tabs').innerHTML = schemes.map(s=>
+    `<button class="tab${s.id===activeSchemeId?' on':''}" data-id="${s.id}" onclick="applyScheme('${s.id}')">${s.label}</button>`
+  ).join('');
+}
+
+function updateCaption(idx) {
+  const {iDate, iTime, mainCap, subCap} = parseImgName(img[idx]);
+  document.getElementById('cap-meta').textContent  = `${iDate}  ${iTime}`;  // [${idx+1} / ${img.length}]  
+  document.getElementById('cap-title').innerHTML = mainCap.replace(/ - /g, '<br>- ');
+  document.getElementById('cap-sub').textContent   = subCap;
+  document.getElementById('cap-sub').style.display = subCap ? '' : 'none';
+  document.getElementById('count-display').textContent = `[ ${idx+1} / ${img.length} ]`;
+  document.getElementById('progress-bar').style.width = ((idx+1) / img.length * 100).toFixed(1) + '%';
+}
+
+// ── 6. 이미지 로드 & 색상 추출 ───────────────────────────
+function loadSlide(idx, callback) {
+  const el = document.getElementById('slide-img');
+  el.classList.add('fade');
+  setTimeout(()=>{
+    const url = img[idx];
+    const tempImg = new Image();
+    tempImg.crossOrigin = 'anonymous';
+    tempImg.onload = function() {
+      // canvas 색상 추출
+      const cv = document.getElementById('cv');
+      const sz = 100;
+      cv.width = cv.height = sz;
+      const ctx = cv.getContext('2d');
+      ctx.drawImage(tempImg, 0, 0, sz, sz);
+      const data = ctx.getImageData(0,0,sz,sz).data;
+      const px = weightedSample(data);
+      const pal = kmeans(px, 10);
+      const pick = pickVivid(pal);
+      fontColor = pick.hex;
+      schemes = buildSchemes(fontColor);
+
+      // 디버그 정보 업데이트
+      document.getElementById('info-row').textContent =
+        `선택된 폰트색: ${fontColor}  (채도 가중 샘플링 + 채도² 점수 선택)`;
+      document.getElementById('chips-row').innerHTML =
+        '<span style="font-size:11px;color:#999">팔레트:</span>' +
+        pal.slice(0,8).map(p=>`<span class="chip"><span class="chip-dot" style="background:${p.hex}"></span>${p.hex}</span>`).join('');
+      document.getElementById('pal-row').innerHTML =
+        pal.slice(0,10).map(p=>`<div style="background:${p.hex}" title="${p.hex}"></div>`).join('');
+      const dbg = pick.top3.map((p,i)=>
+        `후보${i+1}: ${p.hex}  채도${p.hsl.s.toFixed(0)}%  명도${p.hsl.l.toFixed(0)}%  점수${p.score.toFixed(1)}`
+      ).join('  │  ');
+      document.getElementById('dbg-row').textContent = dbg;
+
+      // 이미지 표시
+      el.src = url;
+      el.classList.remove('fade');
+      updateCaption(idx);
+      renderTabs();
+      applyScheme(activeSchemeId);
+      if (callback) callback();
+    };
+    tempImg.onerror = function() {
+      // CORS 실패 시 색상 추출 없이 이미지만 표시
+      el.src = url;
+      el.classList.remove('fade');
+      updateCaption(idx);
+      if (callback) callback();
+    };
+    tempImg.src = url;
+  }, 200);
+}
+
+/*
+// ── 7. 진행 바 ───────────────────────────────────────────
+function startProgress() {
+  clearInterval(progTimer);
+  progStart = Date.now();
+  const bar = document.getElementById('progress-bar');
+  bar.style.width = '0%';
+  progTimer = setInterval(()=>{
+    const elapsed = Date.now() - progStart;
+    const pct = Math.min((elapsed / INTERVAL) * 100, 100);
+    bar.style.width = pct + '%';
+  }, 80);
+}
+function stopProgress() {
+  clearInterval(progTimer);
+}
+*/
+
+// ── 8. 자동재생 제어 ─────────────────────────────────────
+function scheduleNext() {
+  clearTimeout(timer);
+  if (!isPlaying) return;
+//  startProgress();
+  timer = setTimeout(()=>{ advanceSlide(); }, INTERVAL);
+}
+
+function advanceSlide() {
+  if (isRandom) {
+    let next;
+    do { next = Math.floor(Math.random()*img.length); } while (img.length>1 && next===curIdx);
+    curIdx = next;
+  } else {
+    curIdx = (curIdx+1) % img.length;
+  }
+  loadSlide(curIdx, scheduleNext);
+}
+
+// ── 9. 버튼 함수 ─────────────────────────────────────────
+function img_control() {
+  isPlaying = !isPlaying;
+  const btnImg = document.getElementById('img_button_img');
+  const btnVal = document.getElementById('img_button');
+  if (isPlaying) {
+    // 재생 아이콘 (현재 이미지: TQFP08p = 재생/순환 아이콘)
+    btnImg.src   = 'https://i.imgur.com/TQFP08p.png';
+    btnImg.title = '일시 정지';
+    btnVal.value = 'start';
+    scheduleNext();
+  } else {
+    // 일시정지 아이콘
+    btnImg.src   = 'https://i.imgur.com/mNMdXMC.png';
+    btnImg.title = '재생';
+    btnVal.value = 'stop';
+    clearTimeout(timer);
+//    stopProgress();
+  }
+}
+
+function img_Random() {
+  isRandom = !isRandom;
+  const btnImg = document.getElementById('img_RS_button_img');
+  const btnVal = document.getElementById('img_RS_button');
+  if (isRandom) {
+    btnImg.src   = 'https://i.imgur.com/Au17Uxe.png';
+    btnImg.title = '순차 재생으로 전환';
+    btnVal.value = 'random';
+  } else {
+    btnImg.src   = 'https://i.imgur.com/LOi8XuQ.png';
+    btnImg.title = '랜덤 재생으로 전환';
+    btnVal.value = 'sequence';
+  }
+}
+
+function img_Prev() {
+  clearTimeout(timer);
+//  stopProgress();
+  curIdx = (curIdx - 1 + img.length) % img.length;
+  loadSlide(curIdx, ()=>{ if(isPlaying) scheduleNext(); });
+}
+
+function img_Next() {
+  clearTimeout(timer);
+//  stopProgress();
+  curIdx = (curIdx + 1) % img.length;
+  loadSlide(curIdx, ()=>{ if(isPlaying) scheduleNext(); });
+}
+
+// ── 10. 초기 실행 ─────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', ()=>{
+  loadSlide(curIdx, scheduleNext);
+});
+</script>
+</body>
+</html>
