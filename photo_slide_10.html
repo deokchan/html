@@ -99,7 +99,7 @@ button.tab.on { color: #fff; }
 
 /* ===== 슬라이드 본체 ===== */
 .slide-wrap {
-  padding: 0px;          /* ← 추가 */
+  padding: 10px;          /* ← 추가 */
   border-radius: 10px;
   overflow: hidden;
   border: 3px solid #888;
@@ -178,14 +178,14 @@ table.sl td { padding: 0px; }
 }
 .ctrl-btn:hover { opacity: 0.8; }
 .ctrl-btn:active { transform: scale(0.93); }
-.ctrl-btn img { height: 50px; display: block; }
+.ctrl-btn img { height: 40px; display: block; }
 .ctrl-btn:focus,
 .ctrl-btn:focus-visible {
   outline: none;
 }
 
 /* 재생/정지 버튼은 약간 크게 */
-#btn-play img { height: 50px; }
+#btn-play img { height: 40px; }
 
 #count-progress-wrap {
   display: inline-block;
@@ -217,7 +217,7 @@ table.sl td { padding: 0px; }
   transition: width 0.3s ease, background 0.5s ease;
 }
 
-.cap-meta, .cap-title, .cap-sub, #count-display { padding: 10px; font-size: 26px; font-weight: 700; line-height: 1.2; font-family: 'Noto Serif KR'; }
+.cap-meta, .cap-title, .cap-sub, #count-display { padding: 10px; font-size: 24px; font-weight: 700; line-height: 1.2; font-family: 'Noto Serif KR'; }
 #count-display { padding: 5px; font-size: 20px; font-weight: 700; line-height: 1.0; font-family: 'Noto Serif KR'; }
 
 </style>
@@ -325,7 +325,7 @@ function parseImgName(url) {
   // 날짜 포맷: yymmdd → yy.mm.dd
   let iDate = rawDate;
   if (/^\d{6}$/.test(rawDate)) {
-    iDate = rawDate.slice(0,2)+'.'+rawDate.slice(2,4)+'.'+rawDate.slice(4,6);
+    iDate = rawDate.slice(0,2)+rawDate.slice(2,4)+rawDate.slice(4,6);
   }
 
   // 시간 포맷: hhmmss → hh:mm:ss  또는  hhmm → hh:mm
@@ -488,7 +488,7 @@ function updateCaption(idx) {
                 + (subCap ? '<br>' + subCap : '');
 
   document.getElementById('cap-meta').innerHTML =
-    `${iDate}&nbsp;&nbsp;${iTime}&nbsp;&nbsp;${capText}`;
+    `${iDate}&nbsp;${iTime}&nbsp;${capText}`;
 
   document.getElementById('count-display').textContent = `[ ${idx+1} / ${img.length} ]`;
   document.getElementById('progress-bar').style.width =
