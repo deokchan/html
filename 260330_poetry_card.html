@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>시화 카드</title>
+
+<style>
+body {
+    margin: 0;
+    background: #ccc;
+}
+
+/* 캔버스 */
+.canvas {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    background-size: cover;
+}
+
+/* 내부 요소 강제 정리 */
+.canvas * {
+    position: absolute;
+}
+</style>
+</head>
+
+<body>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<!-- 🔧 설정 UI -->
+<div style="padding:10px; background:#eee;">
+    가로: <input id="w" value="1600"> px
+    세로: <input id="h" value="900"> px
+    <button onclick="applySize()">적용</button>
+    <button onclick="saveImage()">이미지 저장</button>
+</div>
+
+<!-- 🔧 HTML 입력 -->
+<div style="padding:10px;">
+    <textarea id="htmlInput" style="width:100%; height:150px;">
+<!-- 여기에 IE에서 복사한 코드 붙여넣기 -->
+    </textarea><br>
+    <button onclick="applyHTML()">HTML 적용</button>
+</div>
+
+<!-- 🎯 실제 캔버스 -->
+<div id="canvas" class="canvas"></div>
+
+<script>
+function applySize() {
+    const w = document.getElementById("w").value;
+    const h = document.getElementById("h").value;
+
+    const canvas = document.getElementById("canvas");
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+}
+
+// 🔥 핵심 기능
+function applyHTML() {
+    let code = document.getElementById("htmlInput").value;
+
+    // ❗ body 태그 제거
+    code = code.replace(/<body[^>]*>/gi, "");
+    code = code.replace(/<\/body>/gi, "");
+
+    // ❗ 상대경로 → file:/// 자동 변환
+    code = code.replace(/src="([A-Z]:\\[^"]+)"/gi, function(match, p1) {
+        return 'src="file:///' + p1.replace(/\\/g, '/') + '"';
+    });
+
+    // canvas에 삽입
+    const canvas = document.getElementById("canvas");
+    canvas.innerHTML = code;
+
+    // 🔥 body background 처리
+    const bgMatch = document.getElementById("htmlInput").value.match(/background:([^;]+);/i);
+    if (bgMatch) {
+        canvas.style.background = bgMatch[1];
+    }
+}
+
+// 초기 실행
+applySize();
+
+function saveImage() {
+    const canvas = document.getElementById("canvas");
+
+    html2canvas(canvas, {
+        scale: 2, // 해상도 ↑ (중요)
+        useCORS: true
+    }).then(function(canvasEl) {
+
+        const link = document.createElement("a");
+        link.download = "card.png";
+        link.href = canvasEl.toDataURL("image/png");
+        link.click();
+
+    });
+}
+</script>
+
+</body>
+</html>
