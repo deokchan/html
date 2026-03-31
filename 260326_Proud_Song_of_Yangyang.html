@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head><title>자랑스러운 양양의 노래</title>
-<meta property="og:image" content="https://blog.kakaocdn.net/dn/bDqcg1/btsOBmG7qbN/XSPV3RPr8JPlXiITNhXYk1/img.jpg">
+<meta property="og:image" content="https://blog.kakaocdn.net/dn/nvxel/btsOAJQpN2Y/VNxuKCdrlLKut4miaqKdNk/img.jpg">
 <meta property=”og:image:width” content=”800">
 <meta property=”og:image:height” content=”600"> 
 <meta property="og:description"  content="고맙다 양양! 우리 모두의 자랑">
@@ -229,10 +229,10 @@ button.tab.on { color: #fff; }
 
 /* ===== 슬라이드 본체 ===== */
 .slide-wrap {
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
   overflow: visible;   /* hidden → visible */
-  border: 3px solid #888;
+  border: 6px solid #888;
   transition: border-color 0.5s ease, background 0.5s ease;
 }
 
@@ -279,7 +279,7 @@ table.sl tr:last-child td {
 #ctrl-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 50px;
   flex-wrap: wrap;
 }
 
@@ -297,11 +297,11 @@ table.sl tr:last-child td {
 }
 .ctrl-btn:hover { opacity: 0.8; }
 .ctrl-btn:active { transform: scale(0.93); }
-.ctrl-btn img { height: 40px; display: block; }
+.ctrl-btn img { height: 70px; display: block; }
 .ctrl-btn:focus,
 .ctrl-btn:focus-visible { outline: none; }
 
-#btn-play img { height: 40px; }
+#btn-play img { height: 70px; }
 
 #count-progress-wrap {
   display: inline-block;
@@ -317,7 +317,7 @@ table.sl tr:last-child td {
 /* ===== 진행 바 ===== */
 #progress-wrap {
   width: 100%;
-  height: 5px;
+  height: 10px;
   background: skyblue;
   border-radius: 3px;
   overflow: hidden;
@@ -325,7 +325,7 @@ table.sl tr:last-child td {
 #progress-bar {
   height: 100%;
   width: 0%;
-  border-radius: 3px;
+  border-radius: 10px;
   background: linear-gradient(90deg, blue, red);
   transition: width 0.3s ease;
 }
@@ -333,22 +333,20 @@ table.sl tr:last-child td {
 /* ===== 공통 폰트 ===== */
 .cap-meta, #count-display {
   padding: 10px;
-  font-size: 24px;
+  font-size: 54px;
   font-weight: 700;
   line-height: 1.2;
   font-family: 'Noto Serif KR';
 }
 #count-display {
   padding: 5px;
-  font-size: 20px;
+  font-size: 40px;
   line-height: 1.0;
 }
 </STYLE>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
-
-<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/slide.js"></script>
 
 <!--
     1.  jsDelivr의 [Purge Cache] ( https://www.jsdelivr.com/tools/purge ) 페이지로 이동합니다.
