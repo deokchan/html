@@ -121,7 +121,7 @@ table.sl td {
   display: block;
   object-fit: cover;
   transition: opacity 3s ease;
-  box-shadow: 2px 3px 6px red;  /*rgba(0,0,0,0.18); ← 추가 */
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.18);  /*rgba(0,0,0,0.18); ← 추가 */
 }
 #slide-img.fade { opacity: 0; }
 
@@ -412,7 +412,7 @@ function loadSlide(idx, callback) {
           if (callback) callback();
         });
       });
-    }, 2000);  /* CSS transition 시간과 일치 */
+    }, 1500);  /* CSS transition 시간과 일치 */
   };
 
   newImg.onerror = function() {
@@ -422,7 +422,7 @@ function loadSlide(idx, callback) {
       applyColorSet(cs);
       updateCaption(idx);
       if (callback) callback();
-    }, 2000);
+    }, 1500);
   };
 
   newImg.src = url;
