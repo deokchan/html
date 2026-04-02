@@ -41,7 +41,7 @@ font.Noto_Serif_KR {font-size:25pt; font-family: 'Noto Serif KR', sans-serif; }
 // table.box { border-radius: 50px; }
 td.lt { color:black; font-size:33pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; border-radius: 50px; border: 5px ridge #ff5722;}
 
-p.mid, font.mid, table.box, #caption { color:black; font-size:54px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
+p.mid, font.mid, table.box, #caption, #gasaTitle { color:black; font-size:54px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
 p.mid2 { color:black; font-size:51px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
 p.mid3 { color:black; font-size:49px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
 p.ct {color:blue; font-size:45px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; }
@@ -444,25 +444,25 @@ function fontSz(val) {
 const title0 = "자랑스러운 양양의 노래"
 
 odi = [
-"https://cdn1.suno.ai/633d30ed-7494-4831-8836-a299a6c17038.mp3|0[포크] 자랑스러운 양양의 노래 <br>(7080, 통기타 연주, 향수, 부드러운 하모니카, 감미로운 휘파람)_M47 v5.5||",
-"https://cdn1.suno.ai/1d5182d3-3f50-4b56-8e42-19c58941a7da.mp3|0[포크] 자랑스러운 양양의 노래 (7080 포크, 120~130 BPM 정도의 활기차고 경쾌한 템포, 어쿠스틱 기타, 하모니카, 부드러운 타악기)_MW23 v5.5||",
 "https://cdn1.suno.ai/c05b01ac-48ba-420f-99d1-5c3c83f5e69d.mp3|0[포크] 자랑스러운 양양의 노래 (7080 포크, 120~130 BPM 정도의 활기차고 경쾌한 템포, 어쿠스틱 기타, 하모니카, 부드러운 타악기)_WM09 v5.5||",
-"https://cdn1.suno.ai/c74d5ec0-5d8d-46c2-adeb-656c8c5e9d38.mp3|0[트롯] 자랑스러운 양양의 노래 (현대적인 리듬의 한국식 트로트, 흥겹고 역동적이며 쾌활하면서도 감성적)_MW12 v5.5||",
 "https://cdn1.suno.ai/77af3e4a-b74f-4cda-8c87-cf17773c4c32.mp3|0[트롯] 자랑스러운 양양의 노래 (리드미컬한, 경쾌한 분위기, 주고받는 형식, 활기찬 브라스 연주, 재미있는 폴카풍)_MW13 v5.5||",
-"https://cdn1.suno.ai/a2eba99e-9bff-4ef5-871e-ca812489dc5f.mp3|0[트롯 댄스] 자랑스러운 양양의 노래 (경쾌하고 리드미컬한 트로트. 신나는 댄스 비트와 활기찬 콜앤리스폰스)_W04 v5.5||",
 "https://cdn1.suno.ai/9e04ed03-8a72-4965-b524-f257609dda1c.mp3|0[댄스] 자랑스러운 양양의 노래 (댄스, 빠른 템포의 EDM 트로트 크로스오버로, 밝은 신스 리드, 4/4 박자 킥 드럼)_W13 v5.5||",
 "https://cdn1.suno.ai/de651cb3-1e15-4096-86e9-e43ed6e9806b.mp3|0[댄스] 자랑스러운 양양의 노래 <br>(남녀 듀엣, 일렉트로, 댄스, 신스웨이브, 댄스 하우스, 덥스텝)_MW18 v5.5||",
-"https://cdn1.suno.ai/7bbf8809-b400-494f-b3e9-6ae88cae0f30.mp3|0[브라스 행진] 자랑스러운 양양의 노래 (밝고 힘찬 금관악기 행진곡, 트럼펫, 트롬본, 튜바, 영웅적이고 축제적인 분위기)_M27 v4.5||",
-"https://cdn1.suno.ai/195aea56-1efd-4dac-95fa-9abaf642e8c9.mp3|0[브라스 행진] 자랑스러운 양양의 노래 (강렬하고 승리감 넘치는 행진곡, 의식 행진이나 단결 행진처럼 빠르고 안정적, 강한 동료애, 결의, 기쁨에 찬 단결심)_M63 v5.5||",
 "https://cdn1.suno.ai/e930d328-5769-4099-aaa2-9eaf53872e10.mp3|0[브라스 행진] 자랑스러운 양양의 노래 (강렬하고 승리감 넘치는 행진곡, 의식 행진이나 단결 행진처럼 빠르고 안정적, 강한 동료애, 결의, 기쁨에 찬 단결심)_M62 v5.5||",
-"https://cdn1.suno.ai/e0158f52-09f6-4f4d-8b32-12ca8acefbfc.mp3|0[브라스 행진] 자랑스러운 양양의 노래 (밝고 힘찬 금관악기 행진곡, 양양의 풍경과 전통에 대한 웅장함과 자긍심)_M61 v5.5||",
-"https://cdn1.suno.ai/8b385126-53f2-4f88-8e75-cd9fbc4af43e.mp3|0[브라스 행진] 자랑스러운 양양의 노래 (밝고 힘찬 금관악기 행진곡, 양양의 풍경과 전통에 대한 웅장함과 자긍심)_WM08 v5.5||",
-"https://cdn1.suno.ai/4c6aa855-165e-4a30-9246-d9fa14a6973b.mp3|0[심포니] 자랑스러운 양양의 노래 (영화적인 심포닉 메탈, 고딕 메탈, 웅장한 브라스와 현악기 편곡, 합창, 서사적인)_MW04 v4.5-all||",
-"https://cdn1.suno.ai/897bec2c-4a9f-4647-96f2-bc6d3badcd25.mp3|0[심포니] 자랑스러운 양양의 노래 <br>(오페라 발라드, 극적인 오케스트레이션, 파워풀한 소프라노 바리톤 보컬)_WM04 v4.5-all||",
-"https://cdn1.suno.ai/368e47ca-7a49-4793-8480-d85da46f49a0.mp3|0[심포니] 자랑스러운 양양의 노래 (웅장한 한국 뮤지컬, 클래식 및 영화 음악 스타일, 브로드웨이 및 오케스트라 무대 공연에서 영감을 받음)_MW22 v5.5||",
-"https://cdn1.suno.ai/e3007d7f-4a50-43b5-bf0d-02a81d0128c2.mp3|0[심포니] 자랑스러운 양양의 노래 (웅장한 한국 뮤지컬, 클래식 및 영화 음악 스타일, 브로드웨이 및 오케스트라 무대 공연에서 영감을 받음)_MW21 v5.5||",
 "https://cdn1.suno.ai/32b66eff-8d58-4f5d-b9f2-5e8b64a39670.mp3|0[발라드] 자랑스러운 양양의 노래 (드라마 OST 발라드, 영화적이고 감성적, 느린 템포에서 중간, 피아노 현악 오케스트라)_MW17 v5.5||",
 "https://cdn1.suno.ai/80a25cac-09bf-4dcb-947c-e5ffa1ce2c81.mp3|0[발라드] 자랑스러운 양양의 노래 <br>(전통 사극 발라드, 가야금 대금 해금 저음의 전통 북, 오케스트라 현악기)_W05 v5.5||",
+"https://cdn1.suno.ai/633d30ed-7494-4831-8836-a299a6c17038.mp3|0[포크] 자랑스러운 양양의 노래 <br>(7080 포크송, 통기타 연주, 향수, 부드러운 하모니카, 감미로운 휘파람)_M47 v5.5||",
+"https://cdn1.suno.ai/8b385126-53f2-4f88-8e75-cd9fbc4af43e.mp3|0[브라스 행진] 자랑스러운 양양의 노래 (밝고 힘찬 금관악기 행진곡, 양양의 풍경과 전통에 대한 웅장함과 자긍심)_WM08 v5.5||",
+"https://cdn1.suno.ai/1d5182d3-3f50-4b56-8e42-19c58941a7da.mp3|0[포크] 자랑스러운 양양의 노래 (7080 포크, 120~130 BPM 정도의 활기차고 경쾌한 템포, 어쿠스틱 기타, 하모니카, 부드러운 타악기)_MW23 v5.5||",
+"https://cdn1.suno.ai/c74d5ec0-5d8d-46c2-adeb-656c8c5e9d38.mp3|0[트롯] 자랑스러운 양양의 노래 (현대적인 리듬의 한국식 트로트, 흥겹고 역동적이며 쾌활하면서도 감성적)_MW12 v5.5||",
+"https://cdn1.suno.ai/a2eba99e-9bff-4ef5-871e-ca812489dc5f.mp3|0[트롯 댄스] 자랑스러운 양양의 노래 (경쾌하고 리드미컬한 트로트. 신나는 댄스 비트와 활기찬 콜앤리스폰스)_W04 v5.5||",
+"https://cdn1.suno.ai/195aea56-1efd-4dac-95fa-9abaf642e8c9.mp3|0[브라스 행진] 자랑스러운 양양의 노래 (강렬하고 승리감 넘치는 행진곡, 의식 행진이나 단결 행진처럼 빠르고 안정적, 강한 동료애, 결의, 기쁨에 찬 단결심)_M63 v5.5||",
+"https://cdn1.suno.ai/e0158f52-09f6-4f4d-8b32-12ca8acefbfc.mp3|0[브라스 행진] 자랑스러운 양양의 노래 (밝고 힘찬 금관악기 행진곡, 양양의 풍경과 전통에 대한 웅장함과 자긍심)_M61 v5.5||",
+"https://cdn1.suno.ai/4c6aa855-165e-4a30-9246-d9fa14a6973b.mp3|1[심포니] 자랑스러운 양양의 노래 (영화적인 심포닉 메탈, 고딕 메탈, 웅장한 브라스와 현악기 편곡, 합창, 서사적인)_MW04 v4.5-all||",
+"https://cdn1.suno.ai/897bec2c-4a9f-4647-96f2-bc6d3badcd25.mp3|1[심포니] 자랑스러운 양양의 노래 <br>(오페라 발라드, 극적인 오케스트레이션, 파워풀한 소프라노 바리톤 보컬)_WM04 v4.5-all||",
+"https://cdn1.suno.ai/368e47ca-7a49-4793-8480-d85da46f49a0.mp3|0[심포니] 자랑스러운 양양의 노래 (웅장한 한국 뮤지컬, 클래식 및 영화 음악 스타일, 브로드웨이 및 오케스트라 무대 공연에서 영감을 받음)_MW22 v5.5||",
+"https://cdn1.suno.ai/e3007d7f-4a50-43b5-bf0d-02a81d0128c2.mp3|0[심포니] 자랑스러운 양양의 노래 (웅장한 한국 뮤지컬, 클래식 및 영화 음악 스타일, 브로드웨이 및 오케스트라 무대 공연에서 영감을 받음)_MW21 v5.5||",
+"https://cdn1.suno.ai/7bbf8809-b400-494f-b3e9-6ae88cae0f30.mp3|1[브라스 행진] 자랑스러운 양양의 노래 (밝고 힘찬 금관악기 행진곡, 트럼펫, 트롬본, 튜바, 영웅적이고 축제적인 분위기)_M27 v4.5||",
 "https://cdn1.suno.ai/ef447ad6-1abc-4e05-83e9-1fcf43285f75.mp3|0[미분류] 자랑스러운 양양의 노래 (경기민요, 창부타령과 태평가에서 영감을 받음, 장구 북 대금 해금 비리 전통 타악기)_W09 v5.5||",
 "https://cdn1.suno.ai/b97f34fb-8d7c-4e0e-80dd-3de547bf74fc.mp3|0[미분류] 자랑스러운 양양의 노래 <br>(경기 민요 형식, 굿거리 세마치 리듬)_W10 v5.5||",
 "https://cdn1.suno.ai/ec4a6c04-89b5-4278-9d0b-d2077d01c460.mp3|0[미분류] 자랑스러운 양양의 노래 (경기민요 풍 듀엣, 활기차고, 대화체이며, 축제 분위기, 장난스러운 상호작용)_MW20 v5.5||",
@@ -1107,7 +1107,8 @@ function gasa(n) {
         } else {
         }
 
-    $('#test3').html(song);
+   $('#gasaTitle').html("<font class='box'><b>" + title6 + "</b></font>"); 
+   $('#test3').html(song);
 }
 
 $(document).ready(function(){ 
@@ -1193,6 +1194,8 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 <table style="BACKGROUND:linen url('') repeat fixed left top; table-layout: fixed;" width=940 height=104 border=1 bordercolor=blue cellspacing='0' cellpadding='10'><tr valign=top><td>
 
 <span id="aaa">
+<table id='gasaTitleTable' class="gasaTitle" style='BACKGROUND:pink url('') repeat fixed left top; display:none;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
+<div id="gasaTitle"></div></td></tr></table><br>
 <div id=test3>test3 </div>
 
 </P><P class="mid">
@@ -1204,7 +1207,7 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 </TD></TR></TABLE></div>
 
 </P><P class="mid"><font color='#FF5722'>※ 우측의 '따라다니는 메뉴' 하단 →<br>
-X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
+X = 플레이어 감춤, O = 플레이어 보기</font>
 
 <!-- div id="bonmoon"></div //-->
 
@@ -1271,17 +1274,6 @@ X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 </div>
 
 <canvas id="cv" style="display:none"></canvas>
-
-
-<!-- table style="BACKGROUND:rgba(10,1,6,0.1) url('') repeat fixed left top; table-layout: fixed;" width=100% height=100 border=0 bordercolor=blue cellspacing='0' cellpadding='10'><tr valign=top><td id="slideBox">
-    <img id="slideImg" src="https://cheerful-kangaroo-a63580.netlify.app/YangYang/260130_163806_겨울의 단풍, 동북 빌라의 남천 1.jpg" width=100%>
-    <br><br>
-    <div id="caption"><font color='#8C0106'>[번호 / 총수] 26.01.30 16:38:06<br>겨울의 단풍, 동북 빌라의 남천 1</P></div>
-</td>
-</tr>
-</table //-->
-
-
 
  
 <P class="mid"><br><br>
@@ -1683,9 +1675,11 @@ $(document).ready(function(){
 </TD></TR></TABLE>
 </center>
 
-<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/slide.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/slide_R2.js"></script>
 
 <script>
+const BASE_URL = 'https://pub-e9f259b2cb7f4eff868b4c7a84644706.r2.dev/';
+
 // 명도 조정: amount 양수=밝게, 음수=어둡게
 // 채도 조정: satAmount 양수=진하게, 음수=연하게
 function adjustColor(hex, lightAmount, satAmount) {
@@ -1783,7 +1777,7 @@ function pickNextColorSet() {
 
 // ── 파일명 파싱 ────────────────────────────────────────
 function parseImgName(url) {
-  const decoded = url.split('/').pop();
+  const decoded = url;  // 이미 파일명이므로 split('/').pop() 불필요
   const base    = decoded.replace(/\.(jpg|jpeg|png|webp|gif)$/i, '');
   const parts   = base.split('_');
   const rawDate = parts[0] || '';
@@ -1876,7 +1870,8 @@ function updateCaption(idx) {
 // ── 이미지 로드 ────────────────────────────────────────
 function loadSlide(idx, callback) {
   const el  = document.getElementById('slide-img');
-  const url = img[idx];
+  const url = BASE_URL + img[idx];  // BASE_URL + 파일명
+  // 나머지 동일 — url을 newImg.src와 el.src에 사용
 
   el.classList.add('fade');  // 서서히 사라짐 시작
 
@@ -1988,10 +1983,14 @@ function loadState() {
   const savedIdx    = localStorage.getItem(currentPage + '_idx');
   const savedRandom = localStorage.getItem(currentPage + '_random');
 
-  curIdx   = savedIdx    !== null ? parseInt(savedIdx) : 0;
-
-  // 저장값 없으면(맨 처음) 랜덤으로 시작
-  isRandom = savedRandom !== null ? savedRandom === '1' : true;
+  if (savedIdx !== null) {
+    const parsed = parseInt(savedIdx);
+    // 범위 초과 시 0으로 초기화
+    curIdx   = (parsed >= 0 && parsed < img.length) ? parsed : 0;
+    isRandom = savedRandom === '1';
+  } else {
+    img_Random();
+  }
 }
 
 function loadState() {
