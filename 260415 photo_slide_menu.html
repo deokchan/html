@@ -1,0 +1,769 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>포토 슬라이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 10px 40px;
+}
+
+h1 {
+  color: #555;
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 400;
+}
+
+#slide-container { width: 100%; max-width: 920px; }
+
+/* ===== 디버그 정보 ===== */
+#info-row  { font-size: 12px; color: #aaa; margin-bottom: 5px; }
+#chips-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 5px; align-items: center; }
+#pal-row   { display: flex; height: 16px; border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
+#pal-row div { flex: 1; }
+#dbg-row   { font-size: 11px; color: #888; margin-bottom: 8px; line-height: 1.6; }
+
+/* ===== 슬라이드 본체 ===== */
+.slide-wrap {
+  padding: 10px; border-radius: 10px; overflow: visible;
+  border: 3px solid #888;
+  transition: border-color 0.5s ease, background 0.5s ease;
+}
+table.sl { width: 100%; border-collapse: separate; border-spacing: 0; }
+table.sl tr:first-child td { font-size: 0; line-height: 0; border: none; }
+table.sl td { padding: 0; }
+
+#slide-img {
+  vertical-align: bottom; border-radius: 6px;
+  width: 100%; display: block; object-fit: cover;
+  transition: opacity 3s ease;
+  filter: drop-shadow(3px 4px 8px gray);
+}
+#slide-img.fade { opacity: 0; }
+
+/* ===== 컨트롤 영역 ===== */
+#controls { width: 100%; max-width: 920px; margin-top: 10px; }
+#ctrl-row  { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.ctrl-btn {
+  background: none; border: none; cursor: pointer; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.15s, transform 0.1s;
+  border-radius: 8px; overflow: hidden;
+}
+.ctrl-btn:hover { opacity: 0.8; }
+.ctrl-btn:active { transform: scale(0.93); }
+.ctrl-btn img { height: 40px; display: block; }
+.ctrl-btn:focus, .ctrl-btn:focus-visible { outline: none; }
+
+#count-progress-wrap { display: inline-block; text-align: center; }
+#count-display {
+  letter-spacing: 0.05em; white-space: nowrap;
+  margin-bottom: 4px; color: skyblue;
+}
+#progress-wrap {
+  width: 100%; height: 5px; background: skyblue;
+  border-radius: 3px; overflow: hidden;
+}
+#progress-bar {
+  height: 100%; width: 0%; border-radius: 3px;
+  background: linear-gradient(90deg, blue, red);
+  transition: width 0.3s ease;
+}
+
+/* ===== 메뉴 영역 ===== */
+#selectBox {
+  width: 100%; max-width: 920px;
+  margin-top: 8px;
+  border-collapse: separate; border-spacing: 0;
+  border-radius: 10px; overflow: hidden;
+  border: 3px solid #888;
+  transition: border-color 0.5s ease, background 0.5s ease;
+}
+#selectBox td {
+  padding: 8px 10px;
+  vertical-align: middle;
+}
+#viewSel1 { display: inline-block; }
+#viewSel2 { display: inline-block; margin-left: 10px; }
+
+select.menu-sel {
+  font-size: 14px;
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background: transparent;
+  cursor: pointer;
+  max-width: 260px;
+}
+
+/* 자동완성 드롭다운 */
+#filter-wrap { display: inline-block; position: relative; }
+#filter {
+  font-size: 14px;
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background: transparent;
+  width: 220px;
+}
+#autocomplete-list {
+  position: absolute;
+  top: 100%; left: 0;
+  background: white;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 999;
+  width: 220px;
+  display: none;
+}
+#autocomplete-list div {
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+#autocomplete-list div:hover,
+#autocomplete-list div.active { background: #eef; }
+
+/* ===== 공통 폰트 ===== */
+.cap-meta, #count-display {
+  padding: 10px; font-size: 24px; font-weight: 700;
+  line-height: 1.2; font-family: 'Noto Serif KR';
+}
+#count-display { padding: 5px; font-size: 20px; line-height: 1.0; }
+</style>
+</head>
+<body>
+
+<h1>260328 양양의 노래 &amp; 자연과 풍경</h1>
+
+<div id="slide-container">
+  <div id="info-row"></div>
+  <div id="chips-row"></div>
+  <div id="pal-row"></div>
+  <div id="dbg-row"></div>
+
+  <div class="slide-wrap" id="slide-wrap">
+    <table class="sl" id="slide-table">
+      <tr><td><img id="slide-img" src="" alt=""></td></tr>
+      <tr><td class="cap" id="cap">
+        <div class="cap-meta" id="cap-meta"></div>
+      </td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 컨트롤 -->
+<div id="controls">
+  <div id="ctrl-row">
+    <button class="ctrl-btn" id="btn-play" onclick="img_control()" title="일시 정지">
+      <img id="img_button_img" src="https://i.imgur.com/TQFP08p.png" alt="재생">
+      <input type="text" style="display:none" id="img_button" value="start">
+    </button>
+    <button class="ctrl-btn" id="btn-random" onclick="img_Random()" title="랜덤 재생">
+      <img id="img_RS_button_img" src="https://i.imgur.com/LOi8XuQ.png" alt="순차">
+      <input type="text" style="display:none" id="img_RS_button" value="sequence">
+    </button>
+    <button class="ctrl-btn" onclick="img_Prev()" title="이전">
+      <img src="https://i.imgur.com/4pZ3zXN.png" alt="">
+      <img src="https://i.imgur.com/tkZvFNw.png" alt="">
+    </button>
+    <button class="ctrl-btn" onclick="img_Next()" title="다음">
+      <img src="https://i.imgur.com/mNMdXMC.png" alt="">
+      <img src="https://i.imgur.com/TFw4TDC.png" alt="">
+    </button>
+    <div id="count-progress-wrap" style="margin-left:auto;">
+      <div id="count-display">[ - / - ]</div>
+      <div id="progress-wrap"><div id="progress-bar"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 메뉴 -->
+<table id="selectBox" class="sl">
+  <tr>
+    <td>
+      <div id="viewSel1">
+        <select class="menu-sel" id="mainMenu" onchange="onMainMenu()">
+          <option value="">▶ 재생 선택</option>
+          <option value="default">기본 순서</option>
+          <option value="theme">테마 순서</option>
+          <option value="filter">필터 검색</option>
+          <option value="desc">날짜 역순</option>
+          <option value="list">목록 보기</option>
+        </select>
+      </div>
+      <div id="viewSel2" style="display:none"></div>
+    </td>
+  </tr>
+</table>
+
+<canvas id="cv" style="display:none"></canvas>
+
+<script src="slide_R2.js"></script>
+
+<script>
+/* ===================================================
+   포토 슬라이드 — 메뉴 시스템 포함
+   =================================================== */
+
+const BASE_URL    = 'https://pub-e9f259b2cb7f4eff868b4c7a84644706.r2.dev/';
+const currentPage = location.pathname.split('/').pop().replace('.html','');
+const INTERVAL    = 10000;
+
+let curIdx      = 0;
+let isPlaying   = true;
+let isRandom    = false;
+let timer       = null;
+let colorSetIdx = 0;
+let displayImg  = [];   // 현재 재생 배열
+let baseImg     = [];   // 원본 배열 (불변)
+
+// ── 색상 세트 ──────────────────────────────────────────
+const COLOR_SETS = [
+  { font:'#7B3F00', bg:'#FFF8E7', border:'#D4A96A', label:'올리브 브라운 / 크림' },
+  { font:'#1B4F72', bg:'#EAF4FB', border:'#7FB3D3', label:'딥 블루 / 연하늘' },
+  { font:'#6B2D8B', bg:'#F5EEF8', border:'#C39BD3', label:'퍼플 / 라벤더' },
+  { font:'#1E8449', bg:'#EAFAF1', border:'#7DCEA0', label:'딥 그린 / 민트' },
+  { font:'#B03A2E', bg:'#FDEDEC', border:'#F1948A', label:'다크 레드 / 연분홍' },
+  { font:'#117A65', bg:'#E8F8F5', border:'#76D7C4', label:'틸 / 연민트' },
+  { font:'#784212', bg:'#FEF9E7', border:'#F8C471', label:'번트 오렌지 / 연노랑' },
+  { font:'#1A5276', bg:'#EBF5FB', border:'#85C1E9', label:'네이비 / 스카이' },
+  { font:'#76448A', bg:'#F4ECF7', border:'#BB8FCE', label:'바이올렛 / 연보라' },
+  { font:'#1D6A39', bg:'#E9F7EF', border:'#82E0AA', label:'포레스트 그린 / 연녹' },
+  { font:'#922B21', bg:'#FDEDEC', border:'#EC7063', label:'크림슨 / 살구' },
+  { font:'#5D4037', bg:'#EFEBE9', border:'#A1887F', label:'모카 브라운 / 베이지' },
+  { font:'#0E6655', bg:'#E8F8F5', border:'#48C9B0', label:'에메랄드 / 민트' },
+  { font:'#6E2F8B', bg:'#F3E5F5', border:'#CE93D8', label:'딥 퍼플 / 연보라' },
+  { font:'#1F618D', bg:'#EBF5FB', border:'#5DADE2', label:'코발트 / 연파랑' },
+  { font:'#B7770D', bg:'#FDFAE5', border:'#F4D03F', label:'골드 / 크림옐로우' },
+  { font:'#283747', bg:'#EAF2FF', border:'#85A9D4', label:'차콜 / 연슬레이트' },
+  { font:'#7D6608', bg:'#FEFDE7', border:'#D4AC0D', label:'올리브 / 연황금' },
+  { font:'#4A235A', bg:'#F5EEF8', border:'#A569BD', label:'인디고 퍼플 / 연라벤더' },
+  { font:'#0B5345', bg:'#E8F8F5', border:'#52BE80', label:'딥 틸 / 페일 민트' },
+];
+
+// ── 색상 조정 ──────────────────────────────────────────
+function rgbToHsl(r,g,b){
+  r/=255;g/=255;b/=255;
+  const mx=Math.max(r,g,b),mn=Math.min(r,g,b);
+  let h=0,s=0,l=(mx+mn)/2;
+  if(mx!==mn){const d=mx-mn;s=l>0.5?d/(2-mx-mn):d/(mx+mn);
+    if(mx===r)h=(g-b)/d+(g<b?6:0);else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;h/=6;}
+  return[h*360,s*100,l*100];
+}
+function hslToHex(h,s,l){
+  s/=100;l/=100;const a=s*Math.min(l,1-l);
+  const f=n=>{const k=(n+h/30)%12;return l-a*Math.max(Math.min(k-3,9-k,1),-1);};
+  return'#'+[f(0),f(8),f(4)].map(v=>Math.max(0,Math.min(255,Math.round(v*255))).toString(16).padStart(2,'0')).join('');
+}
+function adjustColor(hex,lAmt,sAmt){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  let[h,s,l]=rgbToHsl(r,g,b);
+  l=Math.max(0,Math.min(100,l+lAmt));s=Math.max(0,Math.min(100,s+sAmt));
+  return hslToHex(h,s,l);
+}
+
+const LIGHT=-10, SAT=25, FONT_LIGHT=-10, FONT_SAT=10;
+
+function pickNextColorSet(){
+  let next;
+  do{next=Math.floor(Math.random()*COLOR_SETS.length);}while(next===colorSetIdx);
+  colorSetIdx=next;
+  const cs=COLOR_SETS[next];
+  return{
+    font:  adjustColor(cs.font,  FONT_LIGHT,FONT_SAT),
+    bg:    adjustColor(cs.bg,    LIGHT,SAT),
+    border:adjustColor(cs.border,LIGHT,SAT),
+    label: cs.label,
+  };
+}
+
+// ── 배열 파싱 "URL|일시|캡션" ──────────────────────────
+function parseEntry(entry) {
+  const parts  = entry.split('|');
+  const rawUrl = (parts[0]||'').trim();
+  const rawDt  = (parts[1]||'').trim();
+  const rawCap = (parts[2]||'').trim()||null;
+
+  let url = rawUrl.includes('http') ? rawUrl : BASE_URL + rawUrl;
+
+  let iDate=null, iTime=null;
+  const dtSrc = rawDt || (rawUrl.includes('http')?'':rawUrl.split('/').pop());
+  const dtMatch = dtSrc.match(/(\d{6})_(\d{6}|\d{4})/);
+  if(dtMatch){
+    const d=dtMatch[1],t=dtMatch[2];
+    iDate=d.slice(0,2)+d.slice(2,4)+d.slice(4,6);
+    iTime=t.length===6?t.slice(0,2)+':'+t.slice(2,4)+':'+t.slice(4,6):t.slice(0,2)+':'+t.slice(2,4);
+  }
+
+  return{url,iDate,iTime,rawCap};
+}
+
+// ── 캡션에서 테마 추출 (첫 콤마 이전 원문) ────────────
+function extractTheme(rawCap){
+  if(!rawCap) return null;
+  const m = rawCap.match(/^([^,]+),/);
+  return m ? m[1].trim() : null;
+}
+
+// ── 캡션 처리 ──────────────────────────────────────────
+function formatCap(rawCap, hasDateTime){
+  if(!rawCap) return null;
+  let t = rawCap;
+
+  // 한자 치환 규칙 (첫 글자+콤마)
+  const kanjiMap={'시':'詩','가':'歌','화':'畵','글':'文'};
+  t = t.replace(/^([\uAC00-\uD7A3]),/,(match,ch)=>`[${kanjiMap[ch]||ch}]`);
+
+  // 첫 콤마 이전 단어 [ ] 처리 (한자 미해당 다글자 테마)
+  t = t.replace(/^([^,\[<]{2,}),/,(match,word)=>`[${word.trim()}]`);
+
+  // 줄바꿈 트리거
+  t = t
+    .replace(/🌼/g,'<br>🌼').replace(/🎨/g,'<br>🎨').replace(/📷/g,'<br>📷')
+    .replace(/🐦/g,'<br>🐦').replace(/🐝/g,'<br>🐝').replace(/🍄/g,'<br>🍄')
+    .replace(/🌰/g,'<br>🌰').replace(/🌿/g,'<br>🌿').replace(/🌱/g,'<br>🌱')
+    .replace(/🍒/g,'<br>🍒').replace(/🌸/g,'<br>🌸').replace(/🍁/g,'<br>🍁')
+    .replace(/@/g,'<br>@').replace(/#/g,'<br>#')
+    .replace(/\$/g,'<br>$').replace(/\*/g,'<br>*')
+    .replace(/\s*-\s*/g,'<br>-');
+
+  // 7자 초과 줄바꿈 — 치환 후 첫 <br> 이전 기준
+  if(hasDateTime){
+    const checkStr = t.includes('<br>') ? t.split('<br>')[0] : t;
+    const plainStr = checkStr.replace(/<[^>]*>/g,'');
+    if([...plainStr].length>7) t='<br>'+t;
+  }
+
+  return t;
+}
+
+// ── UI 적용 ────────────────────────────────────────────
+function applyColorSet(cs){
+  // slide-wrap
+  document.getElementById('slide-wrap').style.borderColor = cs.border;
+  document.getElementById('slide-wrap').style.background  = cs.bg;
+  // 모든 .sl 테이블 배경 연동 (slide-table + selectBox)
+  document.querySelectorAll('table.sl').forEach(el=>{
+    el.style.background = cs.bg;
+  });
+  const cap = document.getElementById('cap');
+  cap.style.background = cs.bg;
+  cap.style.color      = cs.font;
+
+  // selectBox 테두리/폰트 연동
+  const sb = document.getElementById('selectBox');
+  sb.style.borderColor = cs.border;
+  sb.style.color       = cs.font;
+  document.querySelectorAll('.menu-sel, #filter').forEach(el=>{
+    el.style.color       = cs.font;
+    el.style.borderColor = cs.border;
+  });
+
+  document.getElementById('info-row').innerHTML =
+    `<span style="display:inline-block;width:12px;height:12px;background:${cs.font};border-radius:50%;margin-right:4px;vertical-align:middle;"></span>`+
+    `폰트 <b>${cs.font}</b> &nbsp;/&nbsp;`+
+    `<span style="display:inline-block;width:12px;height:12px;background:${cs.bg};border:1px solid #aaa;border-radius:50%;margin-right:4px;vertical-align:middle;"></span>`+
+    `배경 <b>${cs.bg}</b> &nbsp;— ${cs.label}`;
+  document.getElementById('chips-row').innerHTML='';
+  document.getElementById('pal-row').innerHTML=
+    COLOR_SETS.map((c,i)=>
+      `<div style="background:${adjustColor(c.bg,LIGHT,SAT)};border-bottom:3px solid ${adjustColor(c.font,FONT_LIGHT,FONT_SAT)};${i===colorSetIdx?'outline:2px solid #333;':''}cursor:pointer;" title="${c.label}" onclick="manualSelectColor(${i})"></div>`
+    ).join('');
+  document.getElementById('dbg-row').textContent=`색상 세트 ${colorSetIdx+1} / ${COLOR_SETS.length}  — ${cs.label}`;
+}
+
+function manualSelectColor(idx){
+  colorSetIdx=idx;
+  const cs=COLOR_SETS[idx];
+  applyColorSet({font:adjustColor(cs.font,FONT_LIGHT,FONT_SAT),bg:adjustColor(cs.bg,LIGHT,SAT),border:adjustColor(cs.border,LIGHT,SAT),label:cs.label});
+}
+
+function updateCaption(idx){
+  const {iDate,iTime,rawCap}=parseEntry(displayImg[idx]);
+  const hasDateTime=!!(iDate||iTime);
+  const capText=formatCap(rawCap,hasDateTime);
+  let html='';
+  if(iDate||iTime) html+=[iDate,iTime].filter(Boolean).join('&nbsp;');
+  if(capText)      html+=(html?'&nbsp;':'')+capText;
+  document.getElementById('cap-meta').innerHTML=html||'';
+  document.getElementById('count-display').textContent=`[ ${idx+1} / ${displayImg.length} ]`;
+  document.getElementById('progress-bar').style.width=((idx+1)/displayImg.length*100).toFixed(1)+'%';
+}
+
+// ── 이미지 로드 ────────────────────────────────────────
+function loadSlide(idx,callback){
+  const el=document.getElementById('slide-img');
+  const {url}=parseEntry(displayImg[idx]);
+  el.classList.add('fade');
+  const cs=pickNextColorSet();
+  const newImg=new Image();
+  newImg.onload=function(){
+    setTimeout(()=>{
+      el.src=url; applyColorSet(cs); updateCaption(idx); saveState();
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        el.classList.remove('fade');
+        if(callback) callback();
+      }));
+    },1500);
+  };
+  newImg.onerror=function(){
+    setTimeout(()=>{
+      el.src=url; el.classList.remove('fade');
+      applyColorSet(cs); updateCaption(idx); saveState();
+      if(callback) callback();
+    },1500);
+  };
+  newImg.src=url;
+}
+
+// ── 자동재생 ───────────────────────────────────────────
+function scheduleNext(){
+  clearTimeout(timer);
+  if(!isPlaying) return;
+  timer=setTimeout(()=>advanceSlide(),INTERVAL);
+}
+
+function advanceSlide(){
+  if(isRandom){
+    let next;
+    do{next=Math.floor(Math.random()*displayImg.length);}while(displayImg.length>1&&next===curIdx);
+    curIdx=next;
+  }else{
+    curIdx=(curIdx+1)%displayImg.length;
+  }
+  loadSlide(curIdx,scheduleNext);
+}
+
+// ── 버튼 함수 ──────────────────────────────────────────
+function img_control(){
+  isPlaying=!isPlaying;
+  const btnImg=document.getElementById('img_button_img');
+  const btnVal=document.getElementById('img_button');
+  if(isPlaying){btnImg.src='https://i.imgur.com/TQFP08p.png';btnImg.title='일시 정지';btnVal.value='start';scheduleNext();}
+  else{btnImg.src='https://i.imgur.com/mNMdXMC.png';btnImg.title='재생';btnVal.value='stop';clearTimeout(timer);}
+}
+
+function img_Random(){
+  isRandom=!isRandom;
+  const btnImg=document.getElementById('img_RS_button_img');
+  const btnVal=document.getElementById('img_RS_button');
+  if(isRandom){btnImg.src='https://i.imgur.com/Au17Uxe.png';btnImg.title='순차 재생으로 전환';btnVal.value='random';}
+  else{btnImg.src='https://i.imgur.com/LOi8XuQ.png';btnImg.title='랜덤 재생으로 전환';btnVal.value='sequence';}
+  saveState();
+}
+
+function img_Prev(){
+  clearTimeout(timer);
+  curIdx=(curIdx-1+displayImg.length)%displayImg.length;
+  loadSlide(curIdx,()=>{if(isPlaying)scheduleNext();});
+}
+
+function img_Next(){
+  clearTimeout(timer);
+  if(isRandom){
+    let next;
+    do{next=Math.floor(Math.random()*displayImg.length);}while(displayImg.length>1&&next===curIdx);
+    curIdx=next;
+  }else{
+    curIdx=(curIdx+1)%displayImg.length;
+  }
+  loadSlide(curIdx,()=>{if(isPlaying)scheduleNext();});
+}
+
+// ── 상태 저장/복원 ─────────────────────────────────────
+function saveState(){
+  localStorage.setItem(currentPage+'_idx',curIdx);
+  localStorage.setItem(currentPage+'_random',isRandom?'1':'0');
+}
+
+function loadState(){
+  const savedIdx=localStorage.getItem(currentPage+'_idx');
+  const savedRandom=localStorage.getItem(currentPage+'_random');
+  if(savedIdx!==null){
+    const parsed=parseInt(savedIdx);
+    curIdx=(parsed>=0&&parsed<displayImg.length)?parsed:0;
+    isRandom=savedRandom==='1';
+  }else{
+    img_Random();
+  }
+  syncRandomBtn();
+}
+
+function syncRandomBtn(){
+  const btnImg=document.getElementById('img_RS_button_img');
+  const btnVal=document.getElementById('img_RS_button');
+  if(isRandom){btnImg.src='https://i.imgur.com/Au17Uxe.png';btnImg.title='순차 재생으로 전환';btnVal.value='random';}
+  else{btnImg.src='https://i.imgur.com/LOi8XuQ.png';btnImg.title='랜덤 재생으로 전환';btnVal.value='sequence';}
+}
+
+// ══════════════════════════════════════════════════════
+// ── 메뉴 시스템 ───────────────────────────────────────
+// ══════════════════════════════════════════════════════
+
+// 부 메뉴 숨기기
+function hideSub(){
+  const v2=document.getElementById('viewSel2');
+  v2.style.display='none';
+  v2.innerHTML='';
+}
+
+// 재생 배열 교체 후 시작
+function startWith(arr, idx, random){
+  displayImg=[...arr];
+  curIdx=idx;
+  isRandom=random;
+  syncRandomBtn();
+  clearTimeout(timer);
+  loadSlide(curIdx,()=>{if(isPlaying)scheduleNext();});
+}
+
+// ── 주 메뉴 선택 ───────────────────────────────────────
+function onMainMenu(){
+  const val=document.getElementById('mainMenu').value;
+  const v2=document.getElementById('viewSel2');
+
+  if(val==='default'){
+    // 기본 순서 — 원본 배열, curIdx=0, 랜덤
+    hideSub();
+    if(isRandom===false) img_Random();   // 랜덤 켜기
+    startWith(baseImg,0,true);
+
+  }else if(val==='theme'){
+    // 테마 순서
+    buildThemeMenu(v2);
+
+  }else if(val==='filter'){
+    // 필터 검색
+    buildFilterMenu(v2);
+
+  }else if(val==='desc'){
+    // 날짜 역순
+    buildDescMenu(v2);
+
+  }else if(val==='list'){
+    // 목록 보기
+    buildListMenu(v2);
+  }
+}
+
+// ── 5. 테마 순서 ───────────────────────────────────────
+function buildThemeMenu(v2){
+  // 테마 추출 및 가나다순 정렬
+  const themeMap={};  // { 테마: [entry, ...] }
+  baseImg.forEach(entry=>{
+    const {rawCap}=parseEntry(entry);
+    const theme=extractTheme(rawCap)||'(테마 없음)';
+    if(!themeMap[theme]) themeMap[theme]=[];
+    themeMap[theme].push(entry);
+  });
+
+  // 테마 가나다순 정렬
+  const themes=Object.keys(themeMap).sort((a,b)=>a.localeCompare(b,'ko'));
+
+  // 테마 순 + 날짜순 배열 생성
+  const themeArr=[];
+  themes.forEach(t=>themeArr.push(...themeMap[t]));
+
+  // 재생 시작 (테마 배열 0번, 순차)
+  startWith(themeArr,0,false);
+
+  // 부 메뉴: 테마 셀렉트 박스
+  const opts=themes.map((t,i)=>`<option value="${i}">${i+1}. ${t}</option>`).join('');
+  v2.innerHTML=`<select class="menu-sel" id="themeSel" onchange="onThemeSel(this,${JSON.stringify(themes)})">
+    <option value="">테마 선택</option>${opts}</select>`;
+  v2.style.display='inline-block';
+
+  // themeMap을 전역에 저장 (onThemeSel에서 사용)
+  window._themeMap=themeMap;
+  window._themes=themes;
+}
+
+function onThemeSel(sel, themes){
+  if(sel.value==='') return;
+  const theme=themes[parseInt(sel.value)];
+  const themeArr=[];
+  window._themes.forEach(t=>themeArr.push(...window._themeMap[t]));
+  // 선택 테마의 첫 이미지 인덱스 찾기
+  let startIdx=0;
+  for(let i=0;i<themeArr.length;i++){
+    const {rawCap}=parseEntry(themeArr[i]);
+    if((extractTheme(rawCap)||'(테마 없음)')===theme){startIdx=i;break;}
+  }
+  displayImg=[...themeArr];
+  curIdx=startIdx;
+  isRandom=false;
+  syncRandomBtn();
+  clearTimeout(timer);
+  loadSlide(curIdx,()=>{if(isPlaying)scheduleNext();});
+}
+
+// ── 6. 필터 검색 ───────────────────────────────────────
+function buildFilterMenu(v2){
+  // 기본 배열로 환원
+  displayImg=[...baseImg];
+
+  // 자동완성 단어 목록 (원본 캡션 공백 구분)
+  const wordSet=new Set();
+  baseImg.forEach(entry=>{
+    const {rawCap}=parseEntry(entry);
+    if(!rawCap) return;
+    rawCap.split(/[\s,\-@#$*🌼🎨📷🐦🐝🍄🌰🌿🌱🍒🌸🍁]+/)
+      .filter(w=>w.length>0)
+      .forEach(w=>wordSet.add(w));
+  });
+  const wordList=[...wordSet].sort((a,b)=>a.localeCompare(b,'ko'));
+
+  v2.innerHTML=`
+    <div id="filter-wrap">
+      <input id="filter" type="text" placeholder="검색어 입력..." autocomplete="off">
+      <div id="autocomplete-list"></div>
+    </div>`;
+  v2.style.display='inline-block';
+
+  const input=document.getElementById('filter');
+  const acList=document.getElementById('autocomplete-list');
+  let acIdx=-1;
+
+  input.addEventListener('click',()=>{input.value='';acList.style.display='none';});
+  input.addEventListener('input',()=>{
+    const q=input.value.trim();
+    acIdx=-1;
+    if(!q){acList.style.display='none';return;}
+    const matches=wordList.filter(w=>w.includes(q)).slice(0,20);
+    if(!matches.length){acList.style.display='none';return;}
+    acList.innerHTML=matches.map((w,i)=>`<div data-i="${i}">${w}</div>`).join('');
+    acList.style.display='block';
+    acList.querySelectorAll('div').forEach(d=>{
+      d.addEventListener('mousedown',e=>{
+        e.preventDefault();
+        input.value=d.textContent;
+        acList.style.display='none';
+        runFilter(d.textContent);
+      });
+    });
+  });
+
+  // 방향키 자동완성 선택
+  input.addEventListener('keydown',e=>{
+    const items=acList.querySelectorAll('div');
+    if(e.key==='ArrowDown'){e.preventDefault();acIdx=Math.min(acIdx+1,items.length-1);}
+    else if(e.key==='ArrowUp'){e.preventDefault();acIdx=Math.max(acIdx-1,0);}
+    else if(e.key==='Enter'){
+      if(acIdx>=0&&items[acIdx]){input.value=items[acIdx].textContent;acList.style.display='none';runFilter(input.value);}
+      else{acList.style.display='none';runFilter(input.value);}
+      return;
+    }
+    items.forEach((d,i)=>d.classList.toggle('active',i===acIdx));
+    if(acIdx>=0&&items[acIdx]) items[acIdx].scrollIntoView({block:'nearest'});
+  });
+
+  // 포커스 아웃 시 검색 실행
+  input.addEventListener('blur',()=>{
+    setTimeout(()=>{acList.style.display='none';if(input.value.trim()) runFilter(input.value.trim());},150);
+  });
+}
+
+function runFilter(keyword){
+  if(!keyword) return;
+  const result=baseImg.filter(entry=>{
+    const {rawCap}=parseEntry(entry);
+    return rawCap&&rawCap.includes(keyword);
+  });
+  if(!result.length){alert(`'${keyword}'에 해당하는 이미지가 없어요. 다시 선택해 주세요.`);return;}
+  startWith(result,0,false);
+}
+
+// ── 7. 날짜 역순 ───────────────────────────────────────
+function buildDescMenu(v2){
+  const descArr=[...baseImg].reverse();
+  startWith(descArr,0,false);
+
+  // 부 메뉴: idx. 연월일 시간 셀렉트
+  const opts=descArr.map((entry,i)=>{
+    const {iDate,iTime}=parseEntry(entry);
+    const label=[iDate,iTime].filter(Boolean).join(' ')||'(일시 없음)';
+    return `<option value="${i}">${i+1}. ${label}</option>`;
+  }).join('');
+
+  v2.innerHTML=`<select class="menu-sel" id="descSel" onchange="onDescSel(this)">
+    <option value="">날짜 선택</option>${opts}</select>`;
+  v2.style.display='inline-block';
+}
+
+function onDescSel(sel){
+  if(sel.value==='') return;
+  curIdx=parseInt(sel.value);
+  clearTimeout(timer);
+  loadSlide(curIdx,()=>{if(isPlaying)scheduleNext();});
+}
+
+// ── 8. 목록 보기 ───────────────────────────────────────
+function buildListMenu(v2){
+  // 현재 재생 배열 기준
+  const opts=displayImg.map((entry,i)=>{
+    const {rawCap}=parseEntry(entry);
+    let label='(캡션 없음)';
+    if(rawCap){
+      // <br> 이전 내용, 없으면 전체
+      label=rawCap.includes('<br>')?rawCap.split('<br>')[0]:rawCap;
+      // 원본에서 첫 줄바꿈 트리거 이전
+      const brTriggers=/[-🌼🎨📷🐦🐝🍄🌰🌿🌱🍒🌸🍁@#$*]/;
+      const m=rawCap.search(brTriggers);
+      if(m>0) label=rawCap.slice(0,m).trim();
+      else if(m===0) label=rawCap;
+    }
+    return `<option value="${i}">${i+1}. ${label}</option>`;
+  }).join('');
+
+  v2.innerHTML=`<select class="menu-sel" id="listSel" onchange="onListSel(this)">
+    <option value="">목록 선택</option>${opts}</select>`;
+  v2.style.display='inline-block';
+}
+
+function onListSel(sel){
+  if(sel.value==='') return;
+  curIdx=parseInt(sel.value);
+  isRandom=false;
+  syncRandomBtn();
+  clearTimeout(timer);
+  loadSlide(curIdx,()=>{if(isPlaying)scheduleNext();});
+}
+
+// ── 초기 실행 ──────────────────────────────────────────
+function init(){
+  baseImg=[...img];
+  displayImg=[...img];
+  loadState();
+  loadSlide(curIdx,scheduleNext);
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',init);
+}else{
+  init();
+}
+</script>
+</body>
+</html>
