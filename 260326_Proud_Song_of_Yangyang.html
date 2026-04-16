@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head><title>자랑스러운 양양의 노래</title>
-<meta property="og:image" content="https://blog.kakaocdn.net/dn/bDqcg1/btsOBmG7qbN/XSPV3RPr8JPlXiITNhXYk1/img.jpg">
+<meta property="og:image" content="https://blog.kakaocdn.net/dn/nvxel/btsOAJQpN2Y/VNxuKCdrlLKut4miaqKdNk/img.jpg">
 <meta property=”og:image:width” content=”800">
 <meta property=”og:image:height” content=”600"> 
-<meta property="og:description"  content="고맙다 양양! 우리 모두의 자랑!">
+<meta property="og:description"  content="고맙다 양양! 우리 모두의 자랑">
 <meta property=”og:type” content=”website”/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -287,10 +287,9 @@ table.sl td { padding: 0; }
   transition: width 0.3s ease;
 }
 
-/* ===== 메뉴 영역 ===== */
+/* ===== 메뉴 영역 ==오디오에서 추가 vertical-align: top; === */
 #selectBox {
   width: 100%; max-width: 920px;
-  vertical-align: top;
   margin-top: 8px;
   border-collapse: separate; border-spacing: 0;
   border-radius: 10px; overflow: hidden;
@@ -367,17 +366,6 @@ select.menu-sel {
   font-family: 'Noto Serif KR';
   cursor: pointer;
 }
-
-/*
-#autocomplete-list div {
-  height: 400px;
-  padding: 5px 10px !important;
-  line-height: 1.1 !important;
-  font-size: 54px; font-weight: 700;
-  font-family: 'Noto Serif KR';
-  cursor: pointer;
-}
-*/
 
 #autocomplete-list div:hover,
 #autocomplete-list div.active { background: #eef; }
@@ -489,25 +477,25 @@ function fontSz(val) {
 const title0 = "자랑스러운 양양의 노래"
 
 odi = [
-"https://cdn1.suno.ai/1d5182d3-3f50-4b56-8e42-19c58941a7da.mp3|[포크] 자랑스러운 양양의 노래 (7080 포크, 120~130 BPM, 활기찬 경쾌한 템포, 통기타, 하모니카, 부드러운 타악기)_MW23 v5.5||",
-"https://cdn1.suno.ai/c05b01ac-48ba-420f-99d1-5c3c83f5e69d.mp3|[포크] 자랑스러운 양양의 노래 <br>(7080 포크, 120~130 BPM 정도의 활기차고 경쾌한 템포, 어쿠스틱 기타, 하모니카, 부드러운 타악기)_WM09 v5.5||",
-"https://cdn1.suno.ai/ec4a6c04-89b5-4278-9d0b-d2077d01c460.mp3|[민요] 자랑스러운 양양의 노래 <br>(경기민요 풍, 활기차고, 대화체이며, 축제 분위기, 장난스러운 상호작용)_MW20 v5.5||",
-"https://cdn1.suno.ai/de651cb3-1e15-4096-86e9-e43ed6e9806b.mp3|[댄스] 자랑스러운 양양의 노래 <br>(남녀 듀엣, 일렉트로, 댄스, 신스웨이브, 댄스 하우스, 덥스텝)_MW18 v5.5||",
-"https://cdn1.suno.ai/348cd583-647a-4bff-a894-2f81137410d7.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 2 (한국식 그랜드 뮤지컬, 시네마틱 오케스트라, 드라마틱 및 클래식 보컬 구조, 강렬한 감정적 스토리텔링)_MW01 v5.5||",
-"https://cdn1.suno.ai/e16e2b74-cb5a-48a2-a4e1-f622b41a6946.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 2 (한국식 그랜드 뮤지컬, 시네마틱 오케스트라, 드라마틱 및 클래식 보컬 구조, 강렬한 감정적 스토리텔링)_MW02 v5.5||",
-"https://cdn1.suno.ai/8c73c8d2-11b2-4812-97c6-55a0f3fa262d.mp3|[발라드] 자랑스러운 양양의 노래 <br>(전통 사극 발라드, 가야금 대금 해금 저음의 전통 북, 오케스트라 현악기)_W06 v5.5||",
-"https://cdn1.suno.ai/195aea56-1efd-4dac-95fa-9abaf642e8c9.mp3|[브라스 행진] 자랑스러운 양양의 노래 (강렬하고 승리감 넘치는 행진, 빠르고 안정적, 강한 동료애, 결의, 기쁨에 찬 단결심)_M63 v5.5||",
-"https://cdn1.suno.ai/ef447ad6-1abc-4e05-83e9-1fcf43285f75.mp3|[미분류] 자랑스러운 양양의 노래 (경기민요, 창부타령과 태평가에서 영감을 받음, 장구 북 대금 해금 비리 전통 타악기, 민요풍 만들려다 퓨전트로트 된 느낌)_W09 v5.5||",
-"https://cdn1.suno.ai/b97f34fb-8d7c-4e0e-80dd-3de547bf74fc.mp3|[미분류] 자랑스러운 양양의 노래 <br>(경기 민요 형식, 굿거리 세마치 리듬, 민요풍 만들려다 퓨전트로트 된 느낌)_W10 v5.5||",
-"https://cdn1.suno.ai/368e47ca-7a49-4793-8480-d85da46f49a0.mp3|[심포니] 자랑스러운 양양의 노래 <br>(웅장한 한국 뮤지컬, 클래식 및 영화 음악 스타일, 브로드웨이 및 오케스트라 무대 공연에서 영감을 받음)_MW22 v5.5||",
-"https://cdn1.suno.ai/32b66eff-8d58-4f5d-b9f2-5e8b64a39670.mp3|[발라드] 자랑스러운 양양의 노래 (드라마 OST 발라드, 영화적이고 감성적, 느린 템포에서 중간, 피아노 현악 오케스트라)_MW17 v5.5||",
-"https://cdn1.suno.ai/9e04ed03-8a72-4965-b524-f257609dda1c.mp3|[트롯 댄스] 자랑스러운 양양의 노래 (댄스, 빠른 템포의 EDM 트로트 크로스오버로, 밝은 신스 리드, 4/4 박자 킥 드럼)_W13 v5.5||",
-"https://cdn1.suno.ai/eb7f161e-6de2-40ce-bead-85c10f061527.mp3|[심포니] 자랑스러운 양양의 노래 <br>(오페라 발라드 극적 오케스트레이션)_M53 v5.5||",
-"https://cdn1.suno.ai/c74d5ec0-5d8d-46c2-adeb-656c8c5e9d38.mp3|[트로트] 자랑스러운 양양의 노래 <br>(현대적인 리듬의 한국식 트로트, 흥겹고 역동적이며 쾌활하면서 감성적)_MW12 v5.5||",
-"https://cdn1.suno.ai/cd2d210f-fc79-4df3-95a5-4e41b29c3214.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 3 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW01 v5.5||",
-"https://cdn1.suno.ai/811ffe49-3451-4b93-9514-b269cfd98ea2.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 4 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW01 v5.5||",
-"https://cdn1.suno.ai/6fcd0f03-0975-4e16-8804-dcd3593625c8.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 4 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW02 v5.5||",
-"https://cdn1.suno.ai/390e26d9-7942-4269-aab2-98a857b7db95.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 5 (오페라풍, 극적인 오케스트레이션, 파워풀한 소프라노 및 바리톤 보컬, 웅장한 현악기, 위엄 있는 금관악기, 천둥 같은 팀파니, 신비로운 합창)_MW05 v5.5||463",
+"https://cdn1.suno.ai/1d5182d3-3f50-4b56-8e42-19c58941a7da.mp3|1[포크] 자랑스러운 양양의 노래 (7080 포크, 120~130 BPM, 활기찬 경쾌한 템포, 통기타, 하모니카, 부드러운 타악기)_MW23 v5.5||",
+"https://cdn1.suno.ai/c05b01ac-48ba-420f-99d1-5c3c83f5e69d.mp3|2[포크] 자랑스러운 양양의 노래 <br>(7080 포크, 120~130 BPM 정도의 활기차고 경쾌한 템포, 어쿠스틱 기타, 하모니카, 부드러운 타악기)_WM09 v5.5||",
+"https://cdn1.suno.ai/ec4a6c04-89b5-4278-9d0b-d2077d01c460.mp3|1[민요] 자랑스러운 양양의 노래 <br>(경기민요 풍, 활기차고, 대화체이며, 축제 분위기, 장난스러운 상호작용)_MW20 v5.5||",
+"https://cdn1.suno.ai/de651cb3-1e15-4096-86e9-e43ed6e9806b.mp3|1[댄스] 자랑스러운 양양의 노래 <br>(남녀 듀엣, 일렉트로, 댄스, 신스웨이브, 댄스 하우스, 덥스텝)_MW18 v5.5||",
+"https://cdn1.suno.ai/348cd583-647a-4bff-a894-2f81137410d7.mp3|1[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 2 (한국식 그랜드 뮤지컬, 시네마틱 오케스트라, 드라마틱 및 클래식 보컬 구조, 강렬한 감정적 스토리텔링)_MW01 v5.5||",
+"https://cdn1.suno.ai/e16e2b74-cb5a-48a2-a4e1-f622b41a6946.mp3|2[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 2 (한국식 그랜드 뮤지컬, 시네마틱 오케스트라, 드라마틱 및 클래식 보컬 구조, 강렬한 감정적 스토리텔링)_MW02 v5.5||",
+"https://cdn1.suno.ai/8c73c8d2-11b2-4812-97c6-55a0f3fa262d.mp3|1[발라드] 자랑스러운 양양의 노래 <br>(전통 사극 발라드, 가야금 대금 해금 저음의 전통 북, 오케스트라 현악기)_W06 v5.5||",
+"https://cdn1.suno.ai/195aea56-1efd-4dac-95fa-9abaf642e8c9.mp3|1[브라스 행진] 자랑스러운 양양의 노래 <br>(강렬하고 승리감 넘치는 행진이나 단결 행진, 빠르고 안정적, 강한 동료애, 결의, 기쁨에 찬 단결심)_M63 v5.5||",
+"https://cdn1.suno.ai/ef447ad6-1abc-4e05-83e9-1fcf43285f75.mp3|1[미분류] 자랑스러운 양양의 노래 (경기민요, 창부타령과 태평가에서 영감을 받음, 장구 북 대금 해금 비리 전통 타악기, 민요풍 만들려다 퓨전트로트 된 느낌)_W09 v5.5||",
+"https://cdn1.suno.ai/b97f34fb-8d7c-4e0e-80dd-3de547bf74fc.mp3|2[미분류] 자랑스러운 양양의 노래 <br>(경기 민요 형식, 굿거리 세마치 리듬, 민요풍 만들려다 퓨전트로트 된 느낌)_W10 v5.5||",
+"https://cdn1.suno.ai/368e47ca-7a49-4793-8480-d85da46f49a0.mp3|1[심포니] 자랑스러운 양양의 노래 <br>(웅장한 한국 뮤지컬, 클래식 및 영화 음악 스타일, 브로드웨이 및 오케스트라 무대 공연에서 영감을 받음)_MW22 v5.5||",
+"https://cdn1.suno.ai/32b66eff-8d58-4f5d-b9f2-5e8b64a39670.mp3|1[발라드] 자랑스러운 양양의 노래 (드라마 OST 발라드, 영화적이고 감성적, 느린 템포에서 중간, 피아노 현악 오케스트라)_MW17 v5.5||",
+"https://cdn1.suno.ai/9e04ed03-8a72-4965-b524-f257609dda1c.mp3|1[트롯 댄스] 자랑스러운 양양의 노래 (댄스, 빠른 템포의 EDM 트로트 크로스오버로, 밝은 신스 리드, 4/4 박자 킥 드럼)_W13 v5.5||",
+"https://cdn1.suno.ai/eb7f161e-6de2-40ce-bead-85c10f061527.mp3|1[심포니] 자랑스러운 양양의 노래 <br>(오페라 발라드 극적 오케스트레이션)_M53 v5.5||",
+"https://cdn1.suno.ai/c74d5ec0-5d8d-46c2-adeb-656c8c5e9d38.mp3|1[트롯] 자랑스러운 양양의 노래 <br>(현대적인 리듬의 한국식 트로트, 흥겹고 역동적이며 쾌활하면서 감성적)_MW12 v5.5||",
+"https://cdn1.suno.ai/cd2d210f-fc79-4df3-95a5-4e41b29c3214.mp3|1[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 3 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW01 v5.5||",
+"https://cdn1.suno.ai/811ffe49-3451-4b93-9514-b269cfd98ea2.mp3|1[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 4 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW01 v5.5||",
+"https://cdn1.suno.ai/6fcd0f03-0975-4e16-8804-dcd3593625c8.mp3|2[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 4 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW02 v5.5||",
+"https://cdn1.suno.ai/390e26d9-7942-4269-aab2-98a857b7db95.mp3|1[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 5 (오페라풍, 극적인 오케스트레이션, 파워풀한 소프라노 및 바리톤 보컬, 웅장한 현악기, 위엄 있는 금관악기, 천둥 같은 팀파니, 신비로운 합창)_MW05 v5.5||463",
 ]
 
 song = [
@@ -1958,8 +1946,7 @@ X = 플레이어 감춤, O = 플레이어 보기</font>
 ↓ 슬라이드 (10초 간격 재생)<br>
 <center>
 <div id="slide-container">
-  <!-- 디버그 정보 (필요시 display:none 처리) -->
-  <div id="info-row"></div>
+  <div id="info-row"></div>  <!-- 디버그 정보 (필요시 display:none 처리) -->
   <div id="chips-row"></div>
   <div id="pal-row"></div>
   <div id="dbg-row"></div>
@@ -1997,12 +1984,10 @@ X = 플레이어 감춤, O = 플레이어 보기</font>
       <img src="https://i.imgur.com/mNMdXMC.png" alt="">
       <img src="https://i.imgur.com/TFw4TDC.png" alt="">
     </button>
-
     <div id="count-progress-wrap" style="margin-left:auto;">
       <div id="count-display">[ - / - ]</div>
       <div id="progress-wrap"> <div id="progress-bar"></div></div>
     </div>
-
   </div>
 </div>
 
@@ -2427,7 +2412,7 @@ $(document).ready(function(){
 </center>
 
 <!-- ▼ 배열 파일 (slide_R2.js 등) -->
-<script src="slide_R2.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/slide_R2.js"></script>
 
 <script>
 // https://cdn.jsdelivr.net/gh/deokchan/js@latest/
@@ -2525,9 +2510,7 @@ function parseEntry(entry) {
 
   let url = rawUrl.includes('http') ? rawUrl : BASE_URL + rawUrl;
 
-  // 일시 결정
-  // rawDt가 있으면 그것을 사용, 없으면 파일명에서 추출 (R2만)
-  let iDate=null, iTime=null;
+  let iDate=null, iTime=null;    // 일시 결정  // rawDt가 있으면 그것을 사용, 없으면 파일명에서 추출 (R2만)
 
   const dtSrc = rawDt || (rawUrl.includes('http')?'':rawUrl.split('/').pop());
   const dtMatch = dtSrc.match(/(\d{6})_(\d{6}|\d{4})/);
@@ -2539,31 +2522,6 @@ function parseEntry(entry) {
 
   return{url,iDate,iTime,rawCap};
 }
-
-/*  // URL 결정
-  let url;
-  if (rawUrl.includes('http')) {
-    url = rawUrl;                   // 외부 URL 그대로
-  } else {
-    url = BASE_URL + rawUrl;        // R2: BASE_URL + 파일명(폴더 포함)
-  }
-
-  const dtSrc = rawDt || (rawUrl.includes('http') ? '' : rawUrl.split('/').pop());
-
-  // 파일명에서 yymmdd_hhmmss 또는 yymmdd_hhmm 추출
-  const dtMatch = dtSrc.match(/(\d{6})_(\d{6}|\d{4})/);
-  if (dtMatch) {
-    const d = dtMatch[1], t = dtMatch[2];
-    iDate = d.slice(0,2) + d.slice(2,4) + d.slice(4,6);
-    if (t.length === 6) {
-      iTime = t.slice(0,2)+':'+t.slice(2,4)+':'+t.slice(4,6);
-    } else {
-      iTime = t.slice(0,2)+':'+t.slice(2,4);
-    }
-  }
-  return { url, iDate, iTime, rawCap };
-}
-*/
 
 // ── 캡션에서 테마 추출 (첫 콤마 이전 원문) ────────────
 function extractTheme(rawCap){
@@ -2748,14 +2706,72 @@ function img_Next() {
 }
 
 // ── 상태 저장/복원 ─────────────────────────────────────
-function saveState() {
+function saveState(){
   localStorage.setItem(currentPage+'_idx',    curIdx);
   localStorage.setItem(currentPage+'_random', isRandom?'1':'0');
+  localStorage.setItem(currentPage+'_menu',   document.getElementById('mainMenu').value||''); // 이하 260416 추가
+  localStorage.setItem(currentPage+'_filter', window._lastFilter||'');
+  localStorage.setItem(currentPage+'_theme',  window._lastTheme||'');
 }
 
+function loadState(){
+  const savedIdx    = localStorage.getItem(currentPage+'_idx');
+  const savedRandom = localStorage.getItem(currentPage+'_random');
+  const savedMenu   = localStorage.getItem(currentPage+'_menu')||'';
+  const savedFilter = localStorage.getItem(currentPage+'_filter')||'';
+  const savedTheme  = localStorage.getItem(currentPage+'_theme')||'';
+
+  // 메뉴 복원
+  const mainMenu = document.getElementById('mainMenu');
+  if(savedMenu) mainMenu.value = savedMenu;
+
+  const v2 = document.getElementById('viewSel2');
+
+  if(savedMenu==='theme'){
+    buildThemeMenu(v2);
+    // 테마 선택 복원
+    if(savedTheme){
+      window._lastTheme = savedTheme;
+      const sel = document.getElementById('themeSel');
+      if(sel){
+        const idx = window._themes ? window._themes.indexOf(savedTheme) : -1;
+        if(idx>=0){ sel.value=String(idx); onThemeSel(sel); }
+      }
+    }
+  } else if(savedMenu==='filter'){
+    buildFilterMenu(v2);
+    if(savedFilter){
+      window._lastFilter = savedFilter;
+      const input = document.getElementById('filter');
+      if(input) input.value = savedFilter;
+      runFilter(savedFilter);
+    }
+  } else if(savedMenu==='desc'){
+    buildDescMenu(v2);
+  } else if(savedMenu==='list'||savedMenu==='default'||savedMenu===''){
+    buildListMenu(v2);
+    if(savedMenu==='default') mainMenu.value='default';
+  }
+
+  // idx 복원
+  if(savedIdx!==null){
+    const parsed=parseInt(savedIdx);
+    curIdx=(parsed>=0&&parsed<displayImg.length)?parsed:0;
+    isRandom=savedRandom==='1';
+  } else {
+    img_Random();
+  }
+  syncRandomBtn();
+}
+
+/*
 function loadState() {
   const savedIdx    = localStorage.getItem(currentPage+'_idx');
   const savedRandom = localStorage.getItem(currentPage+'_random');
+  const savedMenu   = localStorage.getItem(currentPage+'_menu')||'';
+  const savedFilter = localStorage.getItem(currentPage+'_filter')||'';
+  const savedTheme  = localStorage.getItem(currentPage+'_theme')||'';
+
   if (savedIdx !== null) {
     const parsed = parseInt(savedIdx);
     curIdx   = (parsed>=0 && parsed<displayImg.length) ? parsed : 0;
@@ -2763,19 +2779,6 @@ function loadState() {
   } else {
     img_Random();   // 최초 접속 시 랜덤 시작
   }
-}
-
-/*function loadState(){
-  const savedIdx=localStorage.getItem(currentPage+'_idx');
-  const savedRandom=localStorage.getItem(currentPage+'_random');
-  if(savedIdx!==null){
-    const parsed=parseInt(savedIdx);
-    curIdx=(parsed>=0&&parsed<displayImg.length)?parsed:0;
-    isRandom=savedRandom==='1';
-  }else{
-    img_Random();
-  }
-  syncRandomBtn();  // ???
 }
 */
 
@@ -2789,19 +2792,59 @@ function syncRandomBtn() {
   }
 }
 
+// ── selectBox 표시/숨김 → 재생 상태 연동 ─────────────
+function showSelectBox(){
+  const sb = document.getElementById('selectBox');
+  sb.style.display = 'table';
+  // selectBox 표시 시 재생
+  if(!isPlaying){ isPlaying=true; scheduleNext();
+    const btnImg=document.getElementById('img_button_img');
+    const btnVal=document.getElementById('img_button');
+    btnImg.src='https://i.imgur.com/TQFP08p.png'; btnImg.title='일시 정지'; btnVal.value='start';
+  }
+}
+function hideSelectBox(){
+  const sb = document.getElementById('selectBox');
+  sb.style.display = 'none';
+  // selectBox 숨김 시 일시정지
+  if(isPlaying){ isPlaying=false; clearTimeout(timer);
+    const btnImg=document.getElementById('img_button_img');
+    const btnVal=document.getElementById('img_button');
+    btnImg.src='https://i.imgur.com/mNMdXMC.png'; btnImg.title='재생'; btnVal.value='stop';
+  }
+}
+
+// ── 이미지 로드 실패 안내 ──────────────────────────────
+function showLoadError(){
+  const v1 = document.getElementById('viewSel1');
+  v1.innerHTML = `<div style="font-size:13px;line-height:1.6;padding:8px;color:red;">
+    현재는 관련 사이트의 사정에 따라 '포토 슬라이드'를 재생할 수 없습니다.<br>
+    원활해질 때까지 많은 양해 바랍니다.
+  </div>`;
+}
+
+// ── 셀렉트 박스 현재 번호 동기화 ──────────────────────
+function syncSubSel(idx){
+  const mainVal = document.getElementById('mainMenu').value;
+  let selId = null;
+  if(mainVal==='desc')   selId='descSel';
+  else if(mainVal==='list'||mainVal===''||mainVal==='default') selId='listSel';
+  if(!selId) return;
+  const sel = document.getElementById(selId);
+  if(sel) sel.value = String(idx);
+}
+
 // ══════════════════════════════════════════════════════
 // ── 메뉴 시스템 ───────────────────────────────────────
 // ══════════════════════════════════════════════════════
 
-// 부 메뉴 숨기기
-function hideSub(){
+function hideSub(){   // 부 메뉴 숨기기
   const v2 = document.getElementById('viewSel2');
   v2.style.display = 'none';
   v2.innerHTML = '';
 }
 
-// 재생 배열 교체 후 시작
-function startWith(arr, idx, random){
+function startWith(arr, idx, random){   // 재생 배열 교체 후 시작
   displayImg=[...arr];
   curIdx=idx;
   isRandom=random;
@@ -2814,94 +2857,86 @@ function startWith(arr, idx, random){
 function onMainMenu(){
   const val=document.getElementById('mainMenu').value;
   const v2=document.getElementById('viewSel2');
+  window._lastFilter=''; window._lastTheme='';
 
-  if (val === 'default') {
-    // 기본 순서 — 원본 배열, curIdx=0, 랜덤
-    hideSub();
-    if (isRandom === false) img_Random();   // 랜덤 켜기
+  if(val==='default'){
+    displayImg=[...baseImg];
+    buildListMenu(v2);
+    if(isRandom===false) img_Random();
     startWith(baseImg,0,true);
 
-  } else if (val === 'theme') {
-    // 테마 순서
+  }else if(val==='theme'){
     buildThemeMenu(v2);
 
-  } else if ( val === 'filter') {
-    // 필터 검색
+  }else if(val==='filter'){
     buildFilterMenu(v2);
 
-  } else if (val === 'desc'){
-    // 날짜 역순
+  }else if(val==='desc'){
     buildDescMenu(v2);
 
-  } else if (val === 'list'){
-    // 목록 보기
+  }else if(val==='list'){
     buildListMenu(v2);
   }
+  saveState();
 }
 
 // ── 5. 테마 순서 ───────────────────────────────────────
 function buildThemeMenu(v2){
-  // 테마 추출 및 가나다순 정렬
-  const themeMap = {};  // { 테마: [entry, ...] }
-  baseImg.forEach(entry => {
-    const {rawCap} = parseEntry(entry);
-    const theme = extractTheme(rawCap) || '(테마 없음)';
-    if(!themeMap[theme]) themeMap[theme] = [];
+  const themeMap={};  // { 테마: [entry, ...] }
+  baseImg.forEach(entry=>{
+    const {rawCap}=parseEntry(entry);
+    const theme=extractTheme(rawCap)||'(테마 없음)';
+    if(!themeMap[theme]) themeMap[theme]=[];
     themeMap[theme].push(entry);
   });
 
-  // 테마 가나다순 정렬
-  const themes = Object.keys(themeMap).sort((a,b) => a.localeCompare(b,'ko'));
+  const themes=Object.keys(themeMap).sort((a,b)=>a.localeCompare(b,'ko'));  // 테마 가나다순 정렬
+  const themeArr=[];  // 테마 순 + 날짜순 배열 생성
+  themes.forEach(t=>themeArr.push(...themeMap[t]));
 
-  // 테마 순 + 날짜순 배열 생성
-  const themeArr = [];
-  themes.forEach(t => themeArr.push(...themeMap[t]));
+  window._themeMap=themeMap;  // 전역 저장
+  window._themes=themes;
+  window._themeArr=themeArr;
 
-  // 전역 저장
-  window._themeMap = themeMap;
-  window._themes   = themes;
-  window._themeArr = themeArr;   // ← 추가
+  displayImg=[...themeArr];
+  if(!window._lastTheme) startWith(themeArr,0,false);
 
-  // 재생 시작 (테마 배열 0번, 순차)
-  startWith(themeArr, 0, false);
-
-  // 부 메뉴: 테마 셀렉트 박스
-  const opts = themes.map((t,i) =>
+  const opts = themes.map((t,i)=>
     `<option value="${i}">${i+1}. ${t}</option>`
   ).join('');
 
-  v2.innerHTML = `<select class="menu-sel" id="themeSel" onchange="onThemeSel(this)">
+  v2.innerHTML=`<select class="menu-sel" id="themeSel" onchange="onThemeSel(this)">
     <option value="">테마 선택</option>${opts}</select>`;
-  v2.style.display = 'inline-block';
+  v2.style.display='inline-block';
 }
 
 function onThemeSel(sel){
-  if(sel.value === '') return;
-  const theme  = window._themes[parseInt(sel.value)];
-  const arr    = window._themeArr;   // ← 전역 배열 직접 사용
+  if(sel.value==='') return;
+  const theme = window._themes[parseInt(sel.value)];
+  if(!theme) return;
+  window._lastTheme=theme;
+  const arr=window._themeArr;
 
-  // 선택 테마의 첫 이미지 인덱스
-  let startIdx = 0;
-  for(let i = 0; i < arr.length; i++){
-    const {rawCap} = parseEntry(arr[i]);
-    if((extractTheme(rawCap)||'(테마 없음)') === theme){ startIdx = i; break; }
+  let startIdx=0;  // 선택 테마의 첫 이미지 인덱스
+  for(let i=0;i<arr.length;i++){
+    const {rawCap}=parseEntry(arr[i]);
+    if((extractTheme(rawCap)||'(테마 없음)') === theme){startIdx = i; break;}
   }
 
-  displayImg = [...arr];
-  curIdx     = startIdx;
-  isRandom   = false;
+  displayImg=[...arr];
+  curIdx=startIdx;
+  isRandom=false;
   syncRandomBtn();
   clearTimeout(timer);
-  loadSlide(curIdx, () => { if(isPlaying) scheduleNext(); });
+  loadSlide(curIdx, () => { if (isPlaying) scheduleNext(); });
+  saveState();
 }
 
 // ── 6. 필터 검색 ───────────────────────────────────────
 function buildFilterMenu(v2){
-  // 기본 배열로 환원
-  displayImg=[...baseImg];
+  displayImg=[...baseImg];  // 기본 배열로 환원
 
-  // 자동완성 단어 목록 (원본 캡션 공백 구분)
-  const wordSet=new Set();
+  const wordSet=new Set();  // 자동완성 단어 목록 (원본 캡션 공백 구분)
   baseImg.forEach(entry=>{
     const {rawCap}=parseEntry(entry);
     if(!rawCap) return;
@@ -2927,10 +2962,11 @@ function buildFilterMenu(v2){
     const q=input.value.trim();
     acIdx=-1;
     if(!q){acList.style.display='none';return;}
-    const matches=wordList.filter(w=>w.includes(q)).slice(0,20);
+    const matches=wordList.filter(w=>w.includes(q)).slice(0,30);     // .slice(0,20);
     if(!matches.length){acList.style.display='none';return;}
     acList.innerHTML=matches.map((w,i)=>`<div data-i="${i}">${w}</div>`).join('');
     acList.style.display='block';
+
     acList.querySelectorAll('div').forEach(d=>{
       d.addEventListener('mousedown',e=>{
         e.preventDefault();
@@ -2941,8 +2977,7 @@ function buildFilterMenu(v2){
     });
   });
 
-  // 방향키 자동완성 선택
-  input.addEventListener('keydown',e=>{
+  input.addEventListener('keydown',e=>{  // 방향키 자동완성 선택
     const items=acList.querySelectorAll('div');
     if(e.key==='ArrowDown'){e.preventDefault();acIdx=Math.min(acIdx+1,items.length-1);}
     else if(e.key==='ArrowUp'){e.preventDefault();acIdx=Math.max(acIdx-1,0);}
@@ -2955,32 +2990,33 @@ function buildFilterMenu(v2){
     if(acIdx>=0&&items[acIdx]) items[acIdx].scrollIntoView({block:'nearest'});
   });
 
-  // 포커스 아웃 시 검색 실행
-  input.addEventListener('blur',()=>{
+  input.addEventListener('blur',()=>{  // 포커스 아웃 시 검색 실행
     setTimeout(()=>{acList.style.display='none';if(input.value.trim()) runFilter(input.value.trim());},150);
   });
 }
 
 function runFilter(keyword){
   if(!keyword) return;
-  const result = baseImg.filter(entry => {
-    const {rawCap} = parseEntry(entry);
+  // 공백 구분 단어 정확 매칭
+  const result=baseImg.filter(entry=>{
+    const {rawCap}=parseEntry(entry);
     if(!rawCap) return false;
     // 공백/구분자로 나눈 단어 중 정확히 일치하는 것만
-    const words = rawCap.split(/[\s,\-@#$*🌼🎨📷🐦🐝🍄🌰🌿🌱🍒🌸🍁]+/);
+    const words=rawCap.split(/[\s,\-@#$*🌼🎨📷🐦🐝🍄🌰🌿🌱🍒🌸🍁]+/);
     return words.includes(keyword);
   });
   if(!result.length){alert(`'${keyword}'에 해당하는 이미지가 없어요. 다시 선택해 주세요.`);return;}
-  startWith(result, 0, false);
+  window._lastFilter=keyword;
+  startWith(result,0,false);
+  saveState();
 }
 
 // ── 7. 날짜 역순 ───────────────────────────────────────
 function buildDescMenu(v2){
   const descArr=[...baseImg].reverse();
-  startWith(descArr,0,false);
+  displayImg=[...descArr];
 
-  // 부 메뉴: idx. 연월일 시간 셀렉트
-  const opts=descArr.map((entry,i)=>{
+  const opts=descArr.map((entry,i)=>{  // 부 메뉴: idx. 연월일 시간 셀렉트
     const {iDate,iTime}=parseEntry(entry);
     const label=[iDate,iTime].filter(Boolean).join(' ')||'(일시 없음)';
     return `<option value="${i}">${i+1}. ${label}</option>`;
@@ -2989,6 +3025,8 @@ function buildDescMenu(v2){
   v2.innerHTML=`<select class="menu-sel" id="descSel" onchange="onDescSel(this)">
     <option value="">날짜 선택</option>${opts}</select>`;
   v2.style.display='inline-block';
+
+  startWith(descArr,0,false);
 }
 
 function onDescSel(sel){
@@ -2996,29 +3034,31 @@ function onDescSel(sel){
   curIdx=parseInt(sel.value);
   clearTimeout(timer);
   loadSlide(curIdx,()=>{if(isPlaying)scheduleNext();});
+  saveState();
 }
 
 // ── 8. 목록 보기 ───────────────────────────────────────
 function buildListMenu(v2){
-  // 현재 재생 배열 기준
-  const opts=displayImg.map((entry,i)=>{
+  const opts=displayImg.map((entry,i)=>{  // 현재 재생 배열 기준
     const {rawCap}=parseEntry(entry);
     let label='(캡션 없음)';
     if(rawCap){
-      // <br> 이전 내용, 없으면 전체
-      label=rawCap.includes('<br>')?rawCap.split('<br>')[0]:rawCap;
       // 원본에서 첫 줄바꿈 트리거 이전
       const brTriggers=/[-🌼🎨📷🐦🐝🍄🌰🌿🌱🍒🌸🍁@#$*]/;
       const m=rawCap.search(brTriggers);
-      if(m>0) label=rawCap.slice(0,m).trim();
-      else if(m===0) label=rawCap;
+      label = m>0 ? rawCap.slice(0,m).trim() : (m===0?rawCap:rawCap);
     }
     return `<option value="${i}">${i+1}. ${label}</option>`;
   }).join('');
 
+  // 현재 curIdx를 초기 선택값으로 표시
   v2.innerHTML=`<select class="menu-sel" id="listSel" onchange="onListSel(this)">
-    <option value="">목록 선택</option>${opts}</select>`;
+    <option value="">── 목록 선택 ──</option>${opts}</select>`;
   v2.style.display='inline-block';
+
+  // 현재 재생 번호 반영
+  const sel=document.getElementById('listSel');
+  if(sel) sel.value=String(curIdx);
 }
 
 function onListSel(sel){
@@ -3028,14 +3068,30 @@ function onListSel(sel){
   syncRandomBtn();
   clearTimeout(timer);
   loadSlide(curIdx,()=>{if(isPlaying)scheduleNext();});
+  saveState();
 }
 
 // ── 초기 실행 ──────────────────────────────────────────
 function initIMG(){
+  // 초기 일시정지
+  isPlaying=false;
+  const btnImg=document.getElementById('img_button_img');
+  const btnVal=document.getElementById('img_button');
+  btnImg.src='https://i.imgur.com/mNMdXMC.png'; btnImg.title='재생'; btnVal.value='stop';
+
   baseImg=[...img];
   displayImg=[...img];
-  loadState();
-  loadSlide(curIdx,scheduleNext);
+
+  // 이미지 배열 로드 실패 감지
+  if(!img||img.length===0){
+    showLoadError(); return;
+  }
+
+  // 첫 이미지 로드 테스트
+  const testImg=new Image();
+  testImg.onload=function(){ loadState(); loadSlide(curIdx,()=>{}); };
+  testImg.onerror=function(){ showLoadError(); };
+  testImg.src=parseEntry(img[0]).url;
 }
 
 if(document.readyState==='loading'){
@@ -3044,6 +3100,14 @@ if(document.readyState==='loading'){
   initIMG();
 }
 
+// updateCaption에 셀렉트 동기화 추가
+const _origUpdateCaption=updateCaption;
+// updateCaption 안에서 syncSubSel 호출하도록 재정의
+const _updateCaptionOrig=updateCaption;
+updateCaption=function(idx){
+  _updateCaptionOrig(idx);
+  syncSubSel(idx);
+};
 </script>
 
 <div id="menu">
