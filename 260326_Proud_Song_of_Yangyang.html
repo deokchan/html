@@ -273,7 +273,7 @@ table.sl td { padding: 0; }
 #count-progress-wrap { display: inline-block; text-align: center; }
 #count-display {
   letter-spacing: 0.05em; white-space: nowrap;
-  margin-bottom: 4px; color: skyblue; /* #2671D4 */
+  margin-bottom: 4px; color: #3B88C3; /* skyblue #2671D4 */
 }
 
 /* ===== 진행 바 ===== */
@@ -375,6 +375,12 @@ select.menu-sel {
   padding: 20px; font-size: 54px; font-weight: 700;
   line-height: 1.2; font-family: 'Noto Serif KR';
 }
+.cap-meta {
+  /* 기존 속성 유지하고 아래 추가 */
+  transition: opacity 3s ease;   /* 이미지와 같은 시간 */
+}
+.cap-meta.fade { opacity: 0; }
+
 #count-display { padding: 5px; font-size: 40px; line-height: 1.0; }
 </STYLE>
 
@@ -477,25 +483,21 @@ function fontSz(val) {
 const title0 = "자랑스러운 양양의 노래"
 
 odi = [
-"https://cdn1.suno.ai/1d5182d3-3f50-4b56-8e42-19c58941a7da.mp3|1[포크] 자랑스러운 양양의 노래 (7080 포크, 120~130 BPM, 활기찬 경쾌한 템포, 통기타, 하모니카, 부드러운 타악기)_MW23 v5.5||",
-"https://cdn1.suno.ai/c05b01ac-48ba-420f-99d1-5c3c83f5e69d.mp3|2[포크] 자랑스러운 양양의 노래 <br>(7080 포크, 120~130 BPM 정도의 활기차고 경쾌한 템포, 어쿠스틱 기타, 하모니카, 부드러운 타악기)_WM09 v5.5||",
-"https://cdn1.suno.ai/ec4a6c04-89b5-4278-9d0b-d2077d01c460.mp3|1[민요] 자랑스러운 양양의 노래 <br>(경기민요 풍, 활기차고, 대화체이며, 축제 분위기, 장난스러운 상호작용)_MW20 v5.5||",
-"https://cdn1.suno.ai/de651cb3-1e15-4096-86e9-e43ed6e9806b.mp3|1[댄스] 자랑스러운 양양의 노래 <br>(남녀 듀엣, 일렉트로, 댄스, 신스웨이브, 댄스 하우스, 덥스텝)_MW18 v5.5||",
-"https://cdn1.suno.ai/348cd583-647a-4bff-a894-2f81137410d7.mp3|1[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 2 (한국식 그랜드 뮤지컬, 시네마틱 오케스트라, 드라마틱 및 클래식 보컬 구조, 강렬한 감정적 스토리텔링)_MW01 v5.5||",
-"https://cdn1.suno.ai/e16e2b74-cb5a-48a2-a4e1-f622b41a6946.mp3|2[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 2 (한국식 그랜드 뮤지컬, 시네마틱 오케스트라, 드라마틱 및 클래식 보컬 구조, 강렬한 감정적 스토리텔링)_MW02 v5.5||",
-"https://cdn1.suno.ai/8c73c8d2-11b2-4812-97c6-55a0f3fa262d.mp3|1[발라드] 자랑스러운 양양의 노래 <br>(전통 사극 발라드, 가야금 대금 해금 저음의 전통 북, 오케스트라 현악기)_W06 v5.5||",
-"https://cdn1.suno.ai/195aea56-1efd-4dac-95fa-9abaf642e8c9.mp3|1[브라스 행진] 자랑스러운 양양의 노래 <br>(강렬하고 승리감 넘치는 행진이나 단결 행진, 빠르고 안정적, 강한 동료애, 결의, 기쁨에 찬 단결심)_M63 v5.5||",
-"https://cdn1.suno.ai/ef447ad6-1abc-4e05-83e9-1fcf43285f75.mp3|1[미분류] 자랑스러운 양양의 노래 (경기민요, 창부타령과 태평가에서 영감을 받음, 장구 북 대금 해금 비리 전통 타악기, 민요풍 만들려다 퓨전트로트 된 느낌)_W09 v5.5||",
-"https://cdn1.suno.ai/b97f34fb-8d7c-4e0e-80dd-3de547bf74fc.mp3|2[미분류] 자랑스러운 양양의 노래 <br>(경기 민요 형식, 굿거리 세마치 리듬, 민요풍 만들려다 퓨전트로트 된 느낌)_W10 v5.5||",
-"https://cdn1.suno.ai/368e47ca-7a49-4793-8480-d85da46f49a0.mp3|1[심포니] 자랑스러운 양양의 노래 <br>(웅장한 한국 뮤지컬, 클래식 및 영화 음악 스타일, 브로드웨이 및 오케스트라 무대 공연에서 영감을 받음)_MW22 v5.5||",
-"https://cdn1.suno.ai/32b66eff-8d58-4f5d-b9f2-5e8b64a39670.mp3|1[발라드] 자랑스러운 양양의 노래 (드라마 OST 발라드, 영화적이고 감성적, 느린 템포에서 중간, 피아노 현악 오케스트라)_MW17 v5.5||",
-"https://cdn1.suno.ai/9e04ed03-8a72-4965-b524-f257609dda1c.mp3|1[트롯 댄스] 자랑스러운 양양의 노래 (댄스, 빠른 템포의 EDM 트로트 크로스오버로, 밝은 신스 리드, 4/4 박자 킥 드럼)_W13 v5.5||",
-"https://cdn1.suno.ai/eb7f161e-6de2-40ce-bead-85c10f061527.mp3|1[심포니] 자랑스러운 양양의 노래 <br>(오페라 발라드 극적 오케스트레이션)_M53 v5.5||",
-"https://cdn1.suno.ai/c74d5ec0-5d8d-46c2-adeb-656c8c5e9d38.mp3|1[트롯] 자랑스러운 양양의 노래 <br>(현대적인 리듬의 한국식 트로트, 흥겹고 역동적이며 쾌활하면서 감성적)_MW12 v5.5||",
-"https://cdn1.suno.ai/cd2d210f-fc79-4df3-95a5-4e41b29c3214.mp3|1[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 3 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW01 v5.5||",
-"https://cdn1.suno.ai/811ffe49-3451-4b93-9514-b269cfd98ea2.mp3|1[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 4 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW01 v5.5||",
-"https://cdn1.suno.ai/6fcd0f03-0975-4e16-8804-dcd3593625c8.mp3|2[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 4 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW02 v5.5||",
-"https://cdn1.suno.ai/390e26d9-7942-4269-aab2-98a857b7db95.mp3|1[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 5 (오페라풍, 극적인 오케스트레이션, 파워풀한 소프라노 및 바리톤 보컬, 웅장한 현악기, 위엄 있는 금관악기, 천둥 같은 팀파니, 신비로운 합창)_MW05 v5.5||463",
+"https://cdn1.suno.ai/c05b01ac-48ba-420f-99d1-5c3c83f5e69d.mp3|[포크] 자랑스러운 양양의 노래 <br>(7080 포크, 120~130 BPM 정도의 활기차고 경쾌한 템포, 어쿠스틱 기타, 하모니카, 부드러운 타악기)_WM09 v5.5||",
+"https://cdn1.suno.ai/ec4a6c04-89b5-4278-9d0b-d2077d01c460.mp3|[민요] 자랑스러운 양양의 노래 <br>(경기민요 풍, 활기차고, 대화체이며, 축제 분위기, 장난스러운 상호작용)_MW20 v5.5||",
+"https://cdn1.suno.ai/de651cb3-1e15-4096-86e9-e43ed6e9806b.mp3|[댄스] 자랑스러운 양양의 노래 <br>(남녀 듀엣, 일렉트로, 댄스, 신스웨이브, 댄스 하우스, 덥스텝)_MW18 v5.5||",
+"https://cdn1.suno.ai/348cd583-647a-4bff-a894-2f81137410d7.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 2 (한국식 그랜드 뮤지컬, 시네마틱 오케스트라, 드라마틱 및 클래식 보컬 구조, 강렬한 감정적 스토리텔링)_MW01 v5.5||",
+"https://cdn1.suno.ai/8c73c8d2-11b2-4812-97c6-55a0f3fa262d.mp3|[발라드] 자랑스러운 양양의 노래 <br>(전통 사극 발라드, 가야금 대금 해금 저음의 전통 북, 오케스트라 현악기)_W06 v5.5||",
+"https://cdn1.suno.ai/195aea56-1efd-4dac-95fa-9abaf642e8c9.mp3|[브라스 행진] 자랑스러운 양양의 노래 (강렬하고 승리감 넘치는 행진, 빠르고 안정적, 강한 동료애, 결의, 기쁨에 찬 단결심)_M63 v5.5||",
+"https://cdn1.suno.ai/b97f34fb-8d7c-4e0e-80dd-3de547bf74fc.mp3|[미분류] 자랑스러운 양양의 노래 <br>(경기 민요 형식, 굿거리 세마치 리듬, 민요풍 만들려다 퓨전트로트 된 느낌)_W10 v5.5||",
+"https://cdn1.suno.ai/368e47ca-7a49-4793-8480-d85da46f49a0.mp3|[심포니] 자랑스러운 양양의 노래 <br>(웅장한 한국 뮤지컬, 클래식 및 영화 음악 스타일, 브로드웨이 및 오케스트라 무대 공연에서 영감을 받음)_MW22 v5.5||",
+"https://cdn1.suno.ai/32b66eff-8d58-4f5d-b9f2-5e8b64a39670.mp3|[발라드] 자랑스러운 양양의 노래 (드라마 OST 발라드, 영화적이고 감성적, 느린 템포에서 중간, 피아노 현악 오케스트라)_MW17 v5.5||",
+"https://cdn1.suno.ai/9e04ed03-8a72-4965-b524-f257609dda1c.mp3|[트롯 댄스] 자랑스러운 양양의 노래 (댄스, 빠른 템포의 EDM 트로트 크로스오버로, 밝은 신스 리드, 4/4 박자 킥 드럼)_W13 v5.5||",
+"https://cdn1.suno.ai/eb7f161e-6de2-40ce-bead-85c10f061527.mp3|[심포니] 자랑스러운 양양의 노래 <br>(오페라 발라드 극적 오케스트레이션)_M53 v5.5||",
+"https://cdn1.suno.ai/c74d5ec0-5d8d-46c2-adeb-656c8c5e9d38.mp3|[트로트] 자랑스러운 양양의 노래 <br>(현대적인 리듬의 한국식 트로트, 흥겹고 역동적이며 쾌활하면서 감성적)_MW12 v5.5||",
+"https://cdn1.suno.ai/cd2d210f-fc79-4df3-95a5-4e41b29c3214.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 3 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣 + 합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW01 v5.5||",
+"https://cdn1.suno.ai/6fcd0f03-0975-4e16-8804-dcd3593625c8.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 4 (웅장한 한국식 뮤지컬, 영화적인 오케스트라, 풀 오케스트라, 강렬한 듀엣+합창, 무대 뮤지컬, 몰입도 높고 극적인 연출, 길고 지속적인 피날레)_MW02 v5.5||",
+"https://cdn1.suno.ai/390e26d9-7942-4269-aab2-98a857b7db95.mp3|[뮤지컬] 자랑스러운 양양의 노래-뮤지컬 리빌드 5 (오페라풍, 극적인 오케스트레이션, 파워풀한 소프라노 및 바리톤 보컬, 웅장한 현악기, 위엄 있는 금관악기, 천둥 같은 팀파니, 신비로운 합창)_MW05 v5.5||463",
 ]
 
 song = [
@@ -2647,9 +2649,13 @@ function updateCaption(idx){
 // ── 이미지 로드 ────────────────────────────────────────
 function loadSlide(idx,callback){
   const el=document.getElementById('slide-img');
+  const cap = document.getElementById('cap-meta');  // ← 추가
   const {url}=parseEntry(displayImg[idx]);
 
+  // 이미지와 cap-meta 동시에 fade-out
   el.classList.add('fade');
+  cap.classList.add('fade');    // ← 추가
+
   const cs=pickNextColorSet();
   const newImg=new Image();
 
@@ -2657,7 +2663,9 @@ function loadSlide(idx,callback){
     setTimeout(()=>{
       el.src=url; applyColorSet(cs); updateCaption(idx); saveState();
       requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        // 이미지와 cap-meta 동시에 fade-in
         el.classList.remove('fade');
+        cap.classList.remove('fade');   // ← 추가
         if(callback) callback();
       }));
     },1500);
@@ -2665,7 +2673,10 @@ function loadSlide(idx,callback){
   newImg.onerror=function(){
     setTimeout(()=>{
       el.src=url; el.classList.remove('fade');
-      applyColorSet(cs); updateCaption(idx); saveState();
+      cap.classList.remove('fade');     // ← 추가
+      applyColorSet(cs);
+      updateCaption(idx);
+      saveState();
       if(callback) callback();
     },1500);
   };
@@ -2792,24 +2803,6 @@ function loadState(){
   }
   syncRandomBtn();
 }
-
-/*
-function loadState() {
-  const savedIdx    = localStorage.getItem(currentPage+'_idx');
-  const savedRandom = localStorage.getItem(currentPage+'_random');
-  const savedMenu   = localStorage.getItem(currentPage+'_menu')||'';
-  const savedFilter = localStorage.getItem(currentPage+'_filter')||'';
-  const savedTheme  = localStorage.getItem(currentPage+'_theme')||'';
-
-  if (savedIdx !== null) {
-    const parsed = parseInt(savedIdx);
-    curIdx   = (parsed>=0 && parsed<displayImg.length) ? parsed : 0;
-    isRandom = savedRandom==='1';
-  } else {
-    img_Random();   // 최초 접속 시 랜덤 시작
-  }
-}
-*/
 
 function syncRandomBtn() {
   const btnImg = document.getElementById('img_RS_button_img');
