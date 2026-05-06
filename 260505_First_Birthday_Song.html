@@ -370,6 +370,9 @@ function init() {
     if (savedIndex !== null) {
         n = parseInt(savedIndex);
     }
+    if (n > list_num) {
+        n = 0;
+    }
 
     $('#test3').html(List[n]);
     play_it(n);
@@ -999,7 +1002,7 @@ function applyTheme(themeName) {
 }
 
 $(document).ready(function(){ 
-  $('#upmemo').html(updat);
+//  $('#upmemo').html(updat);
 
   $("#List1").hide();
   $("#tog_1").click(function(){                                       
