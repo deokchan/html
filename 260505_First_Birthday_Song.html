@@ -363,7 +363,7 @@ function init() {
     bgmLoad();
     ctl = document.getElementById('bg_music');
     ctl.volume = 0.5;
-    n = generateRandom(a, b);
+    n = 0 // generateRandom(a, b);
     let savedIndex = localStorage.getItem("lastTrackIndex_" + currentPage);
 
     // 저장된 값이 있다면 이어듣기
