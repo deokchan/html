@@ -370,10 +370,10 @@ function init() {
     if (savedIndex !== null) {
         n = parseInt(savedIndex);
     }
+    if ( n > odi.length) { n = 0 }
 
     $('#test3').html(List[n]);
     play_it(n);
-    //music_Random()
     //console.log("n : " + n);
 
    adjustLayout()  // 가사 창 상하 위치 260217
@@ -903,6 +903,7 @@ for (var i=0;i<=odi.length-1;i++) {
 
     updateButton();
     DdayList();
+    //music_Random()
 }
 
 function listLoad() {
