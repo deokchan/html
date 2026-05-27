@@ -1,7 +1,7 @@
 ﻿
 <!DOCTYPE html>
 <html lang='ko'>
-<head><title>보여주고 싶었던 엄마의 추억들..</title>
+<head><title>울 엄마의 기구했던 생일</title>
 <meta property="og:image" content="https://i.imgur.com/8awsXv5.jpeg">
 <meta property=”og:image:width” content=”800">
 <meta property=”og:image:height” content=”600"> 
@@ -41,7 +41,7 @@ font.Noto_Serif_KR {font-size:25pt; font-family: 'Noto Serif KR', sans-serif; }
 // table.box { border-radius: 50px; }
 td.lt { color:black; font-size:33pt; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; border-radius: 50px; border: 5px ridge #ff5722;}
 
-p.mid, font.mid, table.box { color:black; font-size:54px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
+p.mid, font.mid, .box { color:black; font-size:54px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
 p.mid2 { color:black; font-size:51px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
 p.mid3 { color:black; font-size:49px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-family: 'Noto Serif KR'; }
 p.ct {color:blue; font-size:45px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; }
@@ -200,7 +200,7 @@ function runTimer() {
     }
     
     // 16ms 후에 다시 runTimer 함수 실행 (약 60fps로 부드럽게) , 36
-    tscroll = window.setTimeout(runTimer, 80);  //60
+    tscroll = window.setTimeout(runTimer, 20);  //60
 }
 
 function stop() {
@@ -260,109 +260,118 @@ function fontSz(val) {
 const title0 = "'울 엄마 생일' 노래"
 
 odi = [
-"https://cdn1.suno.ai/83ca4e61-6b0c-4684-bc3f-6c5994bb2805.mp3|울 엄마의 기구했던 생일 (바이올린 신스팝)_MW02|",
-"https://cdn1.suno.ai/245e94a3-a342-4bae-bd25-107f5e9aa124.mp3|울 엄마의 기구했던 생일 (전통 사극 발라드)_W02|",
-"https://cdn1.suno.ai/88160654-39fc-4029-80e7-71009a63e51e.mp3|울 엄마의 기구했던 생일 (전통 발라드)_M02|",
-"https://cdn1.suno.ai/38c73479-2029-46a0-9cd0-7e6d2dc8f1b1.mp3|울 엄마의 기구했던 생일 (전통 사극 발라드)_W01|",
-"https://cdn1.suno.ai/9a4660e6-f404-4b9e-b8e6-4246b9651735.mp3|울 엄마의 기구했던 생일 (전통 발라드)_M03|",
-"https://cdn1.suno.ai/5e1c7bda-dd53-441f-96e7-7a684778881f.mp3|울 엄마의 기구했던 생일 (전통 발라드)_W04|",
-"https://cdn1.suno.ai/74d4d057-4a49-47ad-8083-5e8025c5fccb.mp3|울 엄마의 기구했던 생일 (서정적 포크)_M04|",
-"https://cdn1.suno.ai/3b8b6559-9be5-4214-8407-9d0b5a7c38ab.mp3|울 엄마의 기구했던 생일 (바이올린 신스팝)_MW01|",
-"https://cdn1.suno.ai/13945f2f-25b5-46b1-a15c-bfda6942e3b7.mp3|울 엄마의 기구했던 생일 (서정적 포크)_M05|",
-"https://cdn1.suno.ai/c31ee404-ee66-42b3-b813-55f53904eed5.mp3|울 엄마의 기구했던 생일 (전통 발라드)_W03|",
-"https://cdn1.suno.ai/94f36ae9-a979-48e0-9659-bf402e23b746.mp3|울 엄마의 기구했던 생일 (발라드)_M01|",
+"https://cdn1.suno.ai/83ca4e61-6b0c-4684-bc3f-6c5994bb2805.mp3|[바이올린 올드] 울 엄마의 기구했던 생일 <br>(바이올린 신스팝)_MW02 v5||",
+"https://cdn1.suno.ai/91b8aa98-e8a2-45bb-b345-84680f0f6b43.mp3|[트로트] 울 엄마의 기구했던 생일 (트로트 발라드 74bpm, 허스키하고 애절한 남성 음색, 어머니에 대한 후회와 그리움이 넘치는 깊은 한국적 한의 감정, 고통과 추억이 가득한 극적인 비브라토)_M09 v5.5||",
+"https://cdn1.suno.ai/35b4f606-c2ce-417e-9eb0-621c556ef3cc.mp3|[동요 풍] 울 엄마의 기구했던 생일 (동요풍 발라드 68bpm, 남성 여성 듀엣, 마치 오래된 가족사진첩을 들여다보는 듯한 순수하고도 애틋한 분위기, 어머니의 사랑을 담은 어린 시절 추억을 표현)_WM01 v5.5||",
+"https://cdn1.suno.ai/dd07c396-c042-4844-8a17-f16e69a2f0b2.mp3|[민요 풍] 울 엄마의 기구했던 생일 (민요풍 애가, 깊은 한과 슬픔을 표현하는 애절한 보컬, 겨울 황혼녘에 돌아가신 부모님을 추억하는 애틋한 분위기, 절제되었지만 가슴을 울리는 회개와 그리움)_M10 v5.5||",
+"https://cdn1.suno.ai/8df9b41f-b423-4212-b665-09e56ff11fee.mp3|[하드록] 울 엄마의 기구했던 생일 (하드록과 댄서블한 그루브, 디스코 스타일의 하이햇, 보컬 스타일은 부드러우면서도 약간 거친 록 에너지가 섞인 느낌)_M19 v5.5||",
+"https://cdn1.suno.ai/9ee13610-da99-41b9-aa0e-913e2d0c0788.mp3|[포크 송] 울 엄마의 기구했던 생일 (포크 발라드 72bpm, 깊고 애절한 슬픔과 후회가 담긴 남성 목소리, 뒤늦게 깨달은 아들의 효심을 반영하는 애틋한, 억누른 눈물과 깊은 향수, 그리움과 후회)_M06 v5.5||",
+"https://cdn1.suno.ai/b9fb403e-3363-4bda-bacc-9dc48ab5cdef.mp3|[드라마 OST] 울 엄마의 기구했던 생일 (드라마 OST 발라드 70bpm, 애절한 영화 음악풍, 가족 멜로드라마와 부모에 대한 추억에서 영감을 받은 가슴 아픈 분위기, 죄책감 그리움, 풀리지 않은 슬픔)_MW03 v5.5||",
+"https://cdn1.suno.ai/9bbc8e4d-a07a-44e6-84e0-7e44b02280dd.mp3|[전통 발라드] 울 엄마의 기구했던 생일 <br>(감성적인 남녀 보컬, 풍성한 편곡, 애절한 전통 악기, 현악기, 대나무 피리, 리드미컬한 북, 한국 전통 발라드, 기타 연주는 없고 슬픔을 담은 곡)_MW07 v5.5||",
+"https://cdn1.suno.ai/ed4e213c-4657-4719-8b5a-7e0f722f0bce.mp3|[브라스 밴드] 울 엄마의 기구했던 생일 (브라스 밴드 발라드 70bpm, 지치고 애절한 음색, 향수를 불러일으키는 진심 어린 추모가 어우러진 곡, 후회와 감사가 가득한 슬픈 남성 보컬, 깊은 가족애)_M16 v5.5||",
+"https://cdn1.suno.ai/9028686f-3a25-4db9-908f-07c22627c205.mp3|[오케스트라] 울 엄마의 기구했던 생일 (오케스트라 발라드 72bpm, 슬픔과 후회, 영원한 효심을 표현하는 세련된 교향악 편곡, 절망과 그리움이 깊은 감정의 바리톤, 세상을 떠난 부모님에 대한 추억)_M15 v5.5||",
+"https://cdn1.suno.ai/4dc307d4-ec35-4341-816b-25611a11d808.mp3|[오페라] 울 엄마의 기구했던 생일 (오페라 발라드, 극적인 오페라 바리톤, 어머니와 아버지에 대한 고뇌, 회개, 영원한 그리움이 담긴 극적인 보컬 표현, 웅장한 영화적 크레셴도와 신성한 레퀴엠)_M12 v5.5||",
+"https://cdn1.suno.ai/2a619b68-ff6b-40c2-ab35-230ed10deb00.mp3|[바이올린 뉴] 울 엄마의 기구했던 생일 <br>(바이올린, 신스팝, 남녀 보컬, 템포는 80bpm으로 다소 느리고, 슬픈 마음)_MW10 v5.5||",
+"https://cdn1.suno.ai/7d285078-1c85-4bf6-b2cb-41b61e03cfd1.mp3|[전통 사극] 울 엄마의 기구했던 생일 (한국 전통 사극 발라드, 애절하고 시적으로 표현, 감성적이고 애절한 여성 보컬, 가야금, 대금, 해금, 저음의 전통 북, 그리고 웅장한 오케스트라 현악기를 포함)_W05 v5.5||",
 ]
 
 song = [
 `<table class='box' style="BACKGROUND:white url('https://i.imgur.com/dgZzxa6.jpeg') no-repeat fixed center center" cellpadding='8' width=100%><tr valign=middle><td class='lt'>
-<P class='mid'>
-<font color='blue'><b>울 엄마의 기구했던 생일</b></font><br><br>
+<P class='mid'><font style="display:none"><b>울 엄마의 기구했던 생일</b></font><br><br>
 
 용띠 해 무진년에 오시어<br>
 용띠 해 갑진년에 가신..<br>
 막내도 같은 띠, 용띠라 하시며<br>
 좋아하셨던 나의 어머니!<br><br>
 
-<img src="https://i.imgur.com/y3ZpxAB.jpeg" width=100% title=""><br><br>
+<img src="https://i.imgur.com/y3ZpxAB.jpeg" width=100% title="📷 "><br><br>
 
 울 엄마 생일은 음력 12월 30일.<br>
 "올해는 엄마 생일이 없네?"<br>
 "어머야! 왜 내 생일이 없니?"<br><br>
 
-<img src="https://i.imgur.com/R6GOl4s.png" width=100% title=""><br><br>
+<img src="https://i.imgur.com/R6GOl4s.png" width=100% title="📷 "><br><br>
 
 섣달그믐은 늘 오는데<br>
 음력 서른 날은 없는 해가 많아요<br>
 그래서 이제부터 울 엄마 생일은<br>
 무조건 설날 하루 전!<br><br>
 
-<img src="https://i.imgur.com/r5RWfQF.jpeg" width=100% title=""><br><br>
+<img src="https://i.imgur.com/r5RWfQF.jpeg" width=100% title="📷 "><br><br>
 
 기구했던 엄마의 생일날이기에 <br>
 모처럼 찾아온 온전한 올해는 <br>
 케이크 들고 재롱 떨려 했는데, <br><br>
 
-<img src="https://i.imgur.com/w6cSxyv.jpeg" width=100% title=""><br><br>
+<img src="https://i.imgur.com/w6cSxyv.jpeg" width=100% title="📷 "><br><br>
 
 가족들 사진 보면 환하게 웃으시던<br>
 그 모습 보고 싶어 애써 준비했는데<br><br>
 
-<img src="https://i.imgur.com/QzymRzx.jpeg" width=100% title=""><br><br>
+<img src="https://i.imgur.com/QzymRzx.jpeg" width=100% title="📷 "><br><br>
 
 불과 며칠 남기고, <br>
 왜 홀연히 떠나셨나요..<br><br>
 
-<img src="https://i.imgur.com/hXEJRly.png" width=100% title=""><br><br>
+<img src="https://i.imgur.com/hXEJRly.png" width=100% title="📷 "><br><br>
 
 부엌에서 과수원으로 분주한 삶에도<br>
 세월 따라 손주들 자라는 자리에, <br>
 함께 웃던 그 모든 날의 그 모습들.. <br>
 사진 속에는 선명하게 살아계시네요~<br><br>
 
-<img src="https://i.imgur.com/a1SIJqp.jpeg" width=100% title=""><br><br><br>
+<img src="https://i.imgur.com/a1SIJqp.jpeg" width=100% title="📷 "><br><br><br>
 
 
 1번 성찬, 2번 덕찬, 3번 승찬! <br>
 휴대폰의 무용지물에 가슴 아파졌고,<br><br>
 
-<img src="https://i.imgur.com/MPh9L4b.jpeg" width=100% title=""><br><br>
+<img src="https://i.imgur.com/MPh9L4b.jpeg" width=100% title="📷 "><br><br>
 
 애지중지하던 통장을 내어주실 때<br>
 가슴이 미어졌습니다~<br><br>
 
-<img src="https://i.imgur.com/EbzDKiL.png" width=100% title=""><br><br>
+<img src="https://i.imgur.com/EbzDKiL.png" width=100% title="📷 "><br><br>
 
 엘리베이터 안,<br>
 "엄마! 안녕" 나의 손짓에<br>
 맥없이 손 흔들어 주시던 그 모습!<br>
 그것이 마지막 인사일 줄이야... 아~~<br><br>
 
-<img src="https://i.imgur.com/osWK0ID.png" width=100% title=""><br><br>
+<img src="https://i.imgur.com/osWK0ID.png" width=100% title="📷 "><br><br>
 
 논화리 아버님 모셔온 그 자리, <br>
 7층 로얄층에 편히 잠드소서. <br><br>
 
-<img src="https://i.imgur.com/4NPx3Lj.png" width=100% title=""><br><br>
+<img src="https://i.imgur.com/4NPx3Lj.png" width=100% title="📷 "><br><br>
 
 섣달그믐 아닌 좋은 날에<br>
 고통 없는 곳으로, <br>
 부디 극락 왕생하세요. <br><br>
 
-<img src="https://i.imgur.com/yeSYJSQ.jpeg" width=100% title=""><br><br><br>
+<img src="https://i.imgur.com/yeSYJSQ.jpeg" width=100% title="📷 "><br><br><br>
 
 
 아버님! 어머님!<br>
 언제나 고마웠습니다!<br><br>
 
-<img src="https://i.imgur.com/HBrfxU3.png" width=100% title=""><br><br>
+<img src="https://i.imgur.com/HBrfxU3.png" width=100% title="📷 "><br><br>
 
 나의 어머님!<br>
 영원히 사랑합니다!<br><br>
 
-<img src="https://i.imgur.com/b4GkUZR.png" width=100% title=""><br><br>
+<img src="https://i.imgur.com/b4GkUZR.png" width=100% title="📷 "><br><br>
+
+<img src="https://i.imgur.com/f9epyZl.jpeg" width=100% title="📷 "><br><br>
 
 나의 아버님!<br>
-영원히 사랑합니다~~~<br>
+영원히 사랑합니다~~~<br><br>
+
+<img src="https://i.imgur.com/NDis5QM.jpeg" width=100% title="📷 "><br><br>
+
+<img src="https://i.imgur.com/JiavpNp.jpeg" width=100% title="📷 "><br><br>
+
+<img src="https://i.imgur.com/FzxRBRY.jpeg" width=100% title="📷 ">
 </td></tr></table>`,
 ]
 
@@ -698,17 +707,17 @@ function music_Random() {
 function music_Repeat() {
     if ( document.getElementById('Re_button').value=='noRepeat'){
         document.getElementById('Re_button').value = 'Repeat';
-        document.getElementById('Re_button_img').src="https://i.imgur.com/5qbfwpX.png"  // sequence
+        document.getElementById('Re_button_img').src="https://i.imgur.com/5qbfwpX.png"  // 
         document.getElementById('Re_button_img').title="반복 해제" 
         document.getElementById('Re_button3').value = 'Repeat';
-        document.getElementById('Re_button_img3').src="https://i.imgur.com/5qbfwpX.png"  // sequence
+        document.getElementById('Re_button_img3').src="https://i.imgur.com/5qbfwpX.png"  // 
         document.getElementById('Re_button_img3').title="반복 해제" 
     }else{
         document.getElementById('Re_button').value = 'noRepeat'
-        document.getElementById('Re_button_img').src="https://i.imgur.com/gP56fwE.png" // random
+        document.getElementById('Re_button_img').src="https://i.imgur.com/gP56fwE.png" // 
         document.getElementById('Re_button_img').title="한곡 반복" 
         document.getElementById('Re_button3').value = 'noRepeat'
-        document.getElementById('Re_button_img3').src="https://i.imgur.com/gP56fwE.png" // random
+        document.getElementById('Re_button_img3').src="https://i.imgur.com/gP56fwE.png" // 
         document.getElementById('Re_button_img3').title="한곡 반복" 
     }
 }
@@ -744,23 +753,38 @@ var generateRandom = function (min, max) {
 function gasa(n) {
    var z = 0
    var title5 = odi[n].split("|")[1];
+        title5 = title5.split("] ")[1];
         title5 = title5.split("_")[0];
-        if ( title5.includes(' (')) { title5 = title5.split(" (")[0] }; // 250808 제목에 괄호 추가시
+   var title6 = title5;
+        if ( title5.includes(' <') ) { title5 = title5.split(" <")[0]; // 260127 제목에 괄호 추가시
+        } else if ( title5.includes(' (')) { title5 = title5.split(" (")[0]; // 250808 제목에 괄호 추가시
+        } else {
+        }
 
   for (var k=0;k<=song.length-1;k++) {
      var song2 = song[k].split("<b>")[1] 
           song2 = song2.split("</b>")[0]
-        // console.log(title5 + " : " + song2); 
-     if ( title5 === song2 ) { z = 1; break; }
+     if ( title5 == song2 ) {
+         z = 1;
+         break; }
   }
-   $('#test3').text(z);
 
   if ( z == 0) 
   { 
       $('#test3').html("<P class='mid'><font color=red>((( 가사 없음 )))</font></p>");
   } else {
-      $('#test3').html(song[k]); z = 0; 
+      $('#gasaTitle').html("<font class='box'><b>" + title6 + "</b></font>"); 
+      $('#test3').html(song[k]); 
+      z = 0; 
   }
+
+  // 레이아웃 재조정
+  adjustLayout();
+}
+
+function adjustLayout() {
+  var fixedHeight = document.getElementById('fix').offsetHeight;
+  document.getElementById('content-wrap').style.paddingTop = (fixedHeight + 1) + 'px';
 }
 
 $(document).ready(function(){ 
@@ -839,17 +863,22 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 </div>
 <!-- div id=test10>test10 </div //-->
 <div id="List">List</div>
+
+<table id='gasaTitleTable' class="gasaTitle" style='BACKGROUND:pink url('') repeat fixed left top; display:none;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
+<div id="gasaTitle"></div></td></tr></table>
 </TD></TR></TABLE>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 <table style="BACKGROUND:linen url('') repeat fixed left top; table-layout: fixed;" width=940 height=104 border=3 bordercolor=blue cellspacing='0' cellpadding='10'><tr valign=top><td>
-
 <span id="aaa">
-<div id=test3>test3 </div>
+
+<div id="content-wrap">
+<table style="BACKGROUND:linen url('https://blog.kakaocdn.net/dn/bvn2Wa/btsOyojFwNE/oQF6pyZs1UJR5h2oDftYeK/img.png') repeat fixed center top; table-layout: fixed;" width=100% height=10 border=0 bordercolor=blue cellspacing='0' cellpadding='0'><tr valign=top><td>
+<div id="test3">test3 </div>
+</TD></TR></TABLE>
+</div>  <!-- content-wrap 끝 -->
 
 </P><P class="mid">
-※ 재생 영상의 목록을 보려면 아래의 분홍색 버튼을 클릭하세요! <br>
+※ 재생 음악의 목록을 보려면 아래의 분홍색 버튼을 클릭하세요! <br>
 
 <button id="tog_1" type="button" class="Jua btn btn-outline-info pin">재생 목록 (List) 펼쳐 보기</button><br><br><div id=List1>
 <table style="BACKGROUND:thistle url('http://cfile219.uf.daum.net/image/136B68054942B0B803B8EC') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
@@ -859,7 +888,7 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 </P><P class="mid"><font color='#FF5722'>※ 우측의 '따라다니는 메뉴' 하단 →<br>
 X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 
-<!-- div id="bonmoon"></div //-->
+<!-- div id="bonmoon"></div>
 
 <br><br><br><P class="tit">240102 엄마의 추억을 위하여..<br><br><br></P><P class="mid">
 
