@@ -1,8 +1,8 @@
 ﻿
 <!DOCTYPE html>
 <html lang='ko'>
-<head><title>손자의 성장 가요 ♬</title>
-<meta property="og:image" content="https://i.imgur.com/FlHOxSm.jpeg">
+<head><title>손자의 성장 가요 1집 ♬</title>
+<meta property="og:image" content="https://pub-e9f259b2cb7f4eff868b4c7a84644706.r2.dev/webp/로운이의 탄생 1주년_CO1.webp">
 <meta property=”og:image:width” content=”800">
  <meta property=”og:image:height” content=”600"> 
 <meta property="og:description"  content="개구쟁이라도 좋다! 튼튼하게만 자라다오.">
@@ -67,9 +67,11 @@ p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; li
 .theme-lightpink .fix, .theme-lightpink .gasaTitle { background: lightpink !important; } /* 엄마 아빠 */
 .theme-khaki .fix, .theme-khaki .gasaTitle { background: khaki !important; } /* 할아버지 할머니 */
 .theme-palegreen .fix, .theme-palegreen .gasaTitle { background: palegreen !important; } /* 100일 */
+.theme-mistyrose .fix, .theme-mistyrose .gasaTitle { background: mistyrose !important; } /* 어린이집 */
+.theme-lightcoral .fix, .theme-lightcoral .gasaTitle { background: lightcoral !important; } /* 첫돌 */
 .theme-lightgrey .fix, .theme-lightgrey .gasaTitle { background: lightgrey !important; } /* 증조모 */
 .theme-lavenderblush .fix, .theme-lavenderblush .gasaTitle { background: lavenderblush !important; } /* 생일 */
-.theme-white .fix, .theme-white .gasaTitle { background: white !important; } /* 결혼 */
+.theme-snow .fix, .theme-snow .gasaTitle { background: snow !important; } /* 결혼 */
 .theme-sandybrown .fix, .theme-sandybrown .gasaTitle { background: sandybrown !important; } /* 로운 */
 
   .circle-img {
@@ -118,17 +120,16 @@ p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; li
             width: 0%;
             transition: width 0.1s ease;
         }
-
 .volume-control { font-size:22px; font-weight : bold; }
 
 #volumeSlider {
-  width: 76%;
+  width: 75%; /* 88% → 75%로 변경 */
   height: 20px;
 
   /* 기본 스타일 초기화 */
   -webkit-appearance: none; 
   appearance: none; 
-  background: pink;
+  background: pink; //transparent
   outline: none;  
   border-radius: 5px;
 }
@@ -161,22 +162,12 @@ p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; li
   border: 1px solid #007bff; /* 원래 테두리 유지 */
 }
 
-body.dark-mode {
-  background: #1a1a2e;
-  color: #eee;
-}
-body.dark-mode .fix {
-  background: #16213e !important;
-}
-
-#dark-mode-btn {
-  height: 0px;
-  padding: 0 5px;
-  font-size: 54px;
+#i_button_img {
+  padding: 0px;
+  font-size: 44px; font-family: 'Gugi'; font-weight : bold; text-align : center;
   background: ;
   border: 0px solid #007bff;
   border-radius: 0px;
-  cursor: pointer;
   outline: none;
 }
 
@@ -247,9 +238,10 @@ button { style="border: none; background: none; padding: 0;"}
 </STYLE>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="httpshttps://cdn.jsdelivr.net/gh/deokchan/js@latest/://www.youtube.com/iframe_api"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/RoWoon.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/specialPatterns.js"></script>
 
 <!-- 
     1.  jsDelivr의 [Purge Cache](https://www.jsdelivr.com/tools/purge) 페이지로 이동합니다.
@@ -282,22 +274,6 @@ function runTimer() {
         window.scroll(0, curPos);
     }
 
-/*
-    // 최하단에 도달했는지 확인
-    if (curPos >= maxScrollHeight) {
-        // 최하단에 도달하면 최상단(0)으로 이동
-        window.scroll(0, 0);
-        console.log("최하단 도달 - 최상단으로 이동");
-        
-        // 최상단에서 스크롤 중지 (무한 반복을 원하면 이 줄을 주석 처리)
-        // stop();
-        // return; // 함수 종료
-    } else {
-        // 아직 최하단에 도달하지 않았으면 계속 아래로 스크롤
-        window.scroll(0, curPos);
-    }
-*/
-    
     tscroll = window.setTimeout(runTimer, 18);    // 16ms 후에 다시 runTimer 함수 실행 (약 60fps로 부드럽게)
 }
 
@@ -317,15 +293,8 @@ function startScroll() {
 }
 </script> 
 
-
 <script> 
 $(document).ready(function() { 
-/*
-  var script = document.createElement('script');
-  script.src = `https://cdn.jsdelivr.net/gh/deokchan/js@latest/YangCho.js?v=${new Date().getTime()}`;
-  document.head.appendChild(script);
-*/
-
   var floatPosition = parseInt($("#menu").css('top')); 
   $(window).scroll(function() { 
   var scrollTop = $(window).scrollTop(); 
@@ -363,6 +332,7 @@ function fontSz(val) {
     $("font").css({"font-size": font_size + "px"});
 }
 
+/*
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
   const isDark = document.body.classList.contains('dark-mode');
@@ -373,6 +343,7 @@ function toggleDarkMode() {
   
   localStorage.setItem('darkMode', isDark);
 }
+*/
 </script> 
 
 <script type='text/javascript'>
@@ -381,7 +352,7 @@ var n = 0;
 var ctl;
 var list_num = odi.length-1;
 var a = 0
-var b = 24 // list_num
+var b = list_num
 
 let originalOdi = null;
 function init() {
@@ -394,20 +365,48 @@ function init() {
     ctl = document.getElementById('bg_music');
     ctl.volume = 0.5;
     n = generateRandom(a, b);
+
+   // ─── 저장된 정렬 복원 ───
+   let savedSort = localStorage.getItem("lastSortType_" + currentPage);
+  
+   if (savedSort && savedSort !== 'default') {
+     document.getElementById("sortSelector").value = savedSort;     // 셀렉트 박스 값 설정
+     sortPlaylist(savedSort, false);  // ← 재생 안 함
+   }
+
+  // ─── 저장된 곡 위치 복원 ───
     let savedIndex = localStorage.getItem("lastTrackIndex_" + currentPage);
 
     // 저장된 값이 있다면 이어듣기
     if (savedIndex !== null) {
         n = parseInt(savedIndex);
     }
+    if ( n > odi.length) { n = 0 }
 
     $('#test3').html(List[n]);
     play_it(n);
-    //music_Random()
     //console.log("n : " + n);
+
+   adjustLayout()  // 가사 창 상하 위치 260217
 }
 
-function sortPlaylist(sortType) {
+  // 장르 우선순위 정의
+  const genreOrder = {
+    "잉태 기쁨": 1,
+    "태담 희망": 2,
+    "건강 기원": 3,
+    "탄생 파랑": 4,
+    "탄생 로운": 5,
+    "작명 축복": 6,
+    "백일 축하": 7,
+    "어린이 집": 8,
+    "첫돌 축하": 9,
+    "결혼 기념": 10,
+    "생일 축하": 11,
+    "증조모 생일": 12,
+  };
+
+function sortPlaylist(sortType, shouldPlay = true) {
   
   // 원본 배열 복원 (정렬 전 초기화) 260224
   odi = [...originalOdi];
@@ -432,28 +431,67 @@ function sortPlaylist(sortType) {
         
         if (numA !== numB) return numA - numB;
         
-        // 숫자 같으면 장르로 2차 정렬
-        const genreA = titleA.split("[")[1]?.split("]")[0] || "";
-        const genreB = titleB.split("[")[1]?.split("]")[0] || "";
-        return genreA.localeCompare(genreB, 'ko');
+      // 2차: 장르를 genreOrder 순서대로 정렬
+      const genreA = titleA.split("[")[1]?.split("]")[0] || "zzz미분류";
+      const genreB = titleB.split("[")[1]?.split("]")[0] || "zzz미분류";
+    
+      const orderA = genreOrder[genreA] || 999;
+      const orderB = genreOrder[genreB] || 999;
+    
+      return orderA - orderB;
       });
       break;
       
-case 'genre':
-  // 장르 우선순위 정의
-  const genreOrder = {
-    "잉태 기쁨": 1,
-    "태담 희망": 2,
-    "건강 기원": 3,
-    "탄생 파랑": 4,
-    "탄생 로운": 5,
-    "작명 축복": 6,
-    "백일 축하": 7,
-    "결혼 기념": 8,
-    "생일 축하": 9,
-    "증조모 생일": 10,
-  };
+    case 'prefer-0':
+      // 0순위만 필터링 후 장르순 정렬
+      odi = odi.filter(item => {
+        const title = item.split("|")[1];
+        const prefer = parseInt(title.split("[")[0].trim()) || 0;
+        return prefer === 0;   // return prefer <= 10;  // Top 10만
+      });
+      
+      // 장르순 2차 정렬
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        const genreA = titleA.split("[")[1]?.split("]")[0] || "zzz미분류";
+        const genreB = titleB.split("[")[1]?.split("]")[0] || "zzz미분류";
+        
+        const orderA = genreOrder[genreA] || 999;
+        const orderB = genreOrder[genreB] || 999;
+        
+        return orderA - orderB;
+      });
+      break;
+      
+    case 'prefer-0-2':
+      odi = odi.filter(item => {
+        const title = item.split("|")[1];
+        const prefer = parseInt(title.split("[")[0].trim()) || 0;
+        return prefer >= 0 && prefer <= 2;      // 0~2순위만 필터링 후 선호도 → 장르순 정렬
+      });
+      
+      // 선호도순 1차 정렬
+      odi.sort((a, b) => {
+        const titleA = a.split("|")[1];
+        const titleB = b.split("|")[1];
+        const preferA = parseInt(titleA.split("[")[0].trim()) || 0;
+        const preferB = parseInt(titleB.split("[")[0].trim()) || 0;
+        
+        if (preferA !== preferB) return preferA - preferB;
+        
+        // 장르순 2차 정렬
+        const genreA = titleA.split("[")[1]?.split("]")[0] || "zzz미분류";
+        const genreB = titleB.split("[")[1]?.split("]")[0] || "zzz미분류";
+        
+        const orderA = genreOrder[genreA] || 999;
+        const orderB = genreOrder[genreB] || 999;
+        
+        return orderA - orderB;
+      });
+      break;
 
+case 'genre':
   odi.sort((a, b) => {
     const titleA = a.split("|")[1];
     const titleB = b.split("|")[1];
@@ -571,16 +609,23 @@ case 'keyword':
       break;
   }
   
+  // ─── 정렬 상태 저장 ───
+  localStorage.setItem("lastSortType_" + currentPage, sortType);
+
   // 정렬 후 목록 갱신 및 첫 곡 재생
   bgmLoad();     // 전체 목록 다시 그리기
   listLoad();    // 현재 이후 목록 다시 그리기
-  play_it(0);    // 첫 곡부터 재생
+
+  if (shouldPlay) {
+    play_it(0);  // 정렬 후 재생
+  }
 }
 
 // 전역 변수로 타이머 ID 저장
 var countTimer = null;
 
 function play_it(n) {
+    list_num = odi.length-1;  // 260311 배열의 변경에 따라 재설정.
     $('#gasaTitle').html(""); 
     window.n = parseInt(n); // 현재 n 값을 명확하게 설정, 문자열로 들어올 경우를 대비해 정수로 변환
     
@@ -926,6 +971,7 @@ for (var i=0;i<=odi.length-1;i++) {
 
     updateButton();
     DdayList();
+    music_Random()
 }
 
 function listLoad() {
@@ -939,6 +985,7 @@ for (var i=cN;i<=odi.length-1;i++) {
  var title1 = title.split("_")[0] 
  var title2 = title.split("_")[1] 
  var title3 = title1 + " " + title2
+//      if ( title3.includes("KCH") ) { title3 = title3.replace("KCH", "<font color=red>KCH</font>") }; // 251205 KCH 적색으로 치환
 
       tag5 = tag5 + "<button class='bt' onclick='play_it(" + i + " )'>" + (i+1) + "</button> " + title3 + "<br><br>"; 
  }
@@ -953,19 +1000,31 @@ var generateRandom = function (min, max) {
 function gasa(n) {
    var z = 0
    var title5 = odi[n].split("|")[1];
+   var ver = title5.split("_")[1].split(" ")[1];
+   ver = ver.replace("-all", "a");
+   ver = ver.replace("riffusion", "r"); 
+   ver = ver.replace("FUZZ-", "r"); 
+   ver = ver.replace("etc", "e"); 
+   ver = ver.replace("v", ""); 
+   $('#i_button_img').text(ver);
+
   if (title5.includes("엄마 아빠")) {
     applyTheme('lightpink'); // 라이트 핑크 테마
   } else if (title5.includes("할아")) {
     applyTheme('khaki'); 
-  } else if (title5.includes("100일") || title5.includes("百日")) {
+  } else if (title5.includes("백일")) { 
     applyTheme('palegreen'); 
+  } else if (title5.includes("어린이집")) { 
+    applyTheme('mistyrose'); 
+  } else if (title5.includes("첫돌")) { 
+    applyTheme('lightcoral'); 
   } else if (title5.includes("증조모")) {
     applyTheme('lightgrey');
   } else if (title5.includes("생일")) {
     applyTheme('lavenderblush');
   } else if (title5.includes("결혼")) {
-    applyTheme('white');
-  } else if (title5.includes("로운")) {
+    applyTheme('snow');
+  } else if (title5.includes("로운이") || title5.includes("로운아") || title5.includes("로운에")) {
     applyTheme('sandybrown');
   } else {
     applyTheme('default'); // 기본 테마
@@ -974,7 +1033,6 @@ function gasa(n) {
         title5 = title5.split("] ")[1];
         title5 = title5.split("_")[0];
    var title6 = title5;
-//        if ( title5.includes(' (')) { title5 = title5.split(" (")[0] }; // 250808 제목에 괄호 추가시
         if ( title5.includes(' <') ) { title5 = title5.split(" <")[0]; // 260127 제목에 괄호 추가시
         } else if ( title5.includes(' (')) { title5 = title5.split(" (")[0]; // 250808 제목에 괄호 추가시
         } else {
@@ -1004,6 +1062,26 @@ function gasa(n) {
 function adjustLayout() {
   var fixedHeight = document.getElementById('fix').offsetHeight;
   document.getElementById('content-wrap').style.paddingTop = (fixedHeight + 1) + 'px';
+}
+
+function toggleGasaTitle() {
+  var table = document.getElementById('gasaTitleTable');
+  var img = document.getElementById('i_button_img');
+  
+  if (table.style.display === 'none') {
+    // 열기
+    table.style.display = 'table';
+    img.src = 'https://i.imgur.com/61nOEfT.png';
+    img.title = '정보 닫기';
+  } else {
+    // 닫기
+    table.style.display = 'none';
+    img.src = 'https://i.imgur.com/7GzEU6K.png';
+    img.title = '정보 보기';
+  }
+  
+  // 레이아웃 재조정
+  adjustLayout();
 }
 
 function applyTheme(themeName) {
@@ -1063,18 +1141,19 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
 <a name=top></a>
 <center>
 <table id='fix' class='fix' style="BACKGROUND:#ccffff url('') repeat fixed left top" width=940 height=104 border=3 bordercolor=blue cellspacing='0' cellpadding='10'><tr valign=middle><td>
-<!-- div id='fix2' class='fix2'></div //-->
 <table width=100%><tr><td>
 <a href='javascript:music_control()'><img id='music_button_img' src='https://i.imgur.com/TQFP08p.png' height=100 title='일시 정지'>
-<input type=text style='font-size: 16px; display:none;' id='music_button' value='start'></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<a href='javascript:music_Random()'><img id='RS_button_img' src='https://i.imgur.com/LOi8XuQ.png' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button' value='sequence'></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<a href='javascript:music_Prev()'><img src='https://i.imgur.com/4pZ3zXN.png' height=100 title='이전 곡 1'><img src='https://i.imgur.com/tkZvFNw.png' height=100 title='이전 곡  2'></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
-<a href='javascript:music_Next()'><img src='https://i.imgur.com/mNMdXMC.png' height=100 title='다음 곡 1'><img src='https://i.imgur.com/TFw4TDC.png' height=100 title='다음 곡 2'></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<a href='javascript:music_Repeat()'><img id='Re_button_img' src='https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button' value='noRepeat'></a>&nbsp;&nbsp;<button id="dark-mode-btn" onclick="toggleDarkMode()">🌙</button>
-</td><td width=20%><div id='mTime' style='text-align : right;'>mTime</div></TD></TR></TABLE>
+<input type=text style='font-size: 16px; display:none;' id='music_button' value='start'></a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href='javascript:music_Random()'><img id='RS_button_img' src='https://i.imgur.com/LOi8XuQ.png' height=100  title='랜덤 재생'><input type=text style='font-size: 16px; display:none;' id='RS_button' value='sequence'></a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href='javascript:music_Prev()'><img src='https://i.imgur.com/4pZ3zXN.png' height=100 title='이전 곡 1'><img src='https://i.imgur.com/tkZvFNw.png' height=100 title='이전 곡  2'></a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href='javascript:music_Next()'><img src='https://i.imgur.com/mNMdXMC.png' height=100 title='다음 곡 1'><img src='https://i.imgur.com/TFw4TDC.png' height=100 title='다음 곡 2'></a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href='javascript:music_Repeat()'><img id='Re_button_img' src='https://k.kakaocdn.net/dn/Go3Nx/btqFGNfQ62L/Aynp9kXkF4bkmcNc5dSkb0/img.png' height=100 title='한곡 반복'><input type=text style='font-size: 16px; display:none;' id='Re_button' value='noRepeat'></a>  
+</td><td width=10%><a href='javascript:toggleGasaTitle()'><div id='i_button_img'>ver</div></a></td><td width=20%><div id='mTime' style='text-align : right;'>mTime</div></TD></TR></TABLE> 
 <audio id='bg_music' controls preload='preload' autoplay='autoplay' style="display:none">
   <source id='sos' src=''  type=''>
 </audio>
+
+<!-- a href='javascript:toggleGasaTitle()'><img id='i_button_img' src='https://i.imgur.com/7GzEU6K.png' height=80 title='정보 보기'></a //-->
 
 <div id="progressContainer">
     <div id="progressBar"></div>
@@ -1085,28 +1164,30 @@ function youtube_parser(url){  // 유튜브 비디오 ID 추출
     <input type="range" id="volumeSlider" min="0" max="100" value="50">
     <span id="volumeDisplay">50%</span>
     
-    <!-- 정렬 셀렉트 박스 추가 -->
+    <!-- 정렬 셀렉트 박스 추가 260224 -->
 <select id="sortSelector" onchange="sortPlaylist(this.value)">
     <option value="default">🔢 기본순서</option>
-    <option value="prefer">⭐ 선호도순</option>
+    <option value="prefer">⭐ 순환 순</option>
+    <!-- option value="prefer-0">⭐ 0순위만</option>        <추가 -->
+    <option value="prefer-0-2">⭐ 1~2순위</option>      <!-- 추가 -->
     <option value="genre">🎵 장르순</option>
     <option value="title-asc">📖 제목(ㄱ→ㅎ)</option>
     <option value="title-desc">📕 제목(ㅎ→ㄱ)</option>
-    <option value="keyword">🔑 키워드순</option>     ← 추가
+    <!-- option value="keyword">🔑 키워드순</option>     ← 추가
     <option value="date-asc">📅 날짜(오래된순)</option>  ← 추가
-    <option value="date-desc">📆 날짜(최신순)</option>  ← 추가
+    <option value="date-desc">📆 날짜(최신순)</option //-->  ← 추가
     <option value="version-asc">🆙 버전(낮→높)</option>
     <option value="version-desc">🆕 버전(높→낮)</option>
 </select>
 </div>
 
 <div id="List">List</div>
+
 <table id='gasaTitleTable' class="gasaTitle" style='BACKGROUND:pink url('') repeat fixed left top; display:none;' cellpadding='10' width=100%><tr valign=middle><td class='lt'>
 <div id="gasaTitle"></div></td></tr></table>
 </TD></TR></TABLE>
 
 <table style="BACKGROUND:linen url('') repeat fixed left top; table-layout: fixed;" width=940 height=104 border=3 bordercolor=blue cellspacing='0' cellpadding='10'><tr valign=top><td>
-
 <span id="aaa">
 
 <div id="content-wrap">
@@ -1140,7 +1221,6 @@ X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 
 <div id=upmemo>upmemo</div><P class='mid'><br><br>
 
-
 </P><P class="title">로운이의 탄생 기념일 타이머<br>
 
 <table width=100% background=http://cfile239.uf.daum.net/original/25600340525FBE6129DF07 cellSpacing=3 cellPadding=0><tr valign=center><td>
@@ -1154,9 +1234,8 @@ X = 플레이어 감춤, O = 플레이어 보기</font><br><br>
 
 </P><P class="mid">
 ※ 위 노란색 (셀렉트 박스)을 클릭하면 나이에 따른 '별칭'을 볼 수 있습니다~~<br><br><br>
-
-
  
+
 <P class="mid"> 
 <center><button id="tog_3" type="button" class="Jua btn btn-outline-info pin">플레이어 사용법 ))) 열기 (((</button><br><br><div id=List2>
 <table style="BACKGROUND:#CCFFFF url('') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
@@ -1674,3 +1753,4 @@ var dDay1 = "<font style='font-size:45pt' color=red face=바탕><b>";
 </body>
 </html>
 
+                                                                                                                                                                                            
