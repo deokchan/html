@@ -969,9 +969,52 @@ function bgmPlay(sel) {
      play()
 }
 
+function listLoad() {
+   let memo = "※ 지금 재생되는 곡부터 이후의 목록이 표시되며, 이전의 목록은 맨 위의 노란색 [셀렉트 박스]에서 확인할 수 있습니다.<br>"
+       memo += "※ 목록의 왼쪽 [적색 번호] 버튼을 클릭하면 해당 곡부터 재생됩니다.<br><br>"
+   let tag5 = ""
+   let cN = window.n; // 현재 n 값 가져오기
+
+/*
+     result = stringSplit(bgm[i], "|");  //  인자 앞에 녀석은 쪼개고자 하는 문자열, 뒤에는 구분자
+var temp = result[1]
+     temp = stringSplit(temp, "* ")[0]
+     temp = stringSplit(temp, "] ")[1]
+var temp1 = temp
+
+     if (temp.length > 40) { temp = stringSplit(temp, " : ")[0] }
+     if (temp.length > 40) {
+        var temp2 = stringSplit(temp, " : ")[0]
+             temp2 =  stringSplit(temp, " / ")[0]
+             temp2 =  stringSplit(temp, " (")[0]
+        var temp3 =  stringSplit(temp, " / ")[1]
+        var temp5 =  temp2 + " / " + temp3
+     } else {
+        var temp5 =  temp
+     }
+*/
+
+for (var i=cN;i<=bgm.length-1;i++) {
+ var title = bgm[i].split("|")[1] 
+ var title1 = title.split("*")[0] 
+// var title2 = title.split("_")[1] 
+// var title3 = title1 + " " + title2
+//      if ( title3.includes("KCH") ) { title3 = title3.replace("KCH", "<font color=red>KCH</font>") }; // 251205 KCH 적색으로 치환
+
+      tag5 = tag5 + "<button class='bt' onclick='play_it(" + i + " )'>" + (i+1) + "</button> " + title1 + "<br><br>"; 
+ }
+    test.innerHTML = "<P class='mid2'>" + memo + tag5; 
+}
+
+var generateRandom = function (min, max) {
+  var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
+  return ranNum;
+}
+
 $(document).ready(function(){ 
   $("#List1").hide();
-  $("#tog_1").click(function(){                                       
+  $("#tog_1").click(function(){
+     listLoad();
    $("#List1").toggle(2000); 
      if ( $("#tog_1").text() == '재생 목록 (List) 펼쳐 보기') { 
          $("#tog_1").text('재생 목록 (List) 닫기')
@@ -1073,7 +1116,8 @@ X = 플레이어 감춤, O = 플레이어 보기</font>
 </P><P class="mid">
 ※ 재생 영상의 목록을 보려면 아래의 분홍색 버튼을 클릭하세요! <br>
 
-<center><button id="tog_1" type="button" class="Jua btn btn-outline-info pin">재생 목록 (List) 펼쳐 보기</button><br><br><div id=List1>
+<center>
+<button id="tog_1" type="button" class="Jua btn btn-outline-info pin">재생 목록 (List) 펼쳐 보기</button><br><br><div id=List1>
 <table style="BACKGROUND:thistle url('http://cfile219.uf.daum.net/image/136B68054942B0B803B8EC') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
 <div id=test>List </div><br>
 </TD></TR></TABLE></div></center><br><br><br>
