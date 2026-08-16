@@ -294,7 +294,7 @@ urlAry[1] = "iDea6GjZlEc|명성그룹과 김철호에 얽힌 비화 (16:44) * �
 
    objAry = [];
    var a = 0
-   var b = 695
+   var b = bgm.length-1
    var nn = 0
    var vd
    var player
@@ -302,7 +302,7 @@ urlAry[1] = "iDea6GjZlEc|명성그룹과 김철호에 얽힌 비화 (16:44) * �
    var WW
    var HH
    function onYouTubeIframeAPIReady() {
-   vd = 0 // generateRandom(0, 178); // bgm.length-1
+   vd = generateRandom(a, b); // bgm.length-1
    ID = stringSplit(bgm[vd], "|")[0];
 
         player = new YT.Player('player', {
@@ -423,7 +423,7 @@ const currentPage = location.pathname.split('/').pop().replace('.html', '');
 var Q
 function onPlayerReady(event) {
 
-//   music_Random() // 2024.04.08 랜덤 삽입
+   music_Random() // 2024.04.08 랜덤 삽입
 
     bgmLoad()
     let savedIndex = localStorage.getItem("lastTrackIndex_" + currentPage);
