@@ -268,24 +268,19 @@ function fontSz(val) {
 </script> 
 
 <script type='text/javascript'>
+const BASE_URL    = 'https://pub-e9f259b2cb7f4eff868b4c7a84644706.r2.dev/';
 var vdName = 'PL7xRxNWQmJddA2Ln_6VgaXYZphDjChlYO'
 var title = '내가 좋아하는 노래 컬렉션'
 
 var odi = [
-"https://cdn1.suno.ai/a5ec30be-49f7-4580-b8bb-53b7ccc39868.mp3|영미 동생, 영선의 노래 <br>(발라드)_남자|",
-"https://cdn1.suno.ai/9261e2d6-7664-484b-aaf6-ad787a83637a.mp3|영미 동생, 영선의 노래 <br>(포크)_남자|",
+"0 양양/1.09 63.0 영미 동생, 영선의 노래_M02.mp3|영미 동생, 영선의 노래 <br>(발라드)_남자|",
+"0 양양/2.01 63.0 영미 동생, 영선의 노래_MW06.mp3|영미 동생, 영선의 노래 <br>(포크)_남자|",
 
-"https://cdn1.suno.ai/102dd9a7-e734-4194-9ec3-6d3b2cd577e6.mp3|별빛 머금은 수선화-은근슬쩍 리빌드 <br>(발라드)_남자|",
-"https://cdn1.suno.ai/389e418a-a4b8-4dcd-84c9-78c14bfac1ba.mp3|별빛 머금은 수선화-은근슬쩍 리빌드 <br>(7080 포크송)_남자|",
+"0 양양/1.09 63.1 별빛 머금은 수선화-리빌드 2026_M07.mp3|별빛 머금은 수선화-은근슬쩍 리빌드 <br>(발라드)_남자|",
+"0 양양/2.01 63.1 별빛 머금은 수선화-리빌드 2026_M05.mp3|별빛 머금은 수선화-은근슬쩍 리빌드 <br>(7080 포크송)_남자|",
 
-"https://cdn1.suno.ai/fa1fb5f7-273f-4ca7-9429-6e4f53de51b7.mp3|아-~ 그리운 명성 설악콘도 시절이여 <br>(7080 포크송)_남자|",
-"https://cdn1.suno.ai/d65c8cc0-c03d-48a8-b5c3-43d3480f57fe.mp3|아-~ 그리운 명성 설악콘도 시절이여 <br>(바이올린, 신스팝)_남자|",
-
-"https://cdn1.suno.ai/47ee83f5-cb3c-42aa-9b33-8f421dfe5fb6.mp3|아-~ 그리운 명성 설악콘도 시절이여 <br>(발라드)_여자|",
-"https://cdn1.suno.ai/baaa39b8-f0e6-4091-8d1a-243902dd09b5.mp3|아-~ 그리운 명성 설악콘도 시절이여 <br>(전통 발라드)_남자|",
-"https://cdn1.suno.ai/929b51b4-b9a8-40c2-a100-f539a2efd2a4.mp3|아-~ 그리운 명성 설악콘도 시절이여 <br>(트로트)_남자|",
-"https://cdn1.suno.ai/db1f5865-6b80-4424-8813-00dd97422158.mp3|영미 동생, 영선의 노래 <br>(전통 발라드)_남자|",
-"https://cdn1.suno.ai/31161c53-98fa-42fe-a6b2-35f775451e2c.mp3|영미 동생, 영선의 노래 <br>(7080 포크송)_남자|",
+"0 양양/1.01 63.2 아_ 그리운 명성 설악콘도 시절이여_M06.mp3|아-~ 그리운 명성 설악콘도 시절이여 <br>(7080 포크송)_남자|",
+"0 양양/2.10 63.2 아-_ 그리운 명성 설악콘도 시절이여_M13.mp3|아-~ 그리운 명성 설악콘도 시절이여 <br>(바이올린, 신스팝)_남자|",
 ]
 
 var urlAry = new Array();
@@ -466,7 +461,7 @@ function onPlayerReady(event) {
 function play_it(n) {
  var ctl = document.getElementById('odi_music_' + n);
         ctl.volume = 1; // 0.5
- var url = odi[n].split("|")[0]
+ var url = BASE_URL + odi[n].split("|")[0]
  document.getElementById('sos_' + n).src = url;
  document.getElementById('sos_' + n).type = "audio/mpeg";
 
