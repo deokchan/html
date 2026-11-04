@@ -4,7 +4,7 @@
 
 <meta property=”og:image:width” content=”800">
 <meta property=”og:image:height” content=”600"> 
-<meta property="og:image" content="https://blog.kakaocdn.net/dn/cRrHR9/btrJRKNVstR/QP0e518r3PRBFcXDIiarmk/img.jpg?original">
+<meta property="og:image" content="https://media.pixverse.ai/asset/blog/best-free-ai-video-generator-online-vs-open-source.webp?x-oss-process=style/cover-webp-large">
 <meta property="og:description" content="그래도 이슬이는 운동 후에야 제 맛 !">
 <meta property=”og:type” content=”website”/>
 
@@ -28,8 +28,8 @@ scrollbar-face-color:#FFCCFF;scrollbar-highlight-color:#FFFFFF;scrollbar-shadow-
   A:visited { text-decoration:none; color: green;}
   A:active { text-decoration:none; color:green ;}
   A:hover { text-decoration:underline; color: violet; }
- #menu { position: absolute; right: 3%; top: 300px;  } 
-// #menu button { color:#fff; } 
+ #menu2 { position: absolute; right: 3%; top: 300px; } 
+ #menu { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; } 
 
 font.Noto_Sans_KR {font-size:25pt; font-family: 'Noto Sans KR', sans-serif; }
 font.Noto_Serif_KR {font-size:25pt; font-family: 'Noto Serif KR', sans-serif; }
@@ -614,8 +614,7 @@ function music_Random() {
 function music_Repeat() {
     if ( document.getElementById('Re_button').value=='noRepeat'){
         document.getElementById('Re_button').value = 'Repeat';
-        document.getElementById('Re_button_img').src="https://i.imgur.com/5qbfwpX.png
-"  // sequence
+        document.getElementById('Re_button_img').src="https://i.imgur.com/5qbfwpX.png"  // sequence
         document.getElementById('Re_button_img').title="반복 해제" 
     }else{
         document.getElementById('Re_button').value = 'noRepeat'
@@ -835,10 +834,17 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 </TD></TR></TABLE>
 </center>
 
-<div id="menu">
-<a href="javascript:fnMove('1')"><img src=http://cfile203.uf.daum.net/original/225FCD4C5271C8552EB01A height=100 title="위로 ↑" border="0"></a><br><br>
-<button onClick="fontSz('S')" onFocus=blur() class='button1' title="글씨 작게"><font color=red size=50px>-</font></button><br><br>
-<button onClick="fontSz('B')" onFocus=blur() class='button2' title="글씨 크게"><font color=red size=50px>+</font></button><br><br>
+<div id="menu2">
+<a href="javascript:fnMove('1')"><img src=https://blog.kakaocdn.net/dn/yE5Ka/btsOaYM0d10/U8K1PO60E7nl0Q7wNroC31/img.png height=50 title="위로 ↑" border="0"></a><br><br>
+<button onClick="fontSz('S')" onFocus="blur()" title="글씨 작게" style="border: none; background: none; padding: 0;">
+        <img src="https://blog.kakaocdn.net/dn/bQr8vW/btsOaHMdYpi/D7yf2Q64K3HeHnQg0auGv0/img.png" width="50"><br><br>
+    </button>
+
+    <button onClick="fontSz('B')" onFocus="blur()" title="글씨 크게" style="border: none; background: none; padding: 0;">
+        <img src="https://blog.kakaocdn.net/dn/cn6O88/btsOb6Rsa2X/1g9TI3BTtBcMurYutV6CDk/img.png" width="50"><br><br>
+    </button>
+<!-- button onClick="fontSz('S')" onFocus=blur() class='button1' title="글씨 작게"><font color=red size=50px>-</font></button><br><br>
+<button onClick="fontSz('B')" onFocus=blur() class='button2' title="글씨 크게"><font color=red size=50px>+</font></button><br><br //-->
 <a href='javascript:music_Next()'><img src='https://i.imgur.com/mNMdXMC.png' height=70 title='다음 곡'><img src='https://i.imgur.com/TFw4TDC.png' height=70 title='다음 곡'></a><br><br>
 <a href='javascript:music_control()'><img id='music_button_img2' src='https://i.imgur.com/TQFP08p.png' height=70 title='일시 정지'>
 <input type=text style='font-size: 16px; display:none;' id='music_button' value='start'></a>
