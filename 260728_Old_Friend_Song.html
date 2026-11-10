@@ -348,6 +348,8 @@ function toggleDarkMode() {
 
 <script type='text/javascript'>
 const currentPage = location.pathname.split('/').pop().replace('.html', '');
+const BASE_URL    = 'https://pub-e9f259b2cb7f4eff868b4c7a84644706.r2.dev/';
+
 var n = 0;
 var ctl;
 var list_num = odi.length-1;
@@ -630,7 +632,7 @@ function play_it(n) {
     window.n = parseInt(n); // 현재 n 값을 명확하게 설정, 문자열로 들어올 경우를 대비해 정수로 변환
     
     $('#bgmSel').val(n).prop("selected", true);
-    var url = odi[n].split("|")[0];
+    var url = BASE_URL + odi[n].split("|")[0];
     var title = odi[n].split("|")[1];
     
     var startTime = null;       // 시작 시간 가져오기 (3번째 항목) 2026.02.07 추가
