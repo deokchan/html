@@ -658,18 +658,27 @@ var n = 0;
 var vd_1 = ""
 var result2 = new Array();
 
+// 제목 속 특수문자를 안전한 문자로 바꾸는 함수
+function esc(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 async function bgmLoad() {
-//  opt.innerHTML = ""
+  const ul = document.getElementById('playlistList');
+  ul.innerHTML = '';   // 다시 그릴 때 중복되지 않도록 비우기
   try {
     await buildVideoArray(MY_LIST);   // videoIds 생성 (API 호출)
-    var tag5 = ""
+    var tag5 = "";
     for (let i = 0; i <= videoIds.length - 1; i++) {
-        const title = videoIds[i].split('|')[1];
-        tag5 = tag5 + "<button class='bt' onclick='bgmPlay(" + i + " )'>" + (i+1) + "</button> " + title + ' <br><br>';  // getPlaylist() getPlaylistIndex  player.()[i].title + ' <br><br>'; [i].title
+      const title = esc(videoIds[i].split('|')[1]);
+      tag5 += "<button class='bt' onclick='bgmPlay(" + i + ")'>" + (i + 1) + "</button> " + title + "<br><br>";
     }
-//  opt.innerHTML = "<br>" + "<P class='mid'>" + tag5;
-    opt.textContent = "<br>" + "<P class='mid'>" + tag5;
-//    renderLists();                    // 화면 그리기
+    ul.innerHTML = "<p class='mid'>" + tag5 + "</p>";   // textContent → innerHTML
   } catch (e) {
     console.error('목록 생성 실패:', e);
   }
@@ -855,7 +864,7 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 </div //-->
 
 <div id="test2">test2</div>
-<div id="opt">opt</div>
+<div id="playlistList">opt</div>
 </TD></TR></TABLE>
 </div>
 
