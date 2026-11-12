@@ -440,11 +440,11 @@ function fontSz(val) {
   }
 
 function onPlayerReady(event) {
+  if (e.data === YT.PlayerState.PLAYING) syncIndex();
       event.target.setVolume(100);
       event.target.playVideo();
       bgmLoad()
 
-  if (e.data === YT.PlayerState.PLAYING) syncIndex();
    // listLoad()
   }
 
