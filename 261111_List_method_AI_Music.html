@@ -590,36 +590,53 @@ function music_Next() { // player.nextVideo()
      if ( document.getElementById('Re_button').value=='Repeat'){ music_Repeat() }
      if ( document.getElementById('RS_button').value=='sequence'){
          if ( player.getPlaylist().length-1 < vd ) { vd = 0; playList(vd); } else { player.nextVideo() }
-         vd = player.getPlaylistIndex()
-         $('#bgmSel').val(vd).prop("selected", true);
      } else {
          vd = Math.floor(Math.random()*((player.getPlaylist().length-1)-0+1)) + 0;
          playList(vd)
-         vd = player.getPlaylistIndex()
-        $('#bgmSel').val(vd).prop("selected", true);
-//         test3.innerHTML = Math.floor(Math.random()*(200-0+1)) + 0 // generateRandom(0, 200) + vd + ". " + (player.getPlaylist().length-1);
      }
+    vd = player.getPlaylistIndex() + 1
+    $('#bgmSel').val(vd);
 }
 
 function music_Prev() { // player.previousVideo()
      if ( document.getElementById('Re_button').value=='Repeat'){ music_Repeat() }
          if ( vd == 0) { vd = player.getPlaylist().length-1; playList(vd); } else { player.previousVideo() }
-         $('#bgmSel').val(vd).prop("selected", true);
+    vd = player.getPlaylistIndex()
+    $('#bgmSel').val(vd);
 }
 
-function hideDiv(){  
-    //$( '#fix' ).remove();   // empty() 내용만
-    $('#fix').hide()       // $('#id').hide()
+/*
+function music_Next() {
+  if (document.getElementById('Re_button').value == 'Repeat') { music_Repeat() }
+  var last = videoIds.length - 1;
+
+  if (document.getElementById('RS_button').value == 'sequence') {
+    if (vd >= last) { playList(0); } else { player.nextVideo(); }
+  } else {
+    playList(Math.floor(Math.random() * videoIds.length));
+  }
 }
+
+function music_Prev() {
+  if (document.getElementById('Re_button').value == 'Repeat') { music_Repeat() }
+  var last = videoIds.length - 1;
+
+  if (vd <= 0) { playList(last); } else { player.previousVideo(); }
+}
+*/
 
 function playList(vd) {  // player.getPlaylist()
-           player.loadPlaylist({list: vdName,
+           player.loadPlaylist({list: MY_LIST,  //vdName,
                    listType: 'playlist',
                    index: vd,
                    startSeconds: 0,
                    suggestedQuality: 'auto'})
            }
 
+function hideDiv(){  
+    //$( '#fix' ).remove();   // empty() 내용만
+    $('#fix').hide()       // $('#id').hide()
+}
 
 function music_control() {  // player.mute()  player.unMute()
     if ( document.getElementById('music_button').value=='stop'){
