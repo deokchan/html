@@ -601,7 +601,7 @@ function music_Next() { // player.nextVideo()
 function music_Prev() { // player.previousVideo()
      if ( document.getElementById('Re_button').value=='Repeat'){ music_Repeat() }
          if ( vd == 0) { vd = player.getPlaylist().length-1; playList(vd); } else { player.previousVideo() }
-    vd = player.getPlaylistIndex()
+    vd = player.getPlaylistIndex() - 1
     $('#bgmSel').val(vd);
 }
 
