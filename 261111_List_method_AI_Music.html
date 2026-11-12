@@ -391,6 +391,7 @@ function fontSz(val) {
 <script language=javascript>
   const title0 = 'AI 영상'
   const MY_LIST = 'PL7xRxNWQmJdeqYzM2yEZstH5KGUQIZ9zS';
+  const currentPage = location.pathname.split('/').pop().replace('.html', '');
 //  const MAX_TITLE_LEN = 20;   // 제목 최대 표시 글자 수
 
 /*
@@ -440,10 +441,24 @@ function fontSz(val) {
   }
 
 function onPlayerReady(event) {
-      event.target.setVolume(100);
-      event.target.playVideo();
-      bgmLoad()
-   // listLoad()
+  event.target.setVolume(100);
+  // 저장값 읽기 (localStorage는 문자열이라 숫자로 변환, 없으면 null)
+  var savedIndex = parseInt(localStorage.getItem("lastTrackIndex_" + currentPage), 10);
+  var savedTime  = parseFloat(localStorage.getItem("lastTime_" + currentPage));
+  if (isNaN(savedIndex) || savedIndex < 0) savedIndex = 0;
+  if (isNaN(savedTime)  || savedTime  < 0) savedTime  = 0;
+
+  // 기존 event.target.playVideo() 대신, 저장된 곡·시간부터 재생
+  player.loadPlaylist({
+    list: MY_LIST,
+    listType: 'playlist',
+    index: savedIndex,
+    startSeconds: savedTime,
+    suggestedQuality: 'auto'
+  });
+
+    bgmLoad()
+ // listLoad()
   }
 
 var list_num // = bgm.length-1;
@@ -508,10 +523,16 @@ function onPlayerPlaybackQualityChange(event) {
 
 var yTitle
 function count() {
-//    $('#fix').show()       // $('#id').hide()
     var hc = 0
     var hd = 0
-    var c = parseInt(player.getCurrentTime()); var d = parseInt(player.getDuration());
+    var c = Math.floor(player.getCurrentTime());
+    var d = Math.floor(player.getDuration());
+
+    var st = player.getPlayerState();
+    if (st === YT.PlayerState.PLAYING || st === YT.PlayerState.PAUSED) {
+        localStorage.setItem("lastTrackIndex_" + currentPage, player.getPlaylistIndex());
+        localStorage.setItem("lastTime_" + currentPage, c);
+    }
 
     if ( c > 3600 ) { hc = parseInt( c / 3600 );
                             hc = ( hc < 10 ) ? "0" + hc : hc
@@ -567,6 +588,8 @@ function count() {
 //    if ( d < 160 && d != 0 ) { playList(vd+1); }            // 2분 미만, 6분 초과 영상은 패싱 music_Next();
 //    if ( yTitle.includes("인생채컷") || d > 300 ) { playList(vd+1); }     // 제목에 특정문자 포함 영상은 패싱 music_Next();
 //    if ( yTitle.includes("미니웨이") || d > 300 ) { playList(vd+1); }     // 제목에 특정문자 포함 영상은 패싱 music_Next();
+
+    if (d > 0 && c >= d - 5) c = 0;
     setTimeout(count, 1000);
 }
 
