@@ -753,7 +753,7 @@ async function bgmLoad() {
 
 function bgmPlay(sel) { // player.playVideoAt(index:Number)
      player.playVideoAt(sel)
-     $('#bgmSel').val(sel).prop("selected", true);
+     $('#bgmSel').val(sel);
      list_num = videoIds.length-1;  // 261111 배열의 변경에 따라 재설정.
      window.n = parseInt(sel); // 현재 n 값을 명확하게 설정, 문자열로 들어올 경우를 대비해 정수로 변환
 }
