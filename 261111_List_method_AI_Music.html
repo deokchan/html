@@ -631,7 +631,9 @@ function playList(vd) {  // player.getPlaylist()
                    index: vd,
                    startSeconds: 0,
                    suggestedQuality: 'auto'})
-           }
+    vd = player.getPlaylistIndex()
+    $('#bgmSel').val(vd);
+}
 
 function hideDiv(){  
     //$( '#fix' ).remove();   // empty() 내용만
