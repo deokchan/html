@@ -46,6 +46,7 @@ p.mid2 { color:black; font-size:50px; font-weight : bold; text-align : left; lin
 p.ct {color:blue; font-size:45px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; }
 p.title {color:blue; font-size:67px; font-weight : bold; text-align : left; line-height:130%; margin-left:0px; font-face:휴먼옛체; }
 p.tit {color:blue; font-family: 'Noto Sans KR', sans-serif; font-size:54px; font-weight : bold; text-align : center; line-height:130%; margin-left:0px; font-face:맑은 고딕; text-shadow:10px 10px 10px gray; } 
+p.Gugi { color:blue; font-size:53px; font-weight : bold; text-align : center; line-height:110%; margin-left:0px; font-family: 'Gugi'; }
 
 button.Jua { color:purple; font-size:40pt; font-family: 'Jua', sans-serif; text-align : center; virtical-align:center; margin-right:10px; width:100%; height: 70px; background-color: pink;}
 button.bt {color:red; background-color:yellow; line-height:100%; virtical-align:center; margin-left:0px; font-size:25pt; font-weight : bold; width: 118px; display: inline-block; line-height: 50px; height: 50px; border-radius: 10px;}
@@ -260,7 +261,7 @@ h1 span:nth-child(1) {
 
 <script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/buildVideoArray.js"></script>
 
-<!-- script src="buildVideoArray.js"></script>
+<!-- script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/buildVideoArray.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/MySong.js"></script>
 <
     1.  jsDelivr의 [Purge Cache](https://www.jsdelivr.com/tools/purge) 페이지로 이동합니다.
@@ -388,8 +389,9 @@ function fontSz(val) {
 </script> 
 
 <script language=javascript>
+  const title0 = 'AI 영상'
   const MY_LIST = 'PL7xRxNWQmJdeqYzM2yEZstH5KGUQIZ9zS';
-  const MAX_TITLE_LEN = 20;   // 제목 최대 표시 글자 수
+//  const MAX_TITLE_LEN = 20;   // 제목 최대 표시 글자 수
 
 /*
    let videoIds = [];          // 재생 순서대로의 영상 ID 배열
@@ -494,8 +496,8 @@ function onPlayerStateChange(event) {
     yTitle = yTitle.replace('kpop 韓國歌謠','')
     yTitle = yTitle.replace("연주,악보,드럼커버,Drum Cover,듣기);AbcDRUM", "")
     yTitle = yTitle.replace("연주,악보,드럼커버,Drum cover,듣기); AbcDRUM", "")
-    test3.innerHTML = "<P class='lt'><b>" + (vd + 1) + ". " + yTitle + "</b></p>"; 
- //          test3.innerHTML = "<P class='lt'><b>" + (vd + 1) + ". " + player.getVideoData().title + "</b></p>"; 
+//          test3.innerHTML = "<P class='lt'><b>" + (vd + 1) + ". " + yTitle + "</b></p>"; 
+//          test3.innerHTML = "<P class='lt'><b>" + (vd + 1) + ". " + player.getVideoData().title + "</b></p>"; 
           count();
         }
         if (event.data == YT.PlayerState.ENDED) {
@@ -670,21 +672,43 @@ function esc(s) {
 }
 
 async function bgmLoad() {
+
+  const sel = document.getElementById('test1');
+  sel.innerHTML = '';   // 다시 그릴 때 중복되지 않도록 비우기
   const ul = document.getElementById('test');
-  ul.innerHTML = '';   // 다시 그릴 때 중복되지 않도록 비우기
+  ul.innerHTML = '';   
+
   try {
     await buildVideoArray(MY_LIST);   // videoIds 생성 (API 호출)
+    var tag0 = "<P class='Gugi'><b>" + title0 + " (" + videoIds.length + " 곡)</b></p>"
     var tag5 = "";
+    var tag2 = ""
     for (let i = 0; i <= videoIds.length - 1; i++) {
       const title = esc(videoIds[i].split('|')[1]);
-      tag5 += "<button class='bt' onclick='bgmPlay(" + i + ")'>" + (i + 1) + "</button> " + title + "<br><br>";
+      const chars = Array.from(title);
+      const shortTitle = chars.length > 26 ? chars.slice(0, 26).join('') + '…' : title;
+      const longTitle = shortTitle + " | " + videoIds[i].split('|')[2] + " | " + videoIds[i].split('|')[3] + " | " + videoIds[i].split('|')[4] + " | " + videoIds[i].split('|')[5] + " | " + videoIds[i].split('|')[6] + " | " + videoIds[i].split('|')[7];
+
+//      title = truncate(title, MAX_TITLE_LEN);
+      tag2 += '<OPTION VALUE=' + i + '>' +  (i+1) + ". " + shortTitle + ' <br>';
+      tag5 += "<button class='bt' onclick='bgmPlay(" + i + ")'>" + (i + 1) + "</button> " + longTitle + "<br><br>";
+
+   var tag1 = "<center><b><SELECT id='bgmSel' NAME='bgmSel' onChange='javascript: bgmPlay(value)' style='WIDTH: 100%; HEIGHT: 60px; color:green;background-color:gold'> <OPTION SELECTED VALUE=''> ▒▒ 노래 시작 시점! 목록에서 직접 선택하기 ▒▒";
+    var tag3 = "</SELECT></font></center>";
     }
+    sel.innerHTML = tag0 + tag1 + tag2 + tag3;
     ul.innerHTML = "<p class='mid'>" + tag5 + "</p>";   // textContent → innerHTML
   } catch (e) {
     console.error('목록 생성 실패:', e);
     ul.innerHTML = "<p class='mid'>목록을 불러오지 못했습니다. (" + esc(e.message) + ")</p>";
   }
 }
+
+  // 2) 제목 길이 제한 (한글/이모지도 안전하게 글자 단위로 자름)
+  function truncate(text, max) {
+    const chars = Array.from(text);
+    return chars.length > max ? chars.slice(0, max).join('') + '…' : text;
+  }
 
 /*
 function bgmLoad(){
@@ -866,6 +890,7 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 </div //-->
 
 <div id="test2">test2</div>
+<div id="test1">test1</div>
 </TD></TR></TABLE>
 </div>
 
@@ -874,7 +899,7 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 <table style="BACKGROUND:aliceblue url('') repeat fixed left top; table-layout: fixed" width=940 cellpadding='10'><tr valign=middle><td class='lt'> <!-- aliceblue #ffccff//-->
 
 <span id="aaa">
-<div id="test3">title</div>
+<!-- div id="test3">title</div //-->
 
 <!-- /P><P class="mid">※ 아래 <font style="color:white; background-color: blue;">[버튼]</font>을 클릭하면.. <br>
 해당 <font color="blue">[장르]</font>의 첫 영상이 재생됩니다.
@@ -883,6 +908,7 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 
 </P><P class="mid">
 ※ 재생 영상의 목록을 보려면 아래의 분홍색 버튼을 클릭하세요! <br>
+(1.title 2.업로드일, 3.조회 4.좋아요 5.채널 이름 6.구독자수 7.AI 여부)<br>
 
 <center><button id="tog_1" type="button" class="Jua btn btn-outline-info pin">재생 목록 (List) 펼쳐 보기</button><br><br><div id=List1>
 <table style="BACKGROUND:thistle url('http://cfile219.uf.daum.net/image/136B68054942B0B803B8EC') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
