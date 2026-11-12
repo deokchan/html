@@ -469,10 +469,9 @@ function onPlayerStateChange(event) {
            vd = player.getPlaylistIndex()
            nn = player.getPlaylist()[vd]
 
-           if (nnn != nn) {
-              $('#fix').show()       // $('#id').hide()
-//              setTimeout(hideDiv, 10000)
+          $('#bgmSel').val(vd);   // ← 추가: 셀렉트 박스 동기화
 
+        if (nnn != nn) {
               $.getJSON('https://noembed.com/embed',
               {format: 'json', url: "https://youtu.be/" + nn}, function (data) {
                WW = data.width
@@ -482,24 +481,10 @@ function onPlayerStateChange(event) {
               });
               nnn = player.getPlaylist()[vd]
            }
-
            test2.innerHTML =  "영상 번호 : " + (vd+1) + " / " + player.getPlaylist().length + " 볼륨 : " + player.getVolume() + " 속도 : " + player.getPlaybackRate() + " 상태 : " + player.getPlayerState() + " 품질 : " + player.getPlaybackQuality() + " / " + Q + " ID : " + nn;
 
-    yTitle = player.getVideoData().title
-    yTitle = yTitle.replace("♡아침을여는세상♡ 강릉심해두부 & 강릉 THE Coffee ♡-♡","")
-    yTitle = yTitle.replace("&quot;아침 여는세상&quot;","")
-    yTitle = yTitle.replace('"아침을여는세상"','')
-    yTitle = yTitle.replace('"아침여는세상"','')
-    yTitle = yTitle.replace("♡강릉심해두부♡","")
-    yTitle = yTitle.replace("kyoung.Jo","")
-    yTitle = yTitle.replace("Kyoung Jo","")
-    yTitle = yTitle.replace('♬Korean-OLDPOP♡♬-韓國歌謠','')
-    yTitle = yTitle.replace('kpop 韓國歌謠','')
-    yTitle = yTitle.replace("연주,악보,드럼커버,Drum Cover,듣기);AbcDRUM", "")
-    yTitle = yTitle.replace("연주,악보,드럼커버,Drum cover,듣기); AbcDRUM", "")
-//          test3.innerHTML = "<P class='lt'><b>" + (vd + 1) + ". " + yTitle + "</b></p>"; 
-//          test3.innerHTML = "<P class='lt'><b>" + (vd + 1) + ". " + player.getVideoData().title + "</b></p>"; 
-          count();
+        yTitle = player.getVideoData().title
+        count();
         }
         if (event.data == YT.PlayerState.ENDED) {
             if ( $("#Re_button").val() == "Repeat" ) {
@@ -511,7 +496,7 @@ function onPlayerStateChange(event) {
                         vd = Math.floor(Math.random()*((player.getPlaylist().length-1)-0+1)) + 0;
                    }
            }
-        player.playVideoAt(vd)
+          player.playVideoAt(vd)
 //        playList(vd)
         }
       }
@@ -631,8 +616,6 @@ function playList(vd) {  // player.getPlaylist()
                    index: vd,
                    startSeconds: 0,
                    suggestedQuality: 'auto'})
-    vd = player.getPlaylistIndex()
-    $('#bgmSel').val(vd);
 }
 
 function hideDiv(){  
