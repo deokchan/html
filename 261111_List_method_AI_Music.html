@@ -258,9 +258,10 @@ h1 span:nth-child(1) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/buildVideoArray.js"></script>
+<script src="buildVideoArray.js"></script>
 
-<!-- script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/MySong.js"></script>
+<!-- script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/buildVideoArray.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/deokchan/js@latest/MySong.js"></script>
 <
     1.  jsDelivr의 [Purge Cache](https://www.jsdelivr.com/tools/purge) 페이지로 이동합니다.
     2.  캐시를 삭제하고 싶은 URL (`https://cdn.jsdelivr.net/gh/deokchan/js@latest/MySong.js`)을 입력하고 "Purge" 버튼을 클릭합니다.
@@ -669,7 +670,7 @@ function esc(s) {
 }
 
 async function bgmLoad() {
-  const ul = document.getElementById('playlistList');
+  const ul = document.getElementById('test');
   ul.innerHTML = '';   // 다시 그릴 때 중복되지 않도록 비우기
   try {
     await buildVideoArray(MY_LIST);   // videoIds 생성 (API 호출)
@@ -878,15 +879,14 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 <!-- /P><P class="mid">※ 아래 <font style="color:white; background-color: blue;">[버튼]</font>을 클릭하면.. <br>
 해당 <font color="blue">[장르]</font>의 첫 영상이 재생됩니다.
 <div id="test6"></div>
-<div id="test62"></div>
+<div id="test62"></div //-->
 
 </P><P class="mid">
 ※ 재생 영상의 목록을 보려면 아래의 분홍색 버튼을 클릭하세요! <br>
 
 <center><button id="tog_1" type="button" class="Jua btn btn-outline-info pin">재생 목록 (List) 펼쳐 보기</button><br><br><div id=List1>
 <table style="BACKGROUND:thistle url('http://cfile219.uf.daum.net/image/136B68054942B0B803B8EC') repeat fixed left top" width=100% height=104 border=1 bordercolor=red cellspacing='0' cellpadding='10'><tr valign=top><td>
-<div id="playlistList">opt</div>
-<!-- div id=test>List </div><br //-->
+<div id=test>List </div><br>
 </TD></TR></TABLE></div></center>
 
 <div id="test5"></div>
@@ -894,7 +894,7 @@ WIDTH=740 HEIGHT=80 border=0 borderColor=#ff00ff cellSpacing=3 cellPadding=10><T
 </P><P class="mid"><font color='#FF5722'>※ 우측의 '따라다니는 메뉴' 하단 →<br>
 X = 플레이어 감춤, O = 플레이어 보기</font><br><br><br><br>
 
-</P><P class="tit">250602 <br>Chaneey's Music Rest Room</P><P class="mid"><br><br //-->
+</P><P class="tit">250602 <br>Chaneey's Music Rest Room</P><P class="mid"><br><br>
 
 
 
