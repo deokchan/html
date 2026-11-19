@@ -620,7 +620,7 @@ function TheNext() {
     if (currentN < 0) { currentN = list_num; }
     
     play_it(currentN);
-//    window.scroll(0, 0);
+    window.scroll(0, 0);
 }
 
 function music_control() {
@@ -778,6 +778,8 @@ function gasa(n) {
       $('#test3').html(song[k]); 
       z = 0; 
   }
+
+  window.scroll(0, 0);
 
   // 레이아웃 재조정
   adjustLayout();
